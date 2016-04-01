@@ -13,20 +13,26 @@ import android.view.View;
 public class Canvas extends View {
 
     Bitmap ball;
-
+    float changingy;
 
     public Canvas(Context context) {
         super(context);
         ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
+        changingy = 0;
     }
 
     @Override
     protected void onDraw(android.graphics.Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawColor(Color.WHITE);
-        canvas.drawBitmap(ball, (canvas.getWidth()/2), canvas.getHeight()/2, null);
+        canvas.drawBitmap(ball, (canvas.getWidth()/2), changingy, null);
+        if( changingy < canvas.getHeight() ) {
+            changingy += 10;
+        }else {
+            changingy = 0;
+        }
 
-
+        invalidate();
     }
 
 }

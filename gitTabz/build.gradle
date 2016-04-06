@@ -20,5 +20,7 @@ task clean(type: Delete) {
 }
 
 dependencies {
+    apply plugin: 'announce'
+    apply plugin: 'groovy'
     compile files('app/lib/jfugue-5.0.5.jar')
 }

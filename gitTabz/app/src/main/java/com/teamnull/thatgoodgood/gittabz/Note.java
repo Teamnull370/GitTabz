@@ -7,8 +7,9 @@ import java.lang.Integer;
  */
 public class Note{
 
-    private Integer _strng =new Integer();
-    private Integer _fret = new Integer();
+
+    private Integer _strng =new Integer(0);
+    private Integer _fret = new Integer(0);
 
     private Sound _snd = new Sound();
 
@@ -27,8 +28,8 @@ public class Note{
     public void setStrng(Integer str ){ _strng= str; }
     public void setFret(Integer frt){ _fret = frt;}
 
-    public Integer getStrng(){return strng;}
-    public Integer getFret(){ return _fret}
+    public Integer getStrng(){return _strng;}
+    public Integer getFret(){ return _fret;}
 
 
 

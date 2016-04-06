@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 
@@ -13,55 +14,58 @@ import android.view.View;
  */
 public class MyCanvas extends View {
 
-    private static Paint paint;
-    private int screenW, screenH;
+    private static Paint paint1;
+    private static Paint paint2;
     private float X, Y;
     private Path path;
-    private float initialScreenW;
-    private float initialX, plusX;
-    private float TX;
-    private boolean translate;
-    private int flash;
+    private Path path2;
     private Context context;
+    DisplayMetrics metrics = this.getResources().getDisplayMetrics();
+    int width = metrics.widthPixels;
+    int height = metrics.heightPixels;
+
 
 
     public MyCanvas(Context context) {
         super(context);
 
-        this.context=context;
+        this.context =context;
 
-        paint = new Paint();
-        paint.setColor(Color.argb(0xff, 0x99, 0x00, 0x00));
-        paint.setStrokeWidth(10);
-        paint.setAntiAlias(true);
-        paint.setStrokeCap(Paint.Cap.ROUND);
-        paint.setStrokeJoin(Paint.Join.ROUND);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setShadowLayer(7, 0, 0, Color.RED);
+        paint1 = new Paint();
+        paint1.setColor(Color.BLACK);
+        paint1.setStrokeWidth(5);
+        //paint1.setAntiAlias(true);
+        //paint1.setStrokeCap(Paint.Cap.SQUARE);
+        //paint1.setStrokeJoin(Paint.Join.BEVEL);
+        paint1.setStyle(Paint.Style.STROKE);
+        //paint1.setShadowLayer(7, 0, 0, Color.RED);
+
+        paint2 = new Paint();
+        paint2.setColor(Color.argb(0xff, 0x99, 0x00, 0x00));
+        paint2.setStrokeWidth(5);
+        paint2.setAntiAlias(true);
+        //paint2.setStrokeCap(Paint.Cap.ROUND);
+        //paint2.setStrokeJoin(Paint.Join.ROUND);
+        paint2.setStyle(Paint.Style.STROKE);
+        //paint2.setShadowLayer(7, 0, 0, Color.RED);
 
 
         path= new Path();
-        TX=0;
-        translate=false;
-
-        flash=0;
+        path2= new Path();
 
     }
 
     @Override
     public void onSizeChanged (int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-
-        screenW = w;
-        screenH = h;
         X = 0;
-        Y = (screenH/2)+(screenH/4)+(screenH/10);
+        Y = height /8;
 
-        initialScreenW=screenW;
-        initialX=((screenW/2)+(screenW/4));
-        plusX=(screenW/24);
 
         path.moveTo(X, Y);
+
+        Y= height/8 * 2;
+        path2.moveTo(X,Y);
 
     }
 
@@ -72,90 +76,33 @@ public class MyCanvas extends View {
         super.onDraw(canvas);
 
         //canvas.save();
+        Y=height /8;
+        X=width;
 
 
-        flash+=1;
-        if(flash<10 || (flash>20 && flash<30))
-        {
-            paint.setStrokeWidth(16);
-            paint.setColor(Color.RED);
-            paint.setShadowLayer(12, 0, 0, Color.RED);
-        }
-        else
-        {
-            paint.setStrokeWidth(10);
-            paint.setColor(Color.argb(0xff, 0x99, 0x00, 0x00));
-            paint.setShadowLayer(7, 0, 0, Color.RED);
-        }
+            //paint1.setStrokeWidth(5);
+           // paint1.setColor(Color.BLUE);
+            //paint1.setShadowLayer(12, 0, 0, Color.RED);
 
-        if(flash==100)
-        {
-            flash=0;
-        }
 
-        path.lineTo(X,Y);
-        canvas.translate(-TX, 0);
-        if(translate==true)
-        {
-            TX+=4;
-        }
+            paint2.setStrokeWidth(5);
+            paint2.setColor(Color.BLUE);
+            //paint2.setShadowLayer(12, 0, 0, Color.RED);
 
-        if(X<initialX)
-        {
-            X+=8;
-        }
-        else
-        {
-            if(X<initialX+plusX)
-            {
-                X+=2;
-                Y-=8;
-            }
-            else
-            {
-                if(X<initialX+(plusX*2))
-                {
-                    X+=2;
-                    Y+=14;
-                }
-                else
-                {
-                    if(X<initialX+(plusX*3))
-                    {
-                        X+=2;
-                        Y-=12;
-                    }
-                    else
-                    {
-                        if(X<initialX+(plusX*4))
-                        {
-                            X+=2;
-                            Y+=6;
-                        }
-                        else
-                        {
-                            if(X<initialScreenW)
-                            {
-                                X+=8;
-                            }
-                            else
-                            {
-                                translate=true;
-                                initialX=initialX+initialScreenW;
-                            }
-                        }
-                    }
-                }
-            }
 
-        }
 
-        canvas.drawPath(path, paint);
 
+        path.lineTo(X, Y);
+
+        canvas.drawPath(path, paint1);
+
+        Y=height/8* 2;
+        path2.lineTo(X, Y);
+        canvas.drawPath(path2, paint2);
 
         //canvas.restore();
 
-        invalidate();
+        //invalidate();
     }
 }
 

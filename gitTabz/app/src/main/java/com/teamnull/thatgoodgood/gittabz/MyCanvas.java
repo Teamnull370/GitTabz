@@ -19,6 +19,11 @@ public class MyCanvas extends View {
     private float X, Y;
     private Path path;
     private Path path2;
+    private Path path3;
+    private Path path4;
+    private Path path5;
+    private Path path6;
+    private Path path7;
     private Context context;
     DisplayMetrics metrics = this.getResources().getDisplayMetrics();
     int width = metrics.widthPixels;
@@ -41,18 +46,18 @@ public class MyCanvas extends View {
         //paint1.setShadowLayer(7, 0, 0, Color.RED);
 
         paint2 = new Paint();
-        paint2.setColor(Color.argb(0xff, 0x99, 0x00, 0x00));
+        paint2.setColor(Color.RED);
         paint2.setStrokeWidth(5);
-        paint2.setAntiAlias(true);
-        //paint2.setStrokeCap(Paint.Cap.ROUND);
-        //paint2.setStrokeJoin(Paint.Join.ROUND);
         paint2.setStyle(Paint.Style.STROKE);
-        //paint2.setShadowLayer(7, 0, 0, Color.RED);
-
 
         path= new Path();
         path2= new Path();
+        path3= new Path();
+        path4= new Path();
+        path5= new Path();
+        path6= new Path();
 
+        path7 = new Path();
     }
 
     @Override
@@ -61,12 +66,26 @@ public class MyCanvas extends View {
         X = 0;
         Y = height /8;
 
-
         path.moveTo(X, Y);
 
         Y= height/8 * 2;
         path2.moveTo(X,Y);
 
+        Y= height/8 * 3;
+        path3.moveTo(X,Y);
+
+        Y= height/8 * 4;
+        path4.moveTo(X,Y);
+
+        Y= height/8 * 5;
+        path5.moveTo(X,Y);
+
+        Y= height/8 * 6;
+        path6.moveTo(X,Y);
+
+        X = width /2;
+        Y= 10;
+        path7.moveTo(X,Y);
     }
 
 
@@ -78,28 +97,32 @@ public class MyCanvas extends View {
         //canvas.save();
         Y=height /8;
         X=width;
-
-
-            //paint1.setStrokeWidth(5);
-           // paint1.setColor(Color.BLUE);
-            //paint1.setShadowLayer(12, 0, 0, Color.RED);
-
-
-            paint2.setStrokeWidth(5);
-            paint2.setColor(Color.BLUE);
-            //paint2.setShadowLayer(12, 0, 0, Color.RED);
-
-
-
-
         path.lineTo(X, Y);
-
         canvas.drawPath(path, paint1);
 
         Y=height/8* 2;
         path2.lineTo(X, Y);
-        canvas.drawPath(path2, paint2);
+        canvas.drawPath(path2, paint1);
 
+        Y=height/8* 3;
+        path3.lineTo(X, Y);
+        canvas.drawPath(path3, paint1);
+
+        Y=height/8* 4;
+        path4.lineTo(X, Y);
+        canvas.drawPath(path4, paint1);
+
+        Y=height/8* 5;
+        path5.lineTo(X, Y);
+        canvas.drawPath(path5, paint1);
+
+        Y=height/8* 6;
+        path6.lineTo(X, Y);
+        canvas.drawPath(path6, paint1);
+
+        X= width /2;
+        Y = height;
+        canvas.drawPath(path7, paint1);
         //canvas.restore();
 
         //invalidate();

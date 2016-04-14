@@ -12,18 +12,16 @@ import android.view.MenuItem;
 //NOT SURE ABOUT ALL THIS CRAP BUT HERE SHE IS IN ALL HER GLORY
 
 public class MainActivity extends AppCompatActivity {
-
+    int newX;
+    int newY;
     Canvas theView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        theView = new Canvas(this);
+        theView = new Canvas(this, newX, newY);
         setContentView(theView);
 
 
-
-
-
     }
-
+    // create onTouchListener()
 }

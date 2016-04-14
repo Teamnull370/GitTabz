@@ -24,12 +24,14 @@ public class Canvas extends View {
     float changingx;
     float xLocation;
     float yLocation;
+    boolean isTouched;
 
     public Canvas(Context context, float newXLocation) {
         super(context);
         ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
         changingx = getWidth();
         xLocation = newXLocation;
+        isTouched = true;
     }
 
     Paint p = new Paint();
@@ -80,24 +82,28 @@ public class Canvas extends View {
         canvas.drawLine(0, canvas.getHeight()/8 * 6,canvas.getWidth() , canvas.getHeight()/8 * 6, q);
 
         //Variable calculates change in x. Higher the # faster the circles move
-
-        if (xLocation > 0) {
-            xLocation -= 5;
-        } else {
-            xLocation = canvas.getWidth();
+        if(isTouched) {
+            if (xLocation > 0) {
+                xLocation -= 5;
+            } else {
+                xLocation = canvas.getWidth();
+            }
+            //Infinite loop so circles keep moving
+            invalidate();
         }
-        //Infinite loop so circles keep moving
-        invalidate();
     }
     public boolean onTouchEvent (MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                isTouched = false;
                 return true;
             case MotionEvent.ACTION_MOVE:
                 xLocation = event.getRawX();
                 invalidate();
                 return true;
             case MotionEvent.ACTION_UP:
+                isTouched = true;
+                invalidate();
                 return true;
         }
         return false;

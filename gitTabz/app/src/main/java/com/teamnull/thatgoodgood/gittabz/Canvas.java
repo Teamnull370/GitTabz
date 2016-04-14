@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
+import android.view.MotionEvent;
+import android.view.View.OnTouchListener;
 import android.view.View;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -22,12 +24,12 @@ public class Canvas extends View {
     float changingx;
     float xLocation;
     float yLocation;
-    public Canvas(Context context, float newXLocation, float newYLocation) {
+
+    public Canvas(Context context, float newXLocation) {
         super(context);
         ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
         changingx = getWidth();
         xLocation = newXLocation;
-        yLocation = newYLocation;
     }
 
     Paint p = new Paint();
@@ -78,13 +80,27 @@ public class Canvas extends View {
         canvas.drawLine(0, canvas.getHeight()/8 * 6,canvas.getWidth() , canvas.getHeight()/8 * 6, q);
 
         //Variable calculates change in x. Higher the # faster the circles move
-        if (changingx > 0) {
-            changingx -= 5;
+
+        if (xLocation > 0) {
+            xLocation -= 5;
         } else {
-            changingx = canvas.getWidth();
+            xLocation = canvas.getWidth();
         }
         //Infinite loop so circles keep moving
         invalidate();
+    }
+    public boolean onTouchEvent (MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                return true;
+            case MotionEvent.ACTION_MOVE:
+                xLocation = event.getRawX();
+                invalidate();
+                return true;
+            case MotionEvent.ACTION_UP:
+                return true;
+        }
+        return false;
     }
 }
 

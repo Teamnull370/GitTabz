@@ -5,23 +5,39 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View.OnTouchListener;
 
 //NOT SURE ABOUT ALL THIS CRAP BUT HERE SHE IS IN ALL HER GLORY
 
 public class MainActivity extends AppCompatActivity {
-    int newX;
-    int newY;
+    float newX;
+    //float newY;
     Canvas theView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        theView = new Canvas(this, newX, newY);
+        theView = new Canvas(this, newX);
         setContentView(theView);
+        //theView.setOnTouchListener(this);
+        //theView.invalidate();
 
 
     }
-    // create onTouchListener()
+/*
+    @Override
+    public boolean onTouch( View v, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                newX = event.getRawX();
+                theView.onDraw();
+                return true;
+
+        }
+        return false;
+    }
+*/
 }

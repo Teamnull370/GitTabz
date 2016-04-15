@@ -22,15 +22,25 @@ public class Canvas extends View {
 
     Bitmap ball;
     float changingx;
-    float xLocation;
+    float s1;
+    float s2;
+    float s3;
+    float s4;
+    float s5;
+    float s6;
     float yLocation;
     boolean isTouched;
 
-    public Canvas(Context context, float newXLocation) {
+    public Canvas(Context context, float newS1) {
         super(context);
         ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
-        changingx = getWidth();
-        xLocation = newXLocation;
+        s1 = getWidth();
+        s1 = 500;
+        s2 = 1000;
+        s3 = 2000;
+        s4 = 3000;
+        s5 = 2000;
+        s6 = 3000;
         isTouched = true;
     }
 
@@ -43,7 +53,7 @@ public class Canvas extends View {
         super.onDraw(canvas);
         r.setStyle(Paint.Style.FILL);
         r.setStrokeWidth(2);
-        r.setColor(Color.RED);
+        r.setShader(new LinearGradient(0, 0, 0, canvas.getHeight(), Color.BLUE, Color.RED, Shader.TileMode.MIRROR));
 
         q.setStrokeWidth(5);
         q.setStyle(Paint.Style.STROKE);
@@ -63,12 +73,12 @@ public class Canvas extends View {
         canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight()/8 -55, canvas.getWidth() / 8 + 55, canvas.getHeight()/8 * 6 + 55, r);
 
         //These are all of the circles
-        canvas.drawCircle(xLocation-50, canvas.getHeight() / 8, 25, p);
-        canvas.drawCircle(xLocation-200, canvas.getHeight() / 8 * 2, 25, p);
-        canvas.drawCircle(xLocation, canvas.getHeight() / 8 * 3, 25, p);
-        canvas.drawCircle(xLocation-1000, canvas.getHeight() / 8 * 4, 25, p);
-        canvas.drawCircle(xLocation-2000, canvas.getHeight() / 8 * 5, 25, p);
-        canvas.drawCircle(xLocation, canvas.getHeight() / 8 * 6, 25, p);
+        canvas.drawCircle(s1, canvas.getHeight() / 8, 25, p);
+        canvas.drawCircle(s2, canvas.getHeight() / 8 * 2, 25, p);
+        canvas.drawCircle(s3, canvas.getHeight() / 8 * 3, 25, p);
+        canvas.drawCircle(s4, canvas.getHeight() / 8 * 4, 25, p);
+        canvas.drawCircle(s5, canvas.getHeight() / 8 * 5, 25, p);
+        canvas.drawCircle(s6, canvas.getHeight() / 8 * 6, 25, p);
 
         //This is the Transparent rectangle that goes over the red one.
         canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight()/8 -55, canvas.getWidth() / 8 + 55, canvas.getHeight()/8 * 6 + 55, p);
@@ -83,24 +93,85 @@ public class Canvas extends View {
 
         //Variable calculates change in x. Higher the # faster the circles move
         if(isTouched) {
-            if (xLocation > 0) {
-                xLocation -= 5;
+            if (s1 > 0) {
+                s1 -= 5;
             } else {
-                xLocation = canvas.getWidth();
+                s1 = canvas.getWidth();
+                invalidate();
             }
+
+            if (s2 > 0) {
+                s2 -= 5;
+            } else {
+                s2 = canvas.getWidth();
+                invalidate();
+            }
+
+            if (s3 > 0) {
+                s3 -= 5;
+            } else {
+                s3 = canvas.getWidth();
+                invalidate();
+            }
+
+            if (s4 > 0) {
+                s4 -= 5;
+            } else {
+                s4 = canvas.getWidth();
+                invalidate();
+            }
+
+            if (s5 > 0) {
+                s5 -= 5;
+            } else {
+                s5 = canvas.getWidth();
+                invalidate();
+            }
+
+            if (s6 > 0) {
+                s6 -= 5;
+            } else {
+                s6 = canvas.getWidth();
+                invalidate();
+            }
+
             //Infinite loop so circles keep moving
             invalidate();
         }
     }
     public boolean onTouchEvent (MotionEvent event) {
+        float temp = 0;
 
         switch (event.getAction()) {
+
             case MotionEvent.ACTION_DOWN:
                 isTouched = false;
+                temp = event.getRawX();
                 return true;
             case MotionEvent.ACTION_MOVE:
-                xLocation = event.getRawX();
-                invalidate();
+                //if( event.getRawX() < temp ) {
+                    temp = event.getRawX();
+                    s1 -= temp ;
+                    s2 -= temp;
+                    s3 -= temp;
+                    s4 -= temp;
+                    s5 -= temp;
+                    s6 -= temp;
+                    invalidate();
+                    //return true;
+                //}
+                /*
+                else if( event.getRawX() > temp ) {
+                    s1 += event.getRawX();
+                    s2 += event.getRawX();
+                    s3 += event.getRawX();
+                    s4 += event.getRawX();
+                    s5 += event.getRawX();
+                    s6 += event.getRawX();
+                    invalidate();
+                    //return true;
+                }
+                */
                 return true;
             case MotionEvent.ACTION_UP:
                 isTouched = true;

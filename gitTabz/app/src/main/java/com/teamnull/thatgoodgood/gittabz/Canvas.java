@@ -60,7 +60,7 @@ public class Canvas extends View {
         canvas.drawColor(Color.WHITE);
 
        //This is the underlying red rectangle
-        canvas.drawRect(canvas.getWidth() / 8, 0, canvas.getWidth() / 8 + 55, canvas.getHeight(), r);
+        canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight()/8 -55, canvas.getWidth() / 8 + 55, canvas.getHeight()/8 * 6 + 55, r);
 
         //These are all of the circles
         canvas.drawCircle(xLocation-50, canvas.getHeight() / 8, 25, p);
@@ -71,7 +71,7 @@ public class Canvas extends View {
         canvas.drawCircle(xLocation, canvas.getHeight() / 8 * 6, 25, p);
 
         //This is the Transparent rectangle that goes over the red one.
-        canvas.drawRect(canvas.getWidth() / 8, 0, canvas.getWidth() / 8 + 55, canvas.getHeight(), p);
+        canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight()/8 -55, canvas.getWidth() / 8 + 55, canvas.getHeight()/8 * 6 + 55, p);
 
         //The bar lines the notes will go on
         canvas.drawLine(0, canvas.getHeight() / 8,canvas.getWidth(), canvas.getHeight() / 8, q);
@@ -93,6 +93,7 @@ public class Canvas extends View {
         }
     }
     public boolean onTouchEvent (MotionEvent event) {
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 isTouched = false;

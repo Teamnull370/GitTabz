@@ -28,12 +28,15 @@ public class Canvas extends View {
     float s4;
     float s5;
     float s6;
+    float temp;
+    float width;
     float yLocation;
     boolean isTouched;
 
     public Canvas(Context context, float newS1) {
         super(context);
         ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
+
         s1 = getWidth();
         s1 = 500;
         s2 = 1000;
@@ -51,6 +54,7 @@ public class Canvas extends View {
     @Override
     protected void onDraw(android.graphics.Canvas canvas){
         super.onDraw(canvas);
+        width = canvas.getWidth();
         r.setStyle(Paint.Style.FILL);
         r.setStrokeWidth(2);
         r.setShader(new LinearGradient(0, 0, 0, canvas.getHeight(), Color.BLUE, Color.RED, Shader.TileMode.MIRROR));
@@ -91,6 +95,8 @@ public class Canvas extends View {
         canvas.drawLine(0, canvas.getHeight() / 8 * 5, canvas.getWidth(), canvas.getHeight() / 8 * 5, q);
         canvas.drawLine(0, canvas.getHeight()/8 * 6,canvas.getWidth() , canvas.getHeight()/8 * 6, q);
 
+        if( s1 > canvas.getClipBounds().right )
+            s1 = temp;
         //Variable calculates change in x. Higher the # faster the circles move
         if(isTouched) {
             if (s1 > 0) {
@@ -140,23 +146,32 @@ public class Canvas extends View {
         }
     }
     public boolean onTouchEvent (MotionEvent event) {
-        float temp = 0;
+
 
         switch (event.getAction()) {
 
             case MotionEvent.ACTION_DOWN:
                 isTouched = false;
-                temp = event.getRawX();
+                //temp = event.getRawX();
                 return true;
             case MotionEvent.ACTION_MOVE:
                 //if( event.getRawX() < temp ) {
-                    temp = event.getRawX();
-                    s1 -= temp ;
-                    s2 -= temp;
-                    s3 -= temp;
-                    s4 -= temp;
-                    s5 -= temp;
-                    s6 -= temp;
+                   temp = event.getX();
+                   /*
+                    if(s1 == width) {
+                        s1 = 0;
+                        invalidate();
+                    }
+                    else if( s1 == 0 ) {
+                        s1 = width -1;
+                        invalidate();
+                    }
+                    */
+                    //s2 -=  temp;
+                    //s3 -= temp;
+                    //s4 -= temp;
+                    //s5 -= temp;
+                    //s6 -= temp;
                     invalidate();
                     //return true;
                 //}
@@ -175,6 +190,7 @@ public class Canvas extends View {
                 return true;
             case MotionEvent.ACTION_UP:
                 isTouched = true;
+                temp = 0;
                 invalidate();
                 return true;
         }

@@ -7,11 +7,16 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View.OnTouchListener;
 import android.view.View;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.widget.RelativeLayout;
+
+import static android.util.Log.d;
+import static java.lang.Float.toString;
 
 /**
  * Created by Jonathon on 3/31/2016.
@@ -33,6 +38,10 @@ public class Canvas extends View {
     float yLocation;
     boolean isTouched;
 
+    ///  prob delete this shit////
+    int startX;
+    int endX;
+
     public Canvas(Context context, float newS1) {
         super(context);
         ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
@@ -44,6 +53,7 @@ public class Canvas extends View {
         s4 = 3000;
         s5 = 2000;
         s6 = 3000;
+
         isTouched = true;
     }
 
@@ -76,6 +86,7 @@ public class Canvas extends View {
        //This is the underlying red rectangle
         canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight()/8 -55, canvas.getWidth() / 8 + 55, canvas.getHeight()/8 * 6 + 55, r);
 
+        s1 -=temp;
         //These are all of the circles
         canvas.drawCircle(s1, canvas.getHeight() / 8, 25, p);
         canvas.drawCircle(s2, canvas.getHeight() / 8 * 2, 25, p);
@@ -100,6 +111,7 @@ public class Canvas extends View {
         //Variable calculates change in x. Higher the # faster the circles move
         if(isTouched) {
             if (s1 > 0) {
+                //Log.d("S1 isTouched", Float.toString(s1));
                 s1 -= 5;
             } else {
                 s1 = canvas.getWidth();
@@ -144,49 +156,39 @@ public class Canvas extends View {
             //Infinite loop so circles keep moving
             invalidate();
         }
+        Log.d("Just before !isTouched", Float.toString(s1));
+        if(!isTouched) {
+            Log.d("Just inside !isTouched", Float.toString(s1));
+            if(s1 < 0) {
+                s1 = canvas.getWidth();
+                Log.d("S1 not touched", Float.toString(s1));
+
+            }
+        }
+
     }
     public boolean onTouchEvent (MotionEvent event) {
-
 
         switch (event.getAction()) {
 
             case MotionEvent.ACTION_DOWN:
                 isTouched = false;
-                //temp = event.getRawX();
+
+                startX = (int) event.getRawX();
+
+
                 return true;
             case MotionEvent.ACTION_MOVE:
-                //if( event.getRawX() < temp ) {
-                   temp = event.getX();
-                   /*
-                    if(s1 == width) {
-                        s1 = 0;
-                        invalidate();
-                    }
-                    else if( s1 == 0 ) {
-                        s1 = width -1;
-                        invalidate();
-                    }
-                    */
-                    //s2 -=  temp;
-                    //s3 -= temp;
-                    //s4 -= temp;
-                    //s5 -= temp;
-                    //s6 -= temp;
-                    invalidate();
-                    //return true;
-                //}
-                /*
-                else if( event.getRawX() > temp ) {
-                    s1 += event.getRawX();
-                    s2 += event.getRawX();
-                    s3 += event.getRawX();
-                    s4 += event.getRawX();
-                    s5 += event.getRawX();
-                    s6 += event.getRawX();
-                    invalidate();
-                    //return true;
+                endX= (int)event.getRawX();
+
+                if( (endX - startX)  > 0 ) {
+                    
                 }
-                */
+                if( (endX - startX) < 0) {
+                // left
+                }
+
+                startX = (int) event.getRawX();
                 return true;
             case MotionEvent.ACTION_UP:
                 isTouched = true;

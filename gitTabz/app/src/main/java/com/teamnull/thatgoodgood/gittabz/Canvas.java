@@ -12,6 +12,8 @@ import android.view.View;
  */
 public class Canvas extends View {
 
+
+
     Bitmap ball;
     float changingy;
 

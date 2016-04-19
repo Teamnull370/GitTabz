@@ -1,0 +1,2 @@
+configurations.create("default")
+artifacts.add("default", file('jfugue-5.0.6.jar'))

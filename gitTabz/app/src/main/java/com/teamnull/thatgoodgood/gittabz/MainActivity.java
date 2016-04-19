@@ -10,16 +10,17 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View.OnTouchListener;
-
+import java.util.ArrayList;
 //NOT SURE ABOUT ALL THIS CRAP BUT HERE SHE IS IN ALL HER GLORY
 
 public class MainActivity extends AppCompatActivity {
     float newX;
-    //float newY;
+    //ArrayList<Object> listy;
     Canvas theView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+      //  listy = new ArrayList<>();
         theView = new Canvas(this, newX);
         setContentView(theView);
         //theView.setOnTouchListener(this);

@@ -20,6 +20,8 @@ import android.graphics.Rect;
 
 public class Canvas extends View {
 
+
+
     Bitmap ball;
     float changingx;
     float xLocation;

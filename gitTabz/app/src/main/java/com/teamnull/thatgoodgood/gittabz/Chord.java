@@ -2,7 +2,6 @@ package com.teamnull.thatgoodgood.gittabz;
 
 import org.jfugue.pattern.Pattern;
 import org.jfugue.player.Player;
-
 import java.util.ArrayList;
 
 /*
@@ -59,7 +58,7 @@ public class Chord implements Debug {
             
             tempy=strings.get(i).getPat().toString();
             
-            if(_SoundDebug == true){
+            if(_SoundDebug){
                 System.out.println(tempy);
             }
             if(tempy !="") {
@@ -86,19 +85,8 @@ public class Chord implements Debug {
 
     public void strum(){
         Player player = new Player();
-        player.play(chord);
+     //   player.play(chord);
         
     }
-    
-
-
-
-
-
-
-
-
-
-
 
 }

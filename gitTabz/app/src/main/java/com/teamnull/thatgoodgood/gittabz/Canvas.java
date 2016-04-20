@@ -25,26 +25,21 @@ import static java.lang.Float.toString;
 
 public class Canvas extends View {
 
-    Bitmap ball;
-    float changingx;
     float s1;
     float s2;
     float s3;
     float s4;
     float s5;
     float s6;
-    float temp;
     float width;
-    float yLocation;
     boolean isTouched;
 
     ///  prob delete this shit////
     int startX;
     int endX;
 
-    public Canvas(Context context, float newS1) {
+    public Canvas(Context context) {
         super(context);
-        ball = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
 
         s1 = getWidth();
         s1 = 500;
@@ -86,7 +81,7 @@ public class Canvas extends View {
        //This is the underlying red rectangle
         canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight()/8 -55, canvas.getWidth() / 8 + 55, canvas.getHeight()/8 * 6 + 55, r);
 
-        s1 -=temp;
+
         //These are all of the circles
         canvas.drawCircle(s1, canvas.getHeight() / 8, 25, p);
         canvas.drawCircle(s2, canvas.getHeight() / 8 * 2, 25, p);
@@ -106,9 +101,8 @@ public class Canvas extends View {
         canvas.drawLine(0, canvas.getHeight() / 8 * 5, canvas.getWidth(), canvas.getHeight() / 8 * 5, q);
         canvas.drawLine(0, canvas.getHeight()/8 * 6,canvas.getWidth() , canvas.getHeight()/8 * 6, q);
 
-        if( s1 > canvas.getClipBounds().right )
-            s1 = temp;
-        //Variable calculates change in x. Higher the # faster the circles move
+
+        //Standard play with collision detection
         if(isTouched) {
             if (s1 > 0) {
                 //Log.d("S1 isTouched", Float.toString(s1));
@@ -153,20 +147,49 @@ public class Canvas extends View {
                 invalidate();
             }
 
-            //Infinite loop so circles keep moving
-            invalidate();
         }
-        Log.d("Just before !isTouched", Float.toString(s1));
-        if(!isTouched) {
-            Log.d("Just inside !isTouched", Float.toString(s1));
-            if(s1 < 0) {
-                s1 = canvas.getWidth();
-                Log.d("S1 not touched", Float.toString(s1));
 
+        //Collision detection during play
+        if(!isTouched) {
+            if (s1 > canvas.getClipBounds().right) {
+                s1 = 0;
+            } else if (s1 < canvas.getClipBounds().left) {
+                s1 = canvas.getWidth() - 1;
+            }
+
+            if (s2 > canvas.getClipBounds().right) {
+                s2 = 0;
+            } else if (s2 < canvas.getClipBounds().left) {
+                s2 = canvas.getWidth() - 1;
+            }
+
+            if (s3 > canvas.getClipBounds().right) {
+                s3 = 0;
+            } else if (s3 < canvas.getClipBounds().left) {
+                s3 = canvas.getWidth() - 1;
+            }
+
+            if (s4 > canvas.getClipBounds().right) {
+                s4 = 0;
+            } else if (s4 < canvas.getClipBounds().left) {
+                s4 = canvas.getWidth() - 1;
+            }
+
+            if (s5 > canvas.getClipBounds().right) {
+                s5 = 0;
+            } else if (s5 < canvas.getClipBounds().left) {
+                s5 = canvas.getWidth() - 1;
+            }
+
+            if (s6 > canvas.getClipBounds().right) {
+                s6 = 0;
+            } else if (s6 < canvas.getClipBounds().left) {
+                s6 = canvas.getWidth() - 1;
             }
         }
-
+        invalidate();
     }
+
     public boolean onTouchEvent (MotionEvent event) {
 
         switch (event.getAction()) {
@@ -176,24 +199,41 @@ public class Canvas extends View {
 
                 startX = (int) event.getRawX();
 
-
                 return true;
             case MotionEvent.ACTION_MOVE:
                 endX= (int)event.getRawX();
 
                 if( (endX - startX)  > 0 ) {
-                    
+                    // RIGHT
+                    s1 += 25;
+                    s2 += 25;
+                    s3 += 25;
+                    s4 += 25;
+                    s5 += 25;
+                    s6 += 25;
+
                 }
                 if( (endX - startX) < 0) {
-                // left
+                    // LEFT
+                    s1 -= 25;
+                    s2 -= 25;
+                    s3 -= 25;
+                    s4 -= 25;
+                    s5 -= 25;
+                    s6 -= 25;
+
                 }
 
                 startX = (int) event.getRawX();
+
+                invalidate();
+
                 return true;
             case MotionEvent.ACTION_UP:
                 isTouched = true;
-                temp = 0;
+
                 invalidate();
+
                 return true;
         }
         return false;

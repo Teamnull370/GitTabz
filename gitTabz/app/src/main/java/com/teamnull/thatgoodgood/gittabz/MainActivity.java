@@ -14,30 +14,18 @@ import android.view.View.OnTouchListener;
 //NOT SURE ABOUT ALL THIS CRAP BUT HERE SHE IS IN ALL HER GLORY
 
 public class MainActivity extends AppCompatActivity {
-    float newX;
-    //float newY;
+
     Canvas theView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        theView = new Canvas(this, newX);
+        theView = new Canvas(this);
         setContentView(theView);
         //theView.setOnTouchListener(this);
         //theView.invalidate();
 
 
     }
-/*
-    @Override
-    public boolean onTouch( View v, MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                newX = event.getRawX();
-                theView.onDraw();
-                return true;
 
-        }
-        return false;
-    }
-*/
 }

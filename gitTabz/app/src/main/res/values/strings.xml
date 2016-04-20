@@ -7,16 +7,9 @@
 
     <string name="title_search">Search</string>
     <string name="title_share">Share</string>
-    <string name ="title_help">Help</string>
-    <string name ="title_delete">Delete</string>
+    <string name="title_help">Help</string>
+    <string name="title_delete">Delete</string>
 
-
-    <string-array name="android_version">
-        <item>Item 1</item>
-        <item>Item 2</item>
-        <item>Item 3</item>
-        <item>Item 4</item>
-    </string-array>
 
     <!-- Strings related to Settings -->
 

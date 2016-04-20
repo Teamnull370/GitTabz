@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.search:
                 Toast.makeText(getApplicationContext(),
-                        "Settings...",
+                        "Search...",
                         Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_settings:

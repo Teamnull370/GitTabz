@@ -1,7 +1,7 @@
 package com.teamnull.thatgoodgood.gittabz;
 
 
-import org.jfugue.pattern.Pattern;
+import org.jfugue.pattern.*;
 import java.util.ArrayList;
 
 /*

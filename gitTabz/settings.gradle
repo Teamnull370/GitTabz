@@ -1,1 +1,1 @@
-include ':app', ':jfugue-5.0.6'
+include ':app', ':jfugue-5.0.6', ':mod_xerces', ':mod_xalan', ':mod_xmlapis', ':jfugue-android'

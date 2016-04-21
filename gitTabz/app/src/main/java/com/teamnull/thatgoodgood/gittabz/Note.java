@@ -1,6 +1,5 @@
 package com.teamnull.thatgoodgood.gittabz;
 
-import org.jfugue.pattern.Pattern;
 
 /*
  * Created by Zeyad Ayoub on 4/5/2016.

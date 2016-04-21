@@ -1,24 +1,40 @@
 package com.teamnull.thatgoodgood.gittabz;
-
+import org.jfugue.pattern.NotesProducer;
 import org.jfugue.pattern.Pattern;
 import org.jfugue.player.Player;
 import java.util.ArrayList;
 
+
+
 /*
  * Created by Zeyad Ayoub on 4/8/2016.
  */
+
 public class Chord implements Debug {
 
-    public ArrayList<Note>strings=new ArrayList<>();
 
-    Pattern chord=new Pattern();
+    public ArrayList<Note> strings=new ArrayList<>();
+
+    Pattern chord = new Pattern("E");
+
+/*
+    Player pl = new Player();
+    public void setPl(Player pl) {
+        pl.play(chord);
+        this.pl = pl;
+    }
+
+       public Player getPl() {
+        return pl;
+    }
+*/
 
     public Chord(){
 
         for(int i=0; i<6; i++){
             strings.add(i,new Note());
         }
-
+        NotesProducer producer;
         chord = new Pattern("");
     }
 
@@ -56,24 +72,24 @@ public class Chord implements Debug {
         for (int i=1;i<7;i++) {
             
             
-            tempy=strings.get(i).getPat().toString();
+            //tempy=strings.get(i).getPat()
             
-            if(_SoundDebug){
-                System.out.println(tempy);
-            }
-            if(tempy !="") {
-               if(tempy.length()!=1){
-                
-               if(temp!=""){
-                    if (i != 6 ) {
-                        temp = temp.concat("+");
-                      }
-               }
-                
-                    temp = temp.concat(tempy);
-                    
-                }
-            }
+//            if(_SoundDebug){
+//                System.out.println(tempy);
+//            }
+//            if(tempy !="") {
+//               if(tempy.length()!=1){
+//
+//               if(temp!=""){
+//                    if (i != 6 ) {
+//                        temp = temp.concat("+");
+//                      }
+//               }
+//
+//                    temp = temp.concat(tempy);
+//
+//                }
+//            }
         }
         
         chord.add(temp);
@@ -84,8 +100,9 @@ public class Chord implements Debug {
     }
 
     public void strum(){
-        Player player = new Player();
-     //   player.play(chord);
+        Player player;
+        player = new Player();
+        player.play(chord);
         
     }
 

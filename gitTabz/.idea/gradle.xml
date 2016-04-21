@@ -11,7 +11,12 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/javax.sound.midi" />
             <option value="$PROJECT_DIR$/jfugue-5.0.6" />
+            <option value="$PROJECT_DIR$/jfugue-android" />
+            <option value="$PROJECT_DIR$/mod_xalan" />
+            <option value="$PROJECT_DIR$/mod_xerces" />
+            <option value="$PROJECT_DIR$/mod_xmlapis" />
           </set>
         </option>
       </GradleProjectSettings>

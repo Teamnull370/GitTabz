@@ -1,5 +1,7 @@
-package com.teamnull.thatgoodgood.gittabz;
 
+package com.teamnull.thatgoodgood.gittabz;
+import android.media.midi.*;
+import org.jfugue.midi.*;
 /**
  *
  * @author Zeyad Ayoub

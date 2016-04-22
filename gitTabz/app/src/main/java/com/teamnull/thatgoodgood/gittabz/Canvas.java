@@ -1,8 +1,5 @@
 package com.teamnull.thatgoodgood.gittabz;
-
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
@@ -14,7 +11,8 @@ import android.view.View;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.widget.RelativeLayout;
-
+import java.util.ArrayList;
+import java.util.Objects;
 import static android.util.Log.d;
 import static java.lang.Float.toString;
 
@@ -23,7 +21,7 @@ import static java.lang.Float.toString;
  * ALL THE COOL PAINT STUFF DONE BY DANNY CUZ HE BE COOL AND SHIT
  */
 
-public class Canvas extends View {
+public class Canvas extends View{
 
     float s1;
     float s2;
@@ -33,14 +31,16 @@ public class Canvas extends View {
     float s6;
     float width;
     boolean isTouched;
+    ArrayList<ArrayNode> listy = new ArrayList<>();
 
     ///  prob delete this shit////
     int startX;
     int endX;
 
-    public Canvas(Context context) {
-        super(context);
 
+    public Canvas(Context context, ArrayList list) {
+        super(context);
+        listy = list;
         s1 = getWidth();
         s1 = 500;
         s2 = 1000;
@@ -48,21 +48,35 @@ public class Canvas extends View {
         s4 = 3000;
         s5 = 2000;
         s6 = 3000;
-
         isTouched = true;
     }
 
     Paint p = new Paint();
     Paint q = new Paint();
     Paint r = new Paint();
+    Paint num = new Paint();
+    Paint w = new Paint();
 
     @Override
     protected void onDraw(android.graphics.Canvas canvas){
         super.onDraw(canvas);
+
+
         width = canvas.getWidth();
         r.setStyle(Paint.Style.FILL);
         r.setStrokeWidth(2);
         r.setShader(new LinearGradient(0, 0, 0, canvas.getHeight(), Color.BLUE, Color.RED, Shader.TileMode.MIRROR));
+
+        //Paint settings for the number draw
+        num.setColor(Color.BLACK);
+        num.setTextSize(32f);
+        num.setAntiAlias(true);
+        num.setTextAlign(Paint.Align.CENTER);
+        num.setStyle(Paint.Style.FILL);
+
+        //Paint for the white-fill circle the number will go on
+        w.setStyle(Paint.Style.FILL);
+        w.setColor(Color.WHITE);
 
         q.setStrokeWidth(5);
         q.setStyle(Paint.Style.STROKE);
@@ -78,29 +92,45 @@ public class Canvas extends View {
         //This creates the white background
         canvas.drawColor(Color.WHITE);
 
-       //This is the underlying red rectangle
-        canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight()/8 -55, canvas.getWidth() / 8 + 55, canvas.getHeight()/8 * 6 + 55, r);
-
-
         //These are all of the circles
-        canvas.drawCircle(s1, canvas.getHeight() / 8, 25, p);
-        canvas.drawCircle(s2, canvas.getHeight() / 8 * 2, 25, p);
-        canvas.drawCircle(s3, canvas.getHeight() / 8 * 3, 25, p);
-        canvas.drawCircle(s4, canvas.getHeight() / 8 * 4, 25, p);
-        canvas.drawCircle(s5, canvas.getHeight() / 8 * 5, 25, p);
-        canvas.drawCircle(s6, canvas.getHeight() / 8 * 6, 25, p);
+        canvas.drawCircle(s1, canvas.getHeight() / 8 * listy.get(0).getString(), 25, p);
+        canvas.drawCircle(s2, canvas.getHeight() / 8 * listy.get(1).getString(), 25, p);
+        canvas.drawCircle(s3, canvas.getHeight() / 8 * listy.get(2).getString(), 25, p);
+        canvas.drawCircle(s4, canvas.getHeight() / 8 * listy.get(3).getString(), 25, p);
+        canvas.drawCircle(s5, canvas.getHeight() / 8 * listy.get(4).getString(), 25, p);
+        canvas.drawCircle(s6, canvas.getHeight() / 8 * listy.get(5).getString(), 25, p);
 
-        //This is the Transparent rectangle that goes over the red one.
-        canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight()/8 -55, canvas.getWidth() / 8 + 55, canvas.getHeight()/8 * 6 + 55, p);
 
         //The bar lines the notes will go on
-        canvas.drawLine(0, canvas.getHeight() / 8,canvas.getWidth(), canvas.getHeight() / 8, q);
-        canvas.drawLine(0, canvas.getHeight()/8 * 2,canvas.getWidth(), canvas.getHeight()/8 * 2, q);
-        canvas.drawLine(0, canvas.getHeight()/8 * 3, canvas.getWidth(), canvas.getHeight()/8 * 3, q);
-        canvas.drawLine(0, canvas.getHeight()/8 * 4, canvas.getWidth(), canvas.getHeight()/8 * 4, q);
+        canvas.drawLine(0, canvas.getHeight() / 8, canvas.getWidth(), canvas.getHeight() / 8, q);
+        canvas.drawLine(0, canvas.getHeight() / 8 * 2, canvas.getWidth(), canvas.getHeight() / 8 * 2, q);
+        canvas.drawLine(0, canvas.getHeight() / 8 * 3, canvas.getWidth(), canvas.getHeight() / 8 * 3, q);
+        canvas.drawLine(0, canvas.getHeight() / 8 * 4, canvas.getWidth(), canvas.getHeight() / 8 * 4, q);
         canvas.drawLine(0, canvas.getHeight() / 8 * 5, canvas.getWidth(), canvas.getHeight() / 8 * 5, q);
-        canvas.drawLine(0, canvas.getHeight()/8 * 6,canvas.getWidth() , canvas.getHeight()/8 * 6, q);
+        canvas.drawLine(0, canvas.getHeight() / 8 * 6, canvas.getWidth(), canvas.getHeight() / 8 * 6, q);
 
+
+        //This is the underlying red rectangle
+        canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, r);
+
+        //White circle
+        canvas.drawCircle(s1, canvas.getHeight() / 8, 24, w);
+        canvas.drawCircle(s2, canvas.getHeight() / 8 * 2, 24, w);
+        canvas.drawCircle(s3, canvas.getHeight() / 8 * 3, 24, w);
+        canvas.drawCircle(s4, canvas.getHeight() / 8 * 4, 24, w);
+        canvas.drawCircle(s5, canvas.getHeight() / 8 * 5, 24, w);
+        canvas.drawCircle(s6, canvas.getHeight() / 8 * 6, 24, w);
+
+        //Number printer
+        canvas.drawText(String.valueOf(listy.get(0).fretNumber), s1, canvas.getHeight() / 8 + 10, num);
+        canvas.drawText(String.valueOf(listy.get(1).fretNumber), s2, canvas.getHeight() / 8 * listy.get(1).getString() + 10, num);
+        canvas.drawText(String.valueOf(listy.get(2).fretNumber), s3, canvas.getHeight() / 8 * 3 + 10, num);
+        canvas.drawText(String.valueOf(listy.get(3).fretNumber), s4, canvas.getHeight() / 8 * 4 + 10, num);
+        canvas.drawText(String.valueOf(listy.get(4).fretNumber), s5, canvas.getHeight() / 8 * 5 + 10, num);
+        canvas.drawText(String.valueOf(listy.get(5).fretNumber), s6, canvas.getHeight() / 8 * 6 + 10, num);
+
+        //This is the Transparent rectangle that goes over the red one.
+        canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, p);
 
         //Standard play with collision detection
         if(isTouched) {
@@ -114,8 +144,7 @@ public class Canvas extends View {
 
             if (s2 > 0) {
                 s2 -= 5;
-            } else {
-                s2 = canvas.getWidth();
+            } else {s2 = canvas.getWidth();
                 invalidate();
             }
 

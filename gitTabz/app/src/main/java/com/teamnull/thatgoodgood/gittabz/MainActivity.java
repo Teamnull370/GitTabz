@@ -6,6 +6,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import android.widget.Button;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 //NOT SURE ABOUT ALL THIS CRAP BUT HERE SHE IS IN ALL HER GLORY
 
@@ -13,10 +16,12 @@ public class MainActivity extends AppCompatActivity {
     float newX;
     //float newY;
     Canvas theView;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // theView = new Canvas(this, newX);
         theView = new Canvas(this, newX);
         setContentView(R.layout.activity_main);
         //theView.setOnTouchListener(this);
@@ -24,6 +29,15 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar mytoolbar = (Toolbar)findViewById(R.id.my_toolbar);
         setSupportActionBar(mytoolbar);
+
+        // Begin streaming tabz when the user clicks on the button
+        button = (Button) findViewById(R.id.button_id);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentView(theView);
+            }
+        });
     }
 
     @Override
@@ -78,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
 }
 
 /*

@@ -1,10 +1,13 @@
 package com.teamnull.thatgoodgood.gittabz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.widget.Toast;
 import android.widget.Button;
 import android.view.View;
@@ -15,8 +18,8 @@ import android.view.View.OnClickListener;
 public class MainActivity extends AppCompatActivity {
 
     Canvas theView;
-
     Button button;
+    private GestureDetector gestures;
 
 
     @Override
@@ -24,23 +27,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // theView = new Canvas(this, newX);
-        theView = new Canvas(this);
+        // theView = new Canvas(this);
         setContentView(R.layout.activity_main);
 
 
         Toolbar mytoolbar = (Toolbar)findViewById(R.id.my_toolbar);
+        // designate the Toolbar as the action bar for an Activity
         setSupportActionBar(mytoolbar);
-
+/*
+        // adds the "Up" button to the toolbar
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+*/
         // Begin streaming tabz when the user clicks on the button
         button = (Button) findViewById(R.id.button_id);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(theView);
+                startActivity(new Intent(MainActivity.this, CanvasActivity.class));
+                // setContentView(theView);
             }
         });
     }
 
+
+    // Display the
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

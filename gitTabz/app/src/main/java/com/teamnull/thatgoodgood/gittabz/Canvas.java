@@ -7,23 +7,26 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View.OnTouchListener;
 import android.view.View;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.widget.RelativeLayout;
-
+import android.view.GestureDetector.OnDoubleTapListener;
 import static android.util.Log.d;
 import static java.lang.Float.toString;
+import android.support.v4.view.GestureDetectorCompat;
 
 /**
  * Created by Jonathon on 3/31/2016.
  * ALL THE COOL PAINT STUFF DONE BY DANNY CUZ HE BE COOL AND SHIT
  */
 
-public class Canvas extends View {
+public class Canvas extends View{
 
     float s1;
     float s2;
@@ -33,14 +36,40 @@ public class Canvas extends View {
     float s6;
     float width;
     boolean isTouched;
-
+    private GestureDetectorCompat mDetector;
     ///  prob delete this shit////
     int startX;
     int endX;
 
     public Canvas(Context context) {
         super(context);
+        init(context);
+/*
+        s1 = getWidth();
+        s1 = 500;
+        s2 = 1000;
+        s3 = 2000;
+        s4 = 3000;
+        s5 = 2000;
+        s6 = 3000;
 
+        isTouched = true;
+        */
+    }
+
+
+    public Canvas(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context);
+    }
+
+    public Canvas(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init(context);
+    }
+
+    private void init(Context context) {
+        //do stuff that was in your original constructor...
         s1 = getWidth();
         s1 = 500;
         s2 = 1000;
@@ -52,12 +81,16 @@ public class Canvas extends View {
         isTouched = true;
     }
 
+
     Paint p = new Paint();
     Paint q = new Paint();
     Paint r = new Paint();
 
+
+
     @Override
     protected void onDraw(android.graphics.Canvas canvas){
+        // mDetector = new GestureDetectorCompat(this,this);
         super.onDraw(canvas);
         width = canvas.getWidth();
         r.setStyle(Paint.Style.FILL);

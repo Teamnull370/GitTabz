@@ -18,28 +18,15 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-/*
-        if (Build.VERSION.SDK_INT < 16) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
-*/
+
         setContentView(R.layout.content_splash);
-/*
-        View decorView = getWindow().getDecorView();
-        // Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
-        // If the status bar is hidden, the action bar
-        // should be too
-        ActionBar actionBar = getActionBar();
-        actionBar.hide();
-*/
+
         Thread timerThread = new Thread() {
             @Override
             public void run() {
                 try {
-                    sleep(3000);
+                    sleep(6000);
+
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }finally {

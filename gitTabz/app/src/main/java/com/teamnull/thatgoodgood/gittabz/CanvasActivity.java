@@ -35,7 +35,13 @@ public class CanvasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_canvas);
         Log.d("SET", "Content View Set");
 
-        //((Canvas) findViewById(R.id.canvas)).setList(list);
+        Intent intent = getIntent();
+        ArrayList<ArrayNode> list = intent.getParcelableArrayListExtra("listy");
+
+        if( list != null) {
+            ((Canvas) findViewById(R.id.canvas)).setList(list);
+        }
+
         view = (Canvas) findViewById(R.id.canvas);
 
         Toolbar mytoolbar = (Toolbar)findViewById(R.id.my_toolbar);

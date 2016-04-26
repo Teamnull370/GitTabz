@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        ArrayList<ArrayNode> listy = new ArrayList<>();
+        final ArrayList<ArrayNode> listy = new ArrayList<>();
         listy.add(new ArrayNode(1, 17));
         listy.add(new ArrayNode(2, 12));
         listy.add(new ArrayNode(3, 15));
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
 
+         class unFuck {
+
+        }
 
         setContentView(R.layout.activity_main);
         Toolbar mytoolbar = (Toolbar)findViewById(R.id.my_toolbar);
@@ -66,18 +70,18 @@ public class MainActivity extends AppCompatActivity{
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 */
-        Intent intent = new Intent(MainActivity.this, Canvas.class);
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("listy", listy);
-        intent.putExtras(bundle);
+
 
         // Begin streaming tabz when the user clicks on the button
         button = (Button) findViewById(R.id.button_id);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, CanvasActivity.class));
-                // setContentView(theView);
+                Intent intent = new Intent(MainActivity.this, CanvasActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("listy", listy);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }

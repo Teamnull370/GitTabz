@@ -33,6 +33,7 @@ public class tReader implements Debug{
     public void read(String tabz){
 
         try { //TODO need to open file
+
             File file = new File(tabz);
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -50,10 +51,11 @@ public class tReader implements Debug{
             }
             _raws=stringBuffer.toString();
 
-            Log.d(_raws.toString(),"data");
+            Log.d(_raws,"data");
 
         } catch (Exception e) {
             Log.e("_raws","error");
+            System.out.println(e);
         }
     }
 

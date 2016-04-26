@@ -1,5 +1,6 @@
 package com.teamnull.thatgoodgood.gittabz;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -29,7 +30,10 @@ public class MainActivity extends AppCompatActivity implements Debug{
 
 
         tReader tab = new tReader();
-        tab.read("/Users/student/Desktop/repo/ThatGoodGood/gitTabz/app/src/main/java/com/teamnull/thatgoodgood/gittabz/guitar_test");
+       //tab.read("/Users/student/Desktop/repo/ThatGoodGood/gitTabz/app/src/main/java/com/teamnull/thatgoodgood/gittabz/guitar_test.txt");
+
+        InputStream is = getResources().openRawResource(R.raw.guitar_test);
+        tab.read("res/raw/guitar_test.txt");
 
 
 

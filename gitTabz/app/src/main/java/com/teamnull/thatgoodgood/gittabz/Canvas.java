@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View.OnTouchListener;
@@ -30,15 +31,17 @@ public class Canvas extends View{
     float s5;
     float s6;
     float width;
+    int time;
+    int start;
     boolean isTouched;
     ArrayList<ArrayNode> listy = new ArrayList<>();
 
     ///  prob delete this shit////
     int startX;
     int endX;
+    MediaPlayer music;
 
-
-    public Canvas(Context context, ArrayList list) {
+    public Canvas(Context context, ArrayList list, MediaPlayer sound) {
         super(context);
         listy = list;
         s1 = getWidth();
@@ -49,6 +52,9 @@ public class Canvas extends View{
         s5 = 2000;
         s6 = 3000;
         isTouched = true;
+        music = sound;
+        time = music.getDuration();
+        start = music.getCurrentPosition();
     }
 
     Paint p = new Paint();
@@ -59,8 +65,8 @@ public class Canvas extends View{
 
     @Override
     protected void onDraw(android.graphics.Canvas canvas){
+        music.start();
         super.onDraw(canvas);
-
 
         width = canvas.getWidth();
         r.setStyle(Paint.Style.FILL);
@@ -132,10 +138,11 @@ public class Canvas extends View{
         //This is the Transparent rectangle that goes over the red one.
         canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, p);
 
+
+
         //Standard play with collision detection
         if(isTouched) {
             if (s1 > 0) {
-                //Log.d("S1 isTouched", Float.toString(s1));
                 s1 -= 5;
             } else {
                 s1 = canvas.getWidth();
@@ -219,20 +226,24 @@ public class Canvas extends View{
         invalidate();
     }
 
+
+
+
+
     public boolean onTouchEvent (MotionEvent event) {
 
         switch (event.getAction()) {
 
             case MotionEvent.ACTION_DOWN:
                 isTouched = false;
-
+                music.pause();
                 startX = (int) event.getRawX();
 
                 return true;
             case MotionEvent.ACTION_MOVE:
-                endX= (int)event.getRawX();
+                endX = (int) event.getRawX();
 
-                if( (endX - startX)  > 0 ) {
+                if ((endX - startX) > 0) {
                     // RIGHT
                     s1 += 25;
                     s2 += 25;
@@ -240,9 +251,9 @@ public class Canvas extends View{
                     s4 += 25;
                     s5 += 25;
                     s6 += 25;
-
+                    music.seekTo(start -= 500);
                 }
-                if( (endX - startX) < 0) {
+                if ((endX - startX) < 0) {
                     // LEFT
                     s1 -= 25;
                     s2 -= 25;
@@ -250,7 +261,7 @@ public class Canvas extends View{
                     s4 -= 25;
                     s5 -= 25;
                     s6 -= 25;
-
+                    music.seekTo(start += 500);
                 }
 
                 startX = (int) event.getRawX();

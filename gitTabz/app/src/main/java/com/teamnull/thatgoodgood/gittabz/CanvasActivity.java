@@ -30,21 +30,17 @@ public class CanvasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d("Created","Canvas Activity started");
+        Log.d("Created", "Canvas Activity started");
 
         setContentView(R.layout.activity_canvas);
-        Log.d("SET","Content View Set");
+        Log.d("SET", "Content View Set");
 
-       // Bundle extras = getIntent().getExtras();
-       // ArrayList<? extends Parcelable> listy  = extras.getParcelableArrayList("listy");
-
-        // view = new Canvas(this);
+        //((Canvas) findViewById(R.id.canvas)).setList(list);
         view = (Canvas) findViewById(R.id.canvas);
-        // setContentView(R.layout.activity_canvas);
+
         Toolbar mytoolbar = (Toolbar)findViewById(R.id.my_toolbar);
         // designate the Toolbar as the action bar for an Activity
         setSupportActionBar(mytoolbar);
-
         // Add the "Up" button to the Canvas Activity
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -29,14 +29,9 @@ import com.teamnull.thatgoodgood.gittabz.ArrayNode;
 //NOT SURE ABOUT ALL THIS CRAP BUT HERE SHE IS IN ALL HER GLORY
 
 public class MainActivity extends AppCompatActivity{
-    Canvas theView;
-
-    MediaPlayer sound;
 
     Button button;
     private GestureDetector gestures;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,18 +53,10 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
 
-        //theView = new Canvas(this, listy, sound);
-        //setContentView(theView);
-
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("listy", (ArrayList<? extends Parcelable>) listy);
-
-        // theView = new Canvas(this, newX);
-        // theView = new Canvas(this);
         setContentView(R.layout.activity_main);
-
-
         Toolbar mytoolbar = (Toolbar)findViewById(R.id.my_toolbar);
+
+
         // designate the Toolbar as the action bar for an Activity
         setSupportActionBar(mytoolbar);
 /*
@@ -79,6 +66,11 @@ public class MainActivity extends AppCompatActivity{
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 */
+        Intent intent = new Intent(MainActivity.this, Canvas.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("listy", listy);
+        intent.putExtras(bundle);
+
         // Begin streaming tabz when the user clicks on the button
         button = (Button) findViewById(R.id.button_id);
         button.setOnClickListener(new View.OnClickListener() {

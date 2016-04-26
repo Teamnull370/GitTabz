@@ -1,5 +1,6 @@
 package com.teamnull.thatgoodgood.gittabz;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
@@ -41,36 +42,16 @@ public class Canvas extends View{
     int time;
     int start;
     boolean isTouched;
-
-
-
-    Bundle extras = getIntent().getExtras();
-    ArrayList<? extends Parcelable> listy  = extras.getParcelableArrayList("listy");
-    //ArrayList<ArrayNode> listy = new ArrayList<>();
-
-
+  ArrayList<ArrayNode> listy;
     private GestureDetectorCompat mDetector;
-
-    ///  prob delete this shit////
     int startX;
     int endX;
 
+
     public Canvas(Context context){
-
         super(context);
-        music = MediaPlayer.create(cntext, R.raw.song);
+       music = MediaPlayer.create(context, R.raw.song);
         init(context);
-/*
-        s1 = getWidth();
-        s1 = 500;
-        s2 = 1000;
-        s3 = 2000;
-        s4 = 3000;
-        s5 = 2000;
-        s6 = 3000;
-
-        isTouched = true;
-        */
     }
 
 
@@ -96,8 +77,8 @@ public class Canvas extends View{
         s6 = 3000;
         isTouched = true;
 
-        time = music.getDuration();
-        start = music.getCurrentPosition();
+       //ime = music.getDuration();
+       //tart = music.getCurrentPosition();
     }
 
 
@@ -108,6 +89,9 @@ public class Canvas extends View{
     Paint w = new Paint();
 
 
+    public void setList(ArrayList<ArrayNode> list){
+        listy = list;
+    }
 
     @Override
     protected void onDraw(android.graphics.Canvas canvas){
@@ -284,7 +268,7 @@ public class Canvas extends View{
 
             case MotionEvent.ACTION_DOWN:
                 isTouched = false;
-                music.pause();
+      //        music.pause();
                 startX = (int) event.getRawX();
 
                 return true;
@@ -299,7 +283,7 @@ public class Canvas extends View{
                     s4 += 25;
                     s5 += 25;
                     s6 += 25;
-                    music.seekTo(start -= 500);
+        //          music.seekTo(start -= 500);
                 }
                 if ((endX - startX) < 0) {
                     // LEFT
@@ -309,7 +293,7 @@ public class Canvas extends View{
                     s4 -= 25;
                     s5 -= 25;
                     s6 -= 25;
-                    music.seekTo(start += 500);
+          //        music.seekTo(start += 500);
                 }
 
                 startX = (int) event.getRawX();

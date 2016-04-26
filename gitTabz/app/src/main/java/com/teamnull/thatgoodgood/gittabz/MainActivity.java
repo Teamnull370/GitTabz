@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
@@ -56,11 +57,12 @@ public class MainActivity extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
 
-        sound = MediaPlayer.create(this, R.raw.song);
-        theView = new Canvas(this, listy, sound);
-        setContentView(theView);
 
+        //theView = new Canvas(this, listy, sound);
+        //setContentView(theView);
 
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("listy", (ArrayList<? extends Parcelable>) listy);
 
         // theView = new Canvas(this, newX);
         // theView = new Canvas(this);

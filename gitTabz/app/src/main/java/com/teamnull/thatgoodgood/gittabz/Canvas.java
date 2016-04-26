@@ -5,6 +5,8 @@ import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -28,7 +30,7 @@ import android.support.v4.view.GestureDetectorCompat;
  */
 
 public class Canvas extends View{
-
+    MediaPlayer music;
     float s1;
     float s2;
     float s3;
@@ -40,7 +42,11 @@ public class Canvas extends View{
     int start;
     boolean isTouched;
 
-    ArrayList<ArrayNode> listy = new ArrayList<>();
+
+
+    Bundle extras = getIntent().getExtras();
+    ArrayList<? extends Parcelable> listy  = extras.getParcelableArrayList("listy");
+    //ArrayList<ArrayNode> listy = new ArrayList<>();
 
 
     private GestureDetectorCompat mDetector;
@@ -48,12 +54,11 @@ public class Canvas extends View{
     ///  prob delete this shit////
     int startX;
     int endX;
-    MediaPlayer music;
 
-    public Canvas(Context context, ArrayList list, MediaPlayer sound) {
+    public Canvas(Context context){
+
         super(context);
-        music = sound;
-        listy = list;
+        music = MediaPlayer.create(cntext, R.raw.song);
         init(context);
 /*
         s1 = getWidth();

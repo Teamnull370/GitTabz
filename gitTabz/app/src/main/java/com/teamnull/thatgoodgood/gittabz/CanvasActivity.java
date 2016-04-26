@@ -6,6 +6,7 @@ package com.teamnull.thatgoodgood.gittabz;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,6 +18,9 @@ import android.widget.Toast;
 import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class CanvasActivity extends AppCompatActivity {
 
@@ -30,6 +34,10 @@ public class CanvasActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_canvas);
         Log.d("SET","Content View Set");
+
+       // Bundle extras = getIntent().getExtras();
+       // ArrayList<? extends Parcelable> listy  = extras.getParcelableArrayList("listy");
+
         // view = new Canvas(this);
         view = (Canvas) findViewById(R.id.canvas);
         // setContentView(R.layout.activity_canvas);

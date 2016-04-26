@@ -1,6 +1,7 @@
 package com.teamnull.thatgoodgood.gittabz;
 
 import android.graphics.Canvas;
+import android.os.Parcelable;
 
 import com.teamnull.thatgoodgood.gittabz.MainActivity;
 

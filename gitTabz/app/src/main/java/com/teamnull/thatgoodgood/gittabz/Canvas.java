@@ -22,7 +22,7 @@ import static java.lang.Float.toString;
  * ALL THE COOL PAINT STUFF DONE BY DANNY CUZ HE BE COOL AND SHIT
  */
 
-public class Canvas extends View{
+public class Canvas extends View implements Debug{
 
     float s1;
     float s2;
@@ -44,7 +44,7 @@ public class Canvas extends View{
     public Canvas(Context context, ArrayList list, MediaPlayer sound) {
         super(context);
         listy = list;
-        s1 = getWidth();
+        //s1 = getWidth();
         s1 = 500;
         s2 = 1000;
         s3 = 2000;
@@ -65,7 +65,9 @@ public class Canvas extends View{
 
     @Override
     protected void onDraw(android.graphics.Canvas canvas){
-        music.start();
+        if(_startSound) {
+            music.start();
+        }
         super.onDraw(canvas);
 
         width = canvas.getWidth();
@@ -227,16 +229,13 @@ public class Canvas extends View{
     }
 
 
-
-
-
     public boolean onTouchEvent (MotionEvent event) {
 
         switch (event.getAction()) {
 
             case MotionEvent.ACTION_DOWN:
                 isTouched = false;
-                music.pause();
+
                 startX = (int) event.getRawX();
 
                 return true;

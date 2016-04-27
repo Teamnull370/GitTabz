@@ -8,8 +8,8 @@ package com.teamnull.thatgoodgood.gittabz;
 import android.util.Log;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /*
@@ -30,33 +30,33 @@ public class tReader implements Debug{
 
     }
 
-    public void read(String tabz){
+    public void read(InputStream is){
 
         try { //TODO need to open file
-
-            File file = new File(tabz);
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            StringBuffer stringBuffer = new StringBuffer();
             String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuffer.append(line);
-                stringBuffer.append("\n");
+            StringBuffer stringBuffer = new StringBuffer();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
+
+            if(is!= null) {
+                while ((line = bufferedReader.readLine()) != null) {
+                    //stringBuffer.append(line);
+                    stringBuffer.append(line + "\n");
+                }
             }
-            fileReader.close();
             if(_parseDebug){
-                //System.out.println("Contents of file:");
-                Log.d(stringBuffer.toString(), "\n");
-                //System.out.println(stringBuffer.toString());
+                System.out.println("Contents of file:");
+                //Log.d(stringBuffer.toString(), "\n");
+                System.out.println(stringBuffer.toString());
             }
             _raws=stringBuffer.toString();
 
-            Log.d(_raws,"data");
-
         } catch (Exception e) {
-            Log.e("_raws","error");
+            //Log.e("_raws","error");
             System.out.println(e);
+        }finally{
+            try { is.close(); } catch (Exception e) { }
         }
+
     }
 
     public String retRaw(){

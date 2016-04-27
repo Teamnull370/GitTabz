@@ -12,9 +12,9 @@
 
     </com.teamnull.thatgoodgood.gittabz.Canvas>
 
-    <include
+   <!-- <include
         android:id="@+id/my_toolbar"
         layout="@layout/toolbar">
     </include>
-
+    -->
 </FrameLayout>

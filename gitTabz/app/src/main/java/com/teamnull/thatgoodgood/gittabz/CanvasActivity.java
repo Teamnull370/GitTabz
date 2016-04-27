@@ -44,14 +44,14 @@ public class CanvasActivity extends AppCompatActivity {
 
         view = (Canvas) findViewById(R.id.canvas);
 
-        Toolbar mytoolbar = (Toolbar)findViewById(R.id.my_toolbar);
+        //Toolbar mytoolbar = (Toolbar)findViewById(R.id.my_toolbar);
         // designate the Toolbar as the action bar for an Activity
-        setSupportActionBar(mytoolbar);
+        //setSupportActionBar(mytoolbar);
         // Add the "Up" button to the Canvas Activity
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+//        if (getSupportActionBar() != null){
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        }
 
 
     }

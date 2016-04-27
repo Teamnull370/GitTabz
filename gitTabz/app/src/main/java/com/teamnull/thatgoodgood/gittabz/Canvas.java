@@ -32,7 +32,7 @@ import android.support.v4.view.GestureDetectorCompat;
  */
 
 public class Canvas extends View{
-    //MediaPlayer music;
+    MediaPlayer music;
     float s1;
     float s2;
     float s3;
@@ -40,7 +40,7 @@ public class Canvas extends View{
     float s5;
     float s6;
     float width;
-    //int time;
+    int time;
     int start;
     boolean isTouched;
     ArrayList<ArrayNode> listy;
@@ -51,9 +51,6 @@ public class Canvas extends View{
 
     public Canvas(Context context){
         super(context);
-
-
-        //music = MediaPlayer.create(context, R.raw.song);
         init(context);
     }
 
@@ -71,6 +68,7 @@ public class Canvas extends View{
     private void init(Context context) {
         //do stuff that was in your original constructor...
 
+        music = MediaPlayer.create(context, R.raw.song);
         s1 = getWidth();
         s1 = 500;
         s2 = 1000;
@@ -80,8 +78,8 @@ public class Canvas extends View{
         s6 = 3000;
         isTouched = true;
 
-       //time = music.getDuration();
-       //start = music.getCurrentPosition();
+       time = music.getDuration();
+       start = music.getCurrentPosition();
     }
 
 
@@ -99,7 +97,7 @@ public class Canvas extends View{
     @Override
     protected void onDraw(android.graphics.Canvas canvas){
 
-        //music.start();
+        music.start();
         // mDetector = new GestureDetectorCompat(this,this);
         super.onDraw(canvas);
 
@@ -271,7 +269,6 @@ public class Canvas extends View{
 
             case MotionEvent.ACTION_DOWN:
                 isTouched = false;
-                //music.pause();
                 startX = (int) event.getRawX();
 
                 return true;
@@ -286,7 +283,7 @@ public class Canvas extends View{
                     s4 += 25;
                     s5 += 25;
                     s6 += 25;
-                    //music.seekTo(start -= 500);
+                    music.seekTo(start -= 500);
                 }
                 if ((endX - startX) < 0) {
                     // LEFT
@@ -296,7 +293,7 @@ public class Canvas extends View{
                     s4 -= 25;
                     s5 -= 25;
                     s6 -= 25;
-                    //music.seekTo(start += 500);
+                    music.seekTo(start += 500);
                 }
 
                 startX = (int) event.getRawX();

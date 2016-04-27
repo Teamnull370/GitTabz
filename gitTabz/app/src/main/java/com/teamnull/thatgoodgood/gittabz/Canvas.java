@@ -9,6 +9,7 @@ import android.graphics.Shader;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.widget.RelativeLayout;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -47,6 +49,9 @@ public class Canvas extends View{
     private GestureDetectorCompat mDetector;
     int startX;
     int endX;
+
+    boolean isPaused;
+
 
 
     public Canvas(Context context){
@@ -94,10 +99,39 @@ public class Canvas extends View{
         listy = list;
     }
 
+    public void pause_music() {
+        music.pause();
+        isPaused = true;
+        isTouched = false;
+        // Log.d("PAUSE", "Pause function");
+    }
+    public void play_music() {
+        music.start();
+        isPaused = false;
+        isTouched = true;
+        // Log.d("PLAY", "Play function");
+    }
+    public void rewind_music() {
+        music.seekTo(start -= 15000);
+        // Log.d("REWIND", "Rewind function");
+    }
+    public void fast_forward_music() {
+        music.seekTo(start += 15000);
+        // Log.d("FF", "Fast-Forward function");
+    }
+    public boolean pausetacular()   {
+        return isPaused;
+    }
+    public void set_pause(boolean pause_state) {
+        isPaused = pause_state;
+    }
+
+
     @Override
     protected void onDraw(android.graphics.Canvas canvas){
 
-        music.start();
+        if( !isPaused)
+            music.start();
         // mDetector = new GestureDetectorCompat(this,this);
         super.onDraw(canvas);
 
@@ -257,6 +291,9 @@ public class Canvas extends View{
             }
         }
         invalidate();
+
+
+
     }
 
 
@@ -310,5 +347,6 @@ public class Canvas extends View{
         }
         return false;
     }
+
 }
 

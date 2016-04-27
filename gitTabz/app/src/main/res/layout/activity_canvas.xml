@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:id="@+id/frame">
 
     <com.teamnull.thatgoodgood.gittabz.Canvas
         android:layout_width="match_parent"
@@ -12,9 +14,53 @@
 
     </com.teamnull.thatgoodgood.gittabz.Canvas>
 
-   <!-- <include
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/rewind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:src="@drawable/rewind_button"
+            android:layout_gravity="bottom|start"
+            app:backgroundTint="#000000"
+            app:rippleColor="#FFF" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:src="@drawable/play_button"
+            android:layout_gravity="bottom|center_horizontal"
+            app:backgroundTint="#000000"
+            app:rippleColor="#FFF"/>
+
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fast_forward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:src="@drawable/ff_button"
+            android:layout_gravity="bottom|end"
+            app:backgroundTint="#000000"
+            app:rippleColor="#FFF" />
+    </LinearLayout>
+    <!-- <include
         android:id="@+id/my_toolbar"
         layout="@layout/toolbar">
     </include>
     -->
 </FrameLayout>
+

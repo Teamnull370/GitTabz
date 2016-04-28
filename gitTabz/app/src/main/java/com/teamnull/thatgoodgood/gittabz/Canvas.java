@@ -123,6 +123,7 @@ public class Canvas extends View{
     public boolean pausetacular()   {
         return isPaused;
     }
+
     public void set_pause(boolean pause_state) {
         isPaused = pause_state;
     }
@@ -134,8 +135,11 @@ public class Canvas extends View{
     @Override
     protected void onDraw(android.graphics.Canvas canvas){
 
-        if( !isPaused)
+        if( !isPaused) {
             music.start();
+            // Continue working with this and display the music playback time
+            music.getCurrentPosition();
+        }
         // mDetector = new GestureDetectorCompat(this,this);
         super.onDraw(canvas);
 

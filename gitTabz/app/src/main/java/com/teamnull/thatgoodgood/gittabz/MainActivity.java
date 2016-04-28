@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Switch to the canvas activity
                 Intent intent = new Intent(MainActivity.this, CanvasActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("listy", listy);
@@ -110,6 +111,9 @@ public class MainActivity extends AppCompatActivity{
                 Toast.makeText(getApplicationContext(),
                         "Settings...",
                         Toast.LENGTH_SHORT).show();
+                // Switch to the settings activity
+                Intent settings = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(settings);
                 break;
 
             case R.id.action_up:
@@ -129,7 +133,9 @@ public class MainActivity extends AppCompatActivity{
                         Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_other:
-                setContentView(R.layout.easter_egg);
+                // switch to the easter Bernie Activity
+                Intent bernie = new Intent(MainActivity.this, BernieActivity.class);
+                startActivity(bernie);
                 break;
             default:
                 Toast.makeText(getApplicationContext(),

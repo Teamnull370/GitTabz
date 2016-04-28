@@ -39,17 +39,12 @@ public class CanvasActivity extends AppCompatActivity {
         Intent intent = getIntent();
         ArrayList<ArrayNode> list = intent.getParcelableArrayListExtra("listy");
 
-
-
         if( list != null) {
             ((Canvas) findViewById(R.id.canvas)).setList(list);
         }
 
-        // ((Canvas) findViewById(R.id.canvas))
-
         view = (Canvas) findViewById(R.id.canvas);
-
-        ((Canvas) findViewById(R.id.canvas)).set_pause(false);
+        view.set_pause(false);
 
 //        Toolbar mytoolbar = (Toolbar)findViewById(R.id.my_toolbar);
         // designate the Toolbar as the action bar for an Activity
@@ -68,11 +63,11 @@ public class CanvasActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if ( !((Canvas) findViewById(R.id.canvas)).pausetacular() ) {
-                    ((Canvas) findViewById(R.id.canvas)).pause_music();
+                    view.pause_music();
                     //getSupportActionBar().show();
                 }
                 else {
-                    ((Canvas) findViewById(R.id.canvas)).play_music();
+                    view.play_music();
                     //getSupportActionBar().hide();
                 }
             }
@@ -83,7 +78,7 @@ public class CanvasActivity extends AppCompatActivity {
         rewind_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((Canvas) findViewById(R.id.canvas)).rewind_music();
+                view.rewind_music();
             }
         });
 
@@ -92,12 +87,9 @@ public class CanvasActivity extends AppCompatActivity {
         ff_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((Canvas) findViewById(R.id.canvas)).fast_forward_music();
+                view.fast_forward_music();
             }
         });
-
-        // music.seekTo(start-15000);
-        // music.seekTo(start-30000);
 
     }
 
@@ -105,4 +97,9 @@ public class CanvasActivity extends AppCompatActivity {
         this.setContentView(R.layout.toolbar);
     }*/
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        view.stop_music();
+    }
 }

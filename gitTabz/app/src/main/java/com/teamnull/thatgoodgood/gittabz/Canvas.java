@@ -99,6 +99,7 @@ public class Canvas extends View{
         listy = list;
     }
 
+    // getter and setter functions
     public void pause_music() {
         music.pause();
         isPaused = true;
@@ -126,6 +127,9 @@ public class Canvas extends View{
         isPaused = pause_state;
     }
 
+    public void stop_music() {
+        music.stop();
+    }
 
     @Override
     protected void onDraw(android.graphics.Canvas canvas){
@@ -347,6 +351,7 @@ public class Canvas extends View{
         }
         return false;
     }
+
 
 }
 

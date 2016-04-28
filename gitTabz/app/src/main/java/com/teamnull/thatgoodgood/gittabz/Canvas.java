@@ -33,6 +33,16 @@ import android.support.v4.view.GestureDetectorCompat;
  * ALL THE COOL PAINT STUFF DONE BY DANNY CUZ HE BE COOL AND SHIT
  */
 
+class Circle {
+    public float ln;
+
+    public Circle(float line) {
+        this.ln = line;
+    }
+}
+
+
+
 public class Canvas extends View{
     MediaPlayer music;
     float s1;
@@ -45,10 +55,12 @@ public class Canvas extends View{
     int time;
     int start;
     boolean isTouched;
-    ArrayList<ArrayNode> listy;
+    public ArrayList<ArrayNode> listy;
+    public ArrayList<circle> circles;
     private GestureDetectorCompat mDetector;
     int startX;
     int endX;
+
 
     boolean isPaused;
 
@@ -95,9 +107,12 @@ public class Canvas extends View{
     Paint w = new Paint();
 
 
+
     public void setList(ArrayList<ArrayNode> list){
         listy = list;
     }
+
+    circles.add( new Circle(s1) );
 
     public void pause_music() {
         music.pause();
@@ -126,9 +141,14 @@ public class Canvas extends View{
         isPaused = pause_state;
     }
 
+    class drawCircle(Canvas can) {
+        Paint p = new Paint();
+        can.drawCircle(s1, can.getHeight() / 8 * listy.get(0).getString(), 25, p);
+
+    }
 
     @Override
-    protected void onDraw(android.graphics.Canvas canvas){
+    protected void onDraw(final android.graphics.Canvas canvas){
 
         if( !isPaused)
             music.start();
@@ -165,14 +185,20 @@ public class Canvas extends View{
         //This creates the white background
         canvas.drawColor(Color.WHITE);
 
-        //These are all of the circles
-        canvas.drawCircle(s1, canvas.getHeight() / 8 * listy.get(0).getString(), 25, p);
-        canvas.drawCircle(s2, canvas.getHeight() / 8 * listy.get(1).getString(), 25, p);
-        canvas.drawCircle(s3, canvas.getHeight() / 8 * listy.get(2).getString(), 25, p);
-        canvas.drawCircle(s4, canvas.getHeight() / 8 * listy.get(3).getString(), 25, p);
-        canvas.drawCircle(s5, canvas.getHeight() / 8 * listy.get(4).getString(), 25, p);
-        canvas.drawCircle(s6, canvas.getHeight() / 8 * listy.get(5).getString(), 25, p);
 
+        //This is the underlying red rectangle
+        canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, r);
+
+        ////////////The Beginging of the end/////////////////////
+
+
+        drawOne one = new drawOne(s1, true);
+
+
+
+
+
+        ///////////THe End of the end///////////////
 
         //The bar lines the notes will go on
         canvas.drawLine(0, canvas.getHeight() / 8, canvas.getWidth(), canvas.getHeight() / 8, q);
@@ -183,8 +209,15 @@ public class Canvas extends View{
         canvas.drawLine(0, canvas.getHeight() / 8 * 6, canvas.getWidth(), canvas.getHeight() / 8 * 6, q);
 
 
-        //This is the underlying red rectangle
-        canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, r);
+        //These are all of the circles
+        canvas.drawCircle(s1, canvas.getHeight() / 8 * listy.get(0).getString(), 25, p);
+        canvas.drawCircle(s2, canvas.getHeight() / 8 * listy.get(1).getString(), 25, p);
+        canvas.drawCircle(s3, canvas.getHeight() / 8 * listy.get(2).getString(), 25, p);
+        canvas.drawCircle(s4, canvas.getHeight() / 8 * listy.get(3).getString(), 25, p);
+        canvas.drawCircle(s5, canvas.getHeight() / 8 * listy.get(4).getString(), 25, p);
+        canvas.drawCircle(s6, canvas.getHeight() / 8 * listy.get(5).getString(), 25, p);
+
+
 
         //White circle
         canvas.drawCircle(s1, canvas.getHeight() / 8, 24, w);

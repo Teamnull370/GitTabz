@@ -75,6 +75,7 @@ public class Canvas extends View{
 
 
     boolean isPaused;
+    boolean night_mode;
 
 
 
@@ -92,6 +93,14 @@ public class Canvas extends View{
     public Canvas(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
+    }
+
+    public void setNight_mode() {
+        night_mode = true;
+    }
+
+    public void setDay_mode() {
+        night_mode = false;
     }
 
     private void init(Context context) {
@@ -126,6 +135,7 @@ public class Canvas extends View{
     }
 
 
+    // getter and setter functions
 
     public void pause_music() {
         music.pause();
@@ -141,28 +151,37 @@ public class Canvas extends View{
     }
     public void rewind_music() {
         music.seekTo(start -= 15000);
-        s1 -= 200;
+        s1 += 200;
         // Log.d("REWIND", "Rewind function");
     }
     public void fast_forward_music() {
         music.seekTo(start += 15000);
-        s1 += 200;
+        s1 -= 200;
         // Log.d("FF", "Fast-Forward function");
     }
     public boolean pausetacular()   {
         return isPaused;
     }
+
     public void set_pause(boolean pause_state) {
         isPaused = pause_state;
     }
+
+    public void stop_music() {
+        music.stop();
+    }
+
 
 
     @Override
     protected void onDraw(final android.graphics.Canvas canvas){
 
 
-        if( !isPaused)
+        if( !isPaused) {
             music.start();
+            // Continue working with this and display the music playback time
+            music.getCurrentPosition();
+        }
         // mDetector = new GestureDetectorCompat(this,this);
         super.onDraw(canvas);
 
@@ -401,6 +420,7 @@ public class Canvas extends View{
         }
         return false;
     }
+
 
 }
 

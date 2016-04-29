@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Switch to the canvas activity
                 Intent intent = new Intent(MainActivity.this, CanvasActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("listy", listy);
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
-    // Display the
+    // Display the Options Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -104,16 +105,18 @@ public class MainActivity extends AppCompatActivity{
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.search:
-                Toast.makeText(getApplicationContext(),
-                        "Search...",
-                        Toast.LENGTH_SHORT).show();
+                Intent search = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(search);
                 break;
             case R.id.action_settings:
                 Toast.makeText(getApplicationContext(),
                         "Settings...",
                         Toast.LENGTH_SHORT).show();
+                // Switch to the settings activity
+                Intent settings = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(settings);
                 break;
-
+/*
             case R.id.action_up:
                 Toast.makeText(getApplicationContext(),
                         "Previous verse",
@@ -124,14 +127,16 @@ public class MainActivity extends AppCompatActivity{
                         "Next Verse",
                         Toast.LENGTH_SHORT).show();
                 break;
-
+*/
             case R.id.action_ball:
                 Toast.makeText(getApplicationContext(),
-                        "Other...",
+                        "Feeling Ballsey?",
                         Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_other:
-                setContentView(R.layout.easter_egg);
+                // switch to the easter Bernie Activity
+                Intent bernie = new Intent(MainActivity.this, BernieActivity.class);
+                startActivity(bernie);
                 break;
             default:
                 Toast.makeText(getApplicationContext(),

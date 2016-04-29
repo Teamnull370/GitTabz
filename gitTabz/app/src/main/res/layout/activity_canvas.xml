@@ -14,11 +14,10 @@
 
     </com.teamnull.thatgoodgood.gittabz.Canvas>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/bottomBar"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:layout_gravity="bottom">
 
@@ -29,7 +28,7 @@
             android:layout_margin="16dp"
             android:clickable="true"
             android:src="@drawable/rewind_button"
-            android:layout_gravity="bottom|start"
+            android:layout_alignParentStart="true"
             app:backgroundTint="#000000"
             app:rippleColor="#FFF" />
 
@@ -40,7 +39,7 @@
             android:layout_margin="16dp"
             android:clickable="true"
             android:src="@drawable/play_button"
-            android:layout_gravity="bottom|center_horizontal"
+            android:layout_centerHorizontal="true"
             app:backgroundTint="#000000"
             app:rippleColor="#FFF"/>
 
@@ -53,10 +52,10 @@
             android:layout_margin="16dp"
             android:clickable="true"
             android:src="@drawable/ff_button"
-            android:layout_gravity="bottom|end"
+            android:layout_alignParentEnd="true"
             app:backgroundTint="#000000"
             app:rippleColor="#FFF" />
-    </LinearLayout>
+    </RelativeLayout>
     <!-- <include
         android:id="@+id/my_toolbar"
         layout="@layout/toolbar">

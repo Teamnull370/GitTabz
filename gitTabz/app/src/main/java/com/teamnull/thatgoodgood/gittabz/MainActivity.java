@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity implements Debug{
 
         InputStream is = getResources().openRawResource(R.raw.guitar_test);
         tab.read(is);
-
+        tab.parse();
+        tab.parseData();
 
 
 

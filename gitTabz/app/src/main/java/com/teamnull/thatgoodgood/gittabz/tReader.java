@@ -11,6 +11,8 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /*
  *
@@ -176,36 +178,52 @@ public class tReader implements Debug{
     }
 
     public void parseData(){
-        int iter=0;
+        Integer iter=0;
         Character bt=' ';
+        Integer r=0;
 
-        ArrayList<String> tempChord= new ArrayList<>();
+        Integer max = dataLength();
+
+        ArrayList<Integer> tempChord= new ArrayList<>();
         //_measureLength
 
 
-        while(iter<45) {
+
+
+
+        while(iter<max) {
             bt=' ';
-            for (int i = 0; i < 6; i++) {
-                String tempData=_data.get(i).get(iter);
-                if(tempData!="-"){
-                    Integer r;
-                    r=Character.getNumericValue(tempData.charAt(1));
-                    if(Character.isDigit(tempData.charAt(2))){
-			            r+=Character.getNumericValue(tempData.charAt(2));
-                        if(bt ==' '){
-                            bt = tempData.charAt(3);
-                        }
-                    }else{
-                        if(bt ==' '){
-                            bt = tempData.charAt(4);
-                   	    }
-		            }
-                }
 
-
+            if(iter<=40){
+                int itt=0;
+                itt++;
             }
 
+            for (int i = 0; i < 6; i++) {
 
+
+                if (iter.compareTo(_data.get(i).size())<0){
+                    String tempData = _data.get(i).get(iter);
+
+                //*/
+                    if (!tempData.equals("-")) {
+                        r = Character.getNumericValue(tempData.charAt(1));
+                        if (Character.isDigit(tempData.charAt(2))) {
+                            r += Character.getNumericValue(tempData.charAt(2));
+                            if (bt == ' ') {
+                                bt = tempData.charAt(3);
+                            }
+                        } else {
+                            if (bt == ' ') {
+                                bt = tempData.charAt(2);
+                            }
+                        }
+                    }
+                //*/
+                }
+            }
+
+            tempChord.add(r);
             iter += interP(bt);
         }
 
@@ -225,6 +243,19 @@ public class tReader implements Debug{
         else return 1;
 
     }
+    private Integer dataLength(){
 
+        ArrayList<Integer> a=new ArrayList<>();
+
+        a.add(_data.get(0).size());
+        a.add(_data.get(1).size());
+        a.add(_data.get(2).size());
+        a.add(_data.get(3).size());
+        a.add(_data.get(4).size());
+        a.add(_data.get(5).size());
+
+        return Collections.max(a);
+
+    }
 
 }

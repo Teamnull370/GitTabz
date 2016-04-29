@@ -181,6 +181,7 @@ public class tReader implements Debug{
         Integer iter=0;
         Character bt=' ';
         Integer r=0;
+        Boolean nextNote=false;
 
         Integer max = dataLength();
 
@@ -194,22 +195,22 @@ public class tReader implements Debug{
         while(iter<max) {
             bt=' ';
 
-            if(iter<=40){
-                int itt=0;
-                itt++;
-            }
-
             for (int i = 0; i < 6; i++) {
-
+                r=-1;
 
                 if (iter.compareTo(_data.get(i).size())<0){
                     String tempData = _data.get(i).get(iter);
-
+                    if(!_data.get(i).get(iter+1).equals("-")){
+                        nextNote=true;
+                    }
                 //*/
+                    if(tempData.equals("~")){
+                        return;
+                    }
                     if (!tempData.equals("-")) {
                         r = Character.getNumericValue(tempData.charAt(1));
                         if (Character.isDigit(tempData.charAt(2))) {
-                            r += Character.getNumericValue(tempData.charAt(2));
+                            r= (r*10)+ Character.getNumericValue(tempData.charAt(2));
                             if (bt == ' ') {
                                 bt = tempData.charAt(3);
                             }
@@ -218,13 +219,25 @@ public class tReader implements Debug{
                                 bt = tempData.charAt(2);
                             }
                         }
+                    }else {
+                        r=-1;
                     }
+
                 //*/
                 }
-            }
 
-            tempChord.add(r);
-            iter += interP(bt);
+                tempChord.add(r);
+                //Log.d("chord check",r.toString());
+            }
+            tempChord.add(interBeat(bt));
+            Log.d("chord",tempChord.toString());
+            tempChord=new ArrayList<>();
+            if(nextNote == false){
+                iter += interP(bt);
+            }else{
+                iter++;
+            }
+            nextNote=false;
         }
 
     }
@@ -241,6 +254,21 @@ public class tReader implements Debug{
         else if (_beat == '-')
             return 1;
         else return 1;
+
+    }
+    private Integer interBeat(Character _beat){
+        if (_beat == 'w') {
+            return 1; //whole
+        } else if (_beat == 'h') {
+            return 2; //half
+        } else if (_beat == 'q') {
+            return 3; //quarter
+        } else if (_beat == 'i') {
+            return 4; //eighth
+        }
+        else if (_beat == '-')
+            return -1;
+        else return -1;
 
     }
     private Integer dataLength(){

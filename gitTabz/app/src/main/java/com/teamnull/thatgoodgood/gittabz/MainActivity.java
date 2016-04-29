@@ -39,7 +39,9 @@ public class MainActivity extends AppCompatActivity{
 
         final ArrayList<ArrayNode> listy = new ArrayList<>();
         listy.add(new ArrayNode(1, 17));
+        listy.add(new ArrayNode(1, 22));
         listy.add(new ArrayNode(2, 12));
+        listy.add(new ArrayNode(4, 17));
         listy.add(new ArrayNode(3, 15));
         listy.add(new ArrayNode(4, 14));
         listy.add(new ArrayNode(5, 15));

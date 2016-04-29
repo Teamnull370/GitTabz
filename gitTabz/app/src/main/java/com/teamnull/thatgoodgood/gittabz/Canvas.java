@@ -100,11 +100,11 @@ public class Canvas extends View{
         music = MediaPlayer.create(context, R.raw.song);
         s1 = getWidth();
         stringSpace = getHeight() / 8;
-        s1 = 500;
+        s1 = 100;
         s2 = 1000;
-        s3 = 2000;
-        s4 = 3000;
-        s5 = 2000;
+        s3 = 1500;
+        s4 = 2000;
+        s5 = 2500;
         s6 = 3000;
         isTouched = true;
         circles = new ArrayList<>();
@@ -228,26 +228,31 @@ public class Canvas extends View{
 //        canvas.drawCircle(s6, canvas.getHeight() / 8 * listy.get(5).getString(), 25, p);
 
 
-        for(int i = 0; i <= 6; i++) {
+        for(int i = 0; i <= listy.size()-1; i++) {
+            float c = (float)i * 12;
             circles.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(), listy.get(i).getFret()));
-            canvas.drawCircle(circles.get(i).getX() + s1, circles.get(i).getLn(), 25, p);
+            canvas.drawCircle( s1 + c -30 /*- circles.get(i).getX()*/, circles.get(i).getLn(), 25, p);
+            //White circle
+            canvas.drawCircle( s1 + c - 30 /*- circles.get(i).getX()*/, circles.get(i).getLn(), 24, w);
+            //Number
+            canvas.drawText(String.valueOf(listy.get(i).fretNumber), s1 + c - 30 /*- circles.get(i).getX()*/, circles.get(i).getLn() + 10, num);
         }
 
-        //White circle
-        canvas.drawCircle(s1, canvas.getHeight() / 8, 24, w);
-        canvas.drawCircle(s2, canvas.getHeight() / 8 * 2, 24, w);
-        canvas.drawCircle(s3, canvas.getHeight() / 8 * 3, 24, w);
-        canvas.drawCircle(s4, canvas.getHeight() / 8 * 4, 24, w);
-        canvas.drawCircle(s5, canvas.getHeight() / 8 * 5, 24, w);
-        canvas.drawCircle(s6, canvas.getHeight() / 8 * 6, 24, w);
+//        //White circle
+//        canvas.drawCircle(s1, canvas.getHeight() / 8, 24, w);
+//        canvas.drawCircle(s2, canvas.getHeight() / 8 * 2, 24, w);
+//        canvas.drawCircle(s3, canvas.getHeight() / 8 * 3, 24, w);
+//        canvas.drawCircle(s4, canvas.getHeight() / 8 * 4, 24, w);
+//        canvas.drawCircle(s5, canvas.getHeight() / 8 * 5, 24, w);
+//        canvas.drawCircle(s6, canvas.getHeight() / 8 * 6, 24, w);
 
         //Number printer
-        canvas.drawText(String.valueOf(listy.get(0).fretNumber), s1, canvas.getHeight() / 8 + 10, num);
-        canvas.drawText(String.valueOf(listy.get(1).fretNumber), s2, canvas.getHeight() / 8 * listy.get(1).getString() + 10, num);
-        canvas.drawText(String.valueOf(listy.get(2).fretNumber), s3, canvas.getHeight() / 8 * 3 + 10, num);
-        canvas.drawText(String.valueOf(listy.get(3).fretNumber), s4, canvas.getHeight() / 8 * 4 + 10, num);
-        canvas.drawText(String.valueOf(listy.get(4).fretNumber), s5, canvas.getHeight() / 8 * 5 + 10, num);
-        canvas.drawText(String.valueOf(listy.get(5).fretNumber), s6, canvas.getHeight() / 8 * 6 + 10, num);
+//        canvas.drawText(String.valueOf(listy.get(0).fretNumber), s1, canvas.getHeight() / 8 + 10, num);
+//        canvas.drawText(String.valueOf(listy.get(1).fretNumber), s2, canvas.getHeight() / 8 * listy.get(1).getString() + 10, num);
+//        canvas.drawText(String.valueOf(listy.get(2).fretNumber), s3, canvas.getHeight() / 8 * 3 + 10, num);
+//        canvas.drawText(String.valueOf(listy.get(3).fretNumber), s4, canvas.getHeight() / 8 * 4 + 10, num);
+//        canvas.drawText(String.valueOf(listy.get(4).fretNumber), s5, canvas.getHeight() / 8 * 5 + 10, num);
+//        canvas.drawText(String.valueOf(listy.get(5).fretNumber), s6, canvas.getHeight() / 8 * 6 + 10, num);
 
         //This is the Transparent rectangle that goes over the red one.
         canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, p);

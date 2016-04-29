@@ -174,15 +174,57 @@ public class tReader implements Debug{
             //System.out.println("Character at " + _iter +": "+ _raws.charAt(_iter));
 
     }
-    /*
-    private void parseNote(){
-        for(int i=1; i<6;i++){
-            _data.get(i)
+
+    public void parseData(){
+        int iter=0;
+        Character bt=' ';
+
+        ArrayList<String> tempChord= new ArrayList<>();
+        //_measureLength
+
+
+        while(iter<45) {
+            bt=' ';
+            for (int i = 0; i < 6; i++) {
+                String tempData=_data.get(i).get(iter);
+                if(tempData!="-"){
+                    Integer r;
+                    r=Character.getNumericValue(tempData.charAt(1));
+                    if(Character.isDigit(tempData.charAt(2))){
+			            r+=Character.getNumericValue(tempData.charAt(2));
+                        if(bt ==' '){
+                            bt = tempData.charAt(3);
+                        }
+                    }else{
+                        if(bt ==' '){
+                            bt = tempData.charAt(4);
+                   	    }
+		            }
+                }
+
+
+            }
+
+
+            iter += interP(bt);
         }
 
+    }
+    private Integer interP(Character _beat){
+        if (_beat == 'w') {
+            return 8; //whole
+        } else if (_beat == 'h') {
+            return 4; //half
+        } else if (_beat == 'q') {
+            return 2; //quarter
+        } else if (_beat == 'i') {
+            return 1; //eighth
+        }
+        else if (_beat == '-')
+            return 1;
+        else return 1;
 
     }
-    */
 
 
 }

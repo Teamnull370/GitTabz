@@ -141,10 +141,12 @@ public class Canvas extends View{
     }
     public void rewind_music() {
         music.seekTo(start -= 15000);
+        s1 -= 200;
         // Log.d("REWIND", "Rewind function");
     }
     public void fast_forward_music() {
         music.seekTo(start += 15000);
+        s1 += 200;
         // Log.d("FF", "Fast-Forward function");
     }
     public boolean pausetacular()   {

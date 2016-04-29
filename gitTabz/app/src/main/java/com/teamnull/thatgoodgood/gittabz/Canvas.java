@@ -51,6 +51,7 @@ public class Canvas extends View{
     int endX;
 
     boolean isPaused;
+    boolean night_mode;
 
 
 
@@ -68,6 +69,14 @@ public class Canvas extends View{
     public Canvas(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
+    }
+
+    public void setNight_mode() {
+        night_mode = true;
+    }
+
+    public void setDay_mode() {
+        night_mode = false;
     }
 
     private void init(Context context) {
@@ -131,6 +140,8 @@ public class Canvas extends View{
     public void stop_music() {
         music.stop();
     }
+
+
 
     @Override
     protected void onDraw(android.graphics.Canvas canvas){

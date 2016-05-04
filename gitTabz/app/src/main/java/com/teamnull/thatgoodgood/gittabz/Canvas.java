@@ -73,6 +73,8 @@ public class Canvas extends View{
     int start;
     double timestart, timeend;
     boolean isTouched;
+    boolean isPaused;
+
     public ArrayList<ArrayNode> listy;
     public ArrayList<Circle> circles;
     private GestureDetectorCompat mDetector;
@@ -80,7 +82,6 @@ public class Canvas extends View{
     int endX;
 
 
-    boolean isPaused;
     boolean night_mode;
 
 
@@ -129,7 +130,7 @@ public class Canvas extends View{
         time = music.getDuration();
         start = music.getCurrentPosition();
 
-
+        // float-type interpretations for the Seek Bar
         timeend = music.getDuration();
         timestart = music.getCurrentPosition();
     }
@@ -151,13 +152,16 @@ public class Canvas extends View{
 
 
 
-    // Public methods for controlling music playback
+    // The following public methods are used for controlling the music playback
+
+    // Pause the music
     public void pause_music() {
         music.pause();
         isPaused = true;
         isTouched = false;
         // Log.d("PAUSE", "Pause function");
     }
+    // Continue playing the music
     public void play_music() {
         music.start();
         isPaused = false;
@@ -166,18 +170,21 @@ public class Canvas extends View{
         timestart = music.getCurrentPosition();
         // Log.d("PLAY_MUSIC", "got current position.");
     }
+    // Stop the music
     public void stop_music() {
         music.stop();
         isPaused = false;
         isTouched = true;
         // Log.d("PLAY", "Play function");
     }
+    // Rewind the music by 15 seconds
     public void rewind_music() {
         start = music.getCurrentPosition();
         music.seekTo(start -= 15000);
         s1 += 200;
         // Log.d("REWIND", "Rewind function");
     }
+    // Fast-forward the music by 15 seconds
     public void fast_forward_music() {
         start = music.getCurrentPosition();
         music.seekTo(start += 15000);
@@ -250,7 +257,7 @@ public class Canvas extends View{
         //This is the underlying red rectangle
         canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, r);
 
-        ////////////The Beginging of the end/////////////////////
+        ////////////The Beginning of the end/////////////////////
 
 
         //drawOne one = new drawOne(s1, true);

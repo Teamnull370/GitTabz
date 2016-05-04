@@ -8,6 +8,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
@@ -23,10 +24,14 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
+
 import android.view.GestureDetector.OnDoubleTapListener;
 import static android.util.Log.d;
 import static java.lang.Float.toString;
 import android.support.v4.view.GestureDetectorCompat;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 /**
  * Created by Jonathon on 3/31/2016.
@@ -66,6 +71,7 @@ public class Canvas extends View{
     int stringSpace;
     int time;
     int start;
+    double timestart, timeend;
     boolean isTouched;
     public ArrayList<ArrayNode> listy;
     public ArrayList<Circle> circles;
@@ -76,6 +82,9 @@ public class Canvas extends View{
 
     boolean isPaused;
     boolean night_mode;
+
+
+    private TextView songName, songDuration;
 
 
 
@@ -119,6 +128,10 @@ public class Canvas extends View{
         circles = new ArrayList<>();
         time = music.getDuration();
         start = music.getCurrentPosition();
+
+
+        timeend = music.getDuration();
+        timestart = music.getCurrentPosition();
     }
 
 
@@ -135,8 +148,10 @@ public class Canvas extends View{
     }
 
 
-    // getter and setter functions
 
+
+
+    // Public methods for controlling music playback
     public void pause_music() {
         music.pause();
         isPaused = true;
@@ -147,14 +162,24 @@ public class Canvas extends View{
         music.start();
         isPaused = false;
         isTouched = true;
+        // Log.d("PLAY_MUSIC1", "getting current position.");
+        timestart = music.getCurrentPosition();
+        // Log.d("PLAY_MUSIC", "got current position.");
+    }
+    public void stop_music() {
+        music.stop();
+        isPaused = false;
+        isTouched = true;
         // Log.d("PLAY", "Play function");
     }
     public void rewind_music() {
+        start = music.getCurrentPosition();
         music.seekTo(start -= 15000);
         s1 += 200;
         // Log.d("REWIND", "Rewind function");
     }
     public void fast_forward_music() {
+        start = music.getCurrentPosition();
         music.seekTo(start += 15000);
         s1 -= 200;
         // Log.d("FF", "Fast-Forward function");
@@ -162,14 +187,19 @@ public class Canvas extends View{
     public boolean pausetacular()   {
         return isPaused;
     }
-
     public void set_pause(boolean pause_state) {
         isPaused = pause_state;
     }
-
-    public void stop_music() {
-        music.stop();
+    public double duration() {
+        return timeend;
     }
+
+    public double current_position() {
+        timestart = music.getCurrentPosition();
+        return timestart;
+    }
+
+
 
 
 
@@ -368,8 +398,6 @@ public class Canvas extends View{
 
 
     }
-
-
 
 
 

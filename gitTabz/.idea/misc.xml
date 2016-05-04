@@ -44,6 +44,7 @@
     <option name="id" value="Android" />
   </component>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <component name="masterDetails">
     <states>
       <state key="ScopeChooserConfigurable.UI">
@@ -61,4 +62,6 @@
   </component>
 =======
 >>>>>>> origin/settingsactivity
+=======
+>>>>>>> origin/playback2
 </project>

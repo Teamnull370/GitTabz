@@ -14,12 +14,44 @@
 
     </com.teamnull.thatgoodgood.gittabz.Canvas>
 
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="false"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/songDuration"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/songRemaining"
+        android:layout_gravity="right"/>
+
+
+    <TextView
+        android:id="@+id/delay_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="58dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+
     <RelativeLayout
         android:id="@+id/bottomBar"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:orientation="horizontal"
         android:layout_gravity="bottom">
+
+
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/rewind"

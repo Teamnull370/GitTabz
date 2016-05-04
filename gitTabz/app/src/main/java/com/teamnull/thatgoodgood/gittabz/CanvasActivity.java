@@ -74,6 +74,7 @@ public class CanvasActivity extends AppCompatActivity {
         view = (Canvas) findViewById(R.id.canvas);
         view.set_pause(false);
         text = (TextView)findViewById(R.id.delay_timer);
+
         seekBar = (SeekBar)findViewById(R.id.seekBar);
         seekBar.setMax((int) view.duration());
         seekBar.setClickable(false);

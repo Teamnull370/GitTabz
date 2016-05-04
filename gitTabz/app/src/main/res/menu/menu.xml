@@ -10,7 +10,7 @@
         android:icon="@drawable/search_icon"
         app:showAsAction="collapseActionView|ifRoom"
         android:actionViewClass="android.widget.SearchView" />
-
+<!--
     <item
         android:id="@+id/action_up"
         android:orderInCategory="100"
@@ -24,7 +24,7 @@
         app:showAsAction="ifRoom"
         android:icon="@android:drawable/arrow_down_float"
         android:title="Next Verse"/>
-
+-->
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
@@ -43,7 +43,7 @@
         android:id="@+id/action_other"
         android:orderInCategory="100"
         app:showAsAction="never"
-        android:icon="@drawable/ball"
+        android:icon="@drawable/rainbow"
         android:title="Other"/>
 
 </menu>

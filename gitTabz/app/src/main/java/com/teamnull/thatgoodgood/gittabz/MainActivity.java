@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity{
                         "Settings...",
                         Toast.LENGTH_SHORT).show();
                 break;
-
+/*
             case R.id.action_up:
                 Toast.makeText(getApplicationContext(),
                         "Previous verse",
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity{
                         "Next Verse",
                         Toast.LENGTH_SHORT).show();
                 break;
-
+*/
             case R.id.action_ball:
                 Toast.makeText(getApplicationContext(),
                         "Other...",

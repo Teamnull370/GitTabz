@@ -14,13 +14,43 @@
 
     </com.teamnull.thatgoodgood.gittabz.Canvas>
 
-    <LinearLayout
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="false"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/songDuration"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/songRemaining"
+        android:layout_gravity="right"/>
+
+
+    <TextView
+        android:id="@+id/delay_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="58dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+    <RelativeLayout
         android:id="@+id/bottomBar"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:layout_gravity="bottom">
+
+
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/rewind"
@@ -29,7 +59,7 @@
             android:layout_margin="16dp"
             android:clickable="true"
             android:src="@drawable/rewind_button"
-            android:layout_gravity="bottom|start"
+            android:layout_alignParentStart="true"
             app:backgroundTint="#000000"
             app:rippleColor="#FFF" />
 
@@ -40,7 +70,7 @@
             android:layout_margin="16dp"
             android:clickable="true"
             android:src="@drawable/play_button"
-            android:layout_gravity="bottom|center_horizontal"
+            android:layout_centerHorizontal="true"
             app:backgroundTint="#000000"
             app:rippleColor="#FFF"/>
 
@@ -53,10 +83,10 @@
             android:layout_margin="16dp"
             android:clickable="true"
             android:src="@drawable/ff_button"
-            android:layout_gravity="bottom|end"
+            android:layout_alignParentEnd="true"
             app:backgroundTint="#000000"
             app:rippleColor="#FFF" />
-    </LinearLayout>
+    </RelativeLayout>
     <!-- <include
         android:id="@+id/my_toolbar"
         layout="@layout/toolbar">

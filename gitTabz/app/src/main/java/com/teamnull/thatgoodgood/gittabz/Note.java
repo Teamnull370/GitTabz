@@ -23,12 +23,15 @@ public class Note{
 
     public Note(Integer str, Integer frt, Integer bt){
         _strng=str;
-        _fret=frt;
+        if(frt==-9){
+            _fret=-1;
+        }else
+            _fret=frt;
         _beat=bt;
 
-        //_snd=new Sound(_strng, _fret,_beat );
-        //_snd.addBeat();
-        //_snd.setTone();
+        _snd=new Sound(_strng, _fret,_beat );
+        _snd.addBeat();
+        _snd.setTone();
        // this.makeSound();
     }
     public Note(Integer str, Integer frt){   // use with caution

@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity implements Debug{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ArrayList<ArrayNode> listy = new ArrayList<>();
-
+        ArrayList<Chord> chordList;
 
         tReader tab = new tReader();
        //tab.read("/Users/student/Desktop/repo/ThatGoodGood/gitTabz/app/src/main/java/com/teamnull/thatgoodgood/gittabz/guitar_test.txt");
@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements Debug{
         tab.parse();
         tab.parseData();
 
+        chordList = tab.chordList();
 
 
 

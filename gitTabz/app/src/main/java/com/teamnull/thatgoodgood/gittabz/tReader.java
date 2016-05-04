@@ -26,7 +26,7 @@ public class tReader implements Debug{
     private Integer _stringNum;
     private ArrayList<ArrayList<String>> _data= new ArrayList<>();
     private ArrayList<String> _dataMember;
-
+    private ArrayList<Chord> chordList=new ArrayList<>();
 
     public tReader(){
 
@@ -185,9 +185,8 @@ public class tReader implements Debug{
 
         Integer max = dataLength();
 
-        ArrayList<Integer> tempChord= new ArrayList<>();
+        ArrayList<Integer> chordNote= new ArrayList<>();
         //_measureLength
-
 
 
 
@@ -209,6 +208,7 @@ public class tReader implements Debug{
                     }
                     if (!tempData.equals("-")) {
                         r = Character.getNumericValue(tempData.charAt(1));
+
                         if (Character.isDigit(tempData.charAt(2))) {
                             r= (r*10)+ Character.getNumericValue(tempData.charAt(2));
                             if (bt == ' ') {
@@ -219,24 +219,29 @@ public class tReader implements Debug{
                                 bt = tempData.charAt(2);
                             }
                         }
-                    }else {
-                        r=-1;
                     }
 
                 //*/
                 }
-
-                tempChord.add(r);
+                chordNote.add(r);
                 //Log.d("chord check",r.toString());
             }
-            tempChord.add(interBeat(bt));
-            Log.d("chord",tempChord.toString());
-            tempChord=new ArrayList<>();
+            chordNote.add(r);
+            Chord strum = new Chord(chordNote,interBeat(bt));
+            strum.makeNotes();
+            strum.makePattern();
+            chordList.add(strum);
+            //Log.d("chord", chordNote.toString());
+            chordNote=new ArrayList<>();
+
+            /*
             if(nextNote == false){
                 iter += interP(bt);
             }else{
                 iter++;
             }
+            */
+            iter++;
             nextNote=false;
         }
 
@@ -285,5 +290,8 @@ public class tReader implements Debug{
         return Collections.max(a);
 
     }
+    public ArrayList<Chord> chordList(){
 
+        return chordList;
+    }
 }

@@ -39,9 +39,7 @@ import android.widget.TextView;
  * ALL THE COOL PAINT STUFF DONE BY DANNY CUZ HE BE COOL AND SHIT
  */
 
-
-
-public class Canvas extends View{
+public class Canvas extends View implements Debug{
     MediaPlayer music;
     float s1;
     float s2;
@@ -110,6 +108,11 @@ public class Canvas extends View{
         x = 1000;
         k = 1000;
         s1 = 100;
+
+        //listy = list;
+        //s1 = getWidth();
+        s1 = 500;
+
         s2 = 1000;
         s3 = 1500;
         s4 = 2000;
@@ -207,6 +210,13 @@ public class Canvas extends View{
         }
 
         // mDetector = new GestureDetectorCompat(this,this);
+
+//    @Override
+//    protected void onDraw(android.graphics.Canvas canvas){
+//        if(_startSound) {
+//            music.start();
+//        }
+
         super.onDraw(canvas);
 
         ///////////////All the paint Info//////////////////////////////////////////////////////////
@@ -373,12 +383,15 @@ public class Canvas extends View{
 
 
 
+
+
     public boolean onTouchEvent (MotionEvent event) {
         int pos =  music.getCurrentPosition();
         switch (event.getAction()) {
 
             case MotionEvent.ACTION_DOWN:
                 isTouched = false;
+
                 startX = (int) event.getRawX();
 
                 return true;
@@ -413,6 +426,7 @@ public class Canvas extends View{
                 invalidate();
 
                 return true;
+
             case MotionEvent.ACTION_UP:
                 isTouched = true;
 

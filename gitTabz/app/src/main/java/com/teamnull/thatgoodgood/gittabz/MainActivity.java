@@ -15,7 +15,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
 
+import java.io.InputStream;
+import java.util.ArrayList;
 import android.view.View.OnTouchListener;
 import android.widget.MediaController;
 
@@ -29,15 +32,36 @@ import android.view.View.OnClickListener;
 import com.teamnull.thatgoodgood.gittabz.ArrayNode;
 //NOT SURE ABOUT ALL THIS CRAP BUT HERE SHE IS IN ALL HER GLORY
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements Debug{
 
     Button button;
     private GestureDetector gestures;
 
+//NOT SURE ABOUT ALL THIS CRAP BUT HERE SHE IS IN ALL HER GLORY
+
+    Canvas theView;
+    MediaPlayer sound;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         final ArrayList<ArrayNode> listy = new ArrayList<>();
+        ArrayList<Chord> chordList;
+
+        tReader tab = new tReader();
+       //tab.read("/Users/student/Desktop/repo/ThatGoodGood/gitTabz/app/src/main/java/com/teamnull/thatgoodgood/gittabz/guitar_test.txt");
+
+        InputStream is = getResources().openRawResource(R.raw.guitar_test);
+        tab.read(is);
+        tab.parse();
+        tab.parseData();
+
+        chordList = tab.chordList();
+
+
+
+        //tab.parseMLength();
+       // tab.parse();
+
+
         listy.add(new ArrayNode(1, 17));
         listy.add(new ArrayNode(1, 22));
         listy.add(new ArrayNode(2, 12));
@@ -53,11 +77,9 @@ public class MainActivity extends AppCompatActivity{
         listy.add(new ArrayNode(5, 5));
         listy.add(new ArrayNode(6, 1));
 
+
         super.onCreate(savedInstanceState);
 
-         class unFuck {
-
-        }
 
         setContentView(R.layout.activity_main);
         Toolbar mytoolbar = (Toolbar)findViewById(R.id.my_toolbar);

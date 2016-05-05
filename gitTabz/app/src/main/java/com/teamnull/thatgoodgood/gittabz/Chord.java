@@ -101,7 +101,7 @@ public class Chord implements Debug, Parcelable {
 
     public Note getString(int i){
 
-        return strings.get(i);
+        return strings.get(7-i);
     }
 
     public void strum(){

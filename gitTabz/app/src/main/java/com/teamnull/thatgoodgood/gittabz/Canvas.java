@@ -31,6 +31,8 @@ import java.util.Random;
 import android.view.GestureDetector.OnDoubleTapListener;
 import static android.util.Log.d;
 import static java.lang.Float.toString;
+import static java.lang.Thread.sleep;
+
 import android.support.v4.view.GestureDetectorCompat;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -57,6 +59,7 @@ public class Canvas extends View implements Debug{
     double timestart, timeend;
     boolean isTouched;
     boolean isPaused;
+    int i;// this is the counter used bellow
 
     public ArrayList<Chord> listy;
     public ArrayList<Circle> circles;
@@ -108,6 +111,8 @@ public class Canvas extends View implements Debug{
         x = 1000;
         k = 1000;
         s1 = 100;
+
+        i=0;
 
         //listy = list;
         //s1 = getWidth();
@@ -272,18 +277,32 @@ public class Canvas extends View implements Debug{
             //circles.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(), listy.get(i).getFret(), pos + 2000));
           //  if (circles.get(i).tim <= pos && pos <= circles.get(i).tim + leeway) {
                 if (pos % 1000 < 10) {
-                    int i = rand.nextInt(listy.size());
+
                     //onScreen.add(circles.get(i));
+                    //int i = rand.nextInt(listy.size());
+                    i++;
+                    //for(int i=0; i<listy.size();i++){
+                        for( int j =1; j<7; j++) {
 
-                    for( int j =1; j<7; j++) {
+//                            try{
+//                                sleep(1500);
+//
+//                            }catch(InterruptedException e){
+//
+//                            }
+
+                            if(!listy.get(i).getString(j).getFret().equals(-1)){
+                                onScreen.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(j).getStrng(), listy.get(i).getString(j).getFret(), pos));
+
+                            }
+
+                            Log.d(listy.get(i).getString(j).getStrng().toString(), "is the string for that chord");
+                            Log.d(listy.get(i).getString(j).getFret().toString(),"is the fret for that string");
 
 
-                        onScreen.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(j).getStrng(), listy.get(i).getString(j).getFret(), pos));
-                        Log.d(listy.get(i).getString(j).getStrng().toString(), "is the string for that chord");
-                        Log.d(listy.get(i).getString(j).getFret().toString(),"is the fret for that string");
+                        }
+                    //}
 
-
-                    }
 
 
               }

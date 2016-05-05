@@ -48,7 +48,7 @@ public class Chord implements Debug, Parcelable {
         strings.add(3, new Note(3,frt.get(3),bt));
         strings.add(4, new Note(4,frt.get(2),bt));
         strings.add(5, new Note(5,frt.get(1),bt));
-        strings.add(6, new Note(6,frt.get(0),bt));
+        strings.add(6, new Note(6, frt.get(0), bt));
 
 
 
@@ -99,33 +99,43 @@ public class Chord implements Debug, Parcelable {
         return chord;
     }
 
+    public Note getString(int i){
+
+        return strings.get(i);
+    }
+
     public void strum(){
         //Player player = new Player();
         //   player.play(chord);
 
     }
 
+    private Chord(Parcel in){
+        strings=new ArrayList<Note>();
+        in.readList(strings ,getClass().getClassLoader());
+
+    }
+
+
     public int describeContents() {
         return 0;
     }
 
     public void writeToParcel(Parcel out, int flags) {
-        out.writeInt(stringNumber);
-        out.writeInt(fretNumber);
+
+        out.writeList(strings);
+
     }
 
-    public static final Parcelable.Creator<ArrayNode> CREATOR
-            = new Parcelable.Creator<ArrayNode>(){
-        public ArrayNode createFromParcel(Parcel in){
-            return new ArrayNode(in);
+    public static final Parcelable.Creator<Chord> CREATOR
+            = new Parcelable.Creator<Chord>(){
+        public Chord createFromParcel(Parcel in){
+            return new Chord(in);
         }
-        public ArrayNode[] newArray(int size){
-            return new ArrayNode[size];
+        public Chord[] newArray(int size){
+            return new Chord[size];
         }
     };
-    private ArrayNode(Parcel in){
-        stringNumber = in.readInt();
-        fretNumber = in.readInt();
-    }
+
 
 }

@@ -49,7 +49,7 @@ public class CanvasActivity extends AppCompatActivity {
         // Log.d("SET", "Content View Set");
 
         Intent intent = getIntent();
-        ArrayList<ArrayNode> list = intent.getParcelableArrayListExtra("listy");
+        ArrayList<Chord> list = intent.getParcelableArrayListExtra("chordList");
 
         if( list != null) {
             ((Canvas) findViewById(R.id.canvas)).setList(list);

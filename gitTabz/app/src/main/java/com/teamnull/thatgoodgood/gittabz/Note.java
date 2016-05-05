@@ -5,7 +5,10 @@ package com.teamnull.thatgoodgood.gittabz;
  * Created by Zeyad Ayoub on 4/5/2016.
  */
 
-public class Note{
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Note implements Parcelable{
     //builds the sound
 
     private Integer _strng;// =new Integer(0);
@@ -60,5 +63,43 @@ public class Note{
     public String getPat(){
         return _pat;
     }
+
+
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel out, int flags) {
+
+
+        out.writeInt(_strng);
+        out.writeInt(_fret);
+        out.writeInt(_beat);
+
+
+    }
+
+    public static final Parcelable.Creator<Note> CREATOR
+            = new Parcelable.Creator<Note>(){
+        public Note createFromParcel(Parcel in){
+            return new Note(in);
+        }
+        public Note[] newArray(int size){
+            return new Note[size];
+        }
+    };
+    private Note(Parcel in){
+
+        _strng = in.readInt();
+        _fret =  in.readInt();
+        _beat = in.readInt();
+
+    }
+
+
+
+
+
 
 };

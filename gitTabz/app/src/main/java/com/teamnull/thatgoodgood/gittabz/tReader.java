@@ -5,6 +5,8 @@
  */
 package com.teamnull.thatgoodgood.gittabz;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -19,7 +21,7 @@ import java.util.Collections;
  * @author Zeyad Ayoub
  */
 
-public class tReader implements Debug{
+public class tReader implements Debug, Parcelable{
     private String _raws;
     private static Integer _iter = 0;
     private Integer _measureLength;
@@ -27,14 +29,15 @@ public class tReader implements Debug{
     private ArrayList<ArrayList<String>> _data= new ArrayList<>();
     private ArrayList<String> _dataMember;
     private ArrayList<Chord> chordList=new ArrayList<>();
+    private InputStream is;
 
-    public tReader(){
-
+    public tReader(InputStream i){
+        is=i;
     }
 
-    public void read(InputStream is){
+    public void read(){
 
-        try { //TODO need to open file
+        try {
             String line;
             StringBuffer stringBuffer = new StringBuffer();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
@@ -294,4 +297,35 @@ public class tReader implements Debug{
 
         return chordList;
     }
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel out, int flags) {
+
+
+        out.writeArray(chordList.toArray());
+
+        //out.writeInt(strings);
+        //out.writeInt(fretNumber);
+
+
+    }
+
+    public static final Parcelable.Creator<tReader> CREATOR
+            = new Parcelable.Creator<tReader>(){
+        public tReader createFromParcel(Parcel in){
+            return new tReader(in);
+        }
+        public tReader[] newArray(int size){
+            return new tReader[size];
+        }
+    };
+    private tReader(Parcel in){
+        //stringNumber = in.readInt();
+        //is.toString()= in.readString();
+    }
+
+
 }

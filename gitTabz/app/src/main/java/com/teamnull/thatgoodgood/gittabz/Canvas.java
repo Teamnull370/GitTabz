@@ -58,7 +58,7 @@ public class Canvas extends View implements Debug{
     boolean isTouched;
     boolean isPaused;
 
-    public ArrayList<ArrayNode> listy;
+    public ArrayList<Chord> listy;
     public ArrayList<Circle> circles;
     public ArrayList<Circle> onScreen;
     public ArrayList<Circle> offScreen;
@@ -142,7 +142,7 @@ public class Canvas extends View implements Debug{
 
 
 
-    public void setList(ArrayList<ArrayNode> list){
+    public void setList(ArrayList<Chord> list){
         listy = list;
     }
 
@@ -274,7 +274,18 @@ public class Canvas extends View implements Debug{
                 if (pos % 1000 < 10) {
                     int i = rand.nextInt(listy.size());
                     //onScreen.add(circles.get(i));
-                    onScreen.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(), listy.get(i).getFret(), pos));
+
+                    for( int j =1; j<7; j++) {
+
+
+                        onScreen.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(j).getStrng(), listy.get(i).getString(j).getFret(), pos));
+                        Log.d(listy.get(i).getString(j).getStrng().toString(), "is the string for that chord");
+                        Log.d(listy.get(i).getString(j).getFret().toString(),"is the fret for that string");
+
+
+                    }
+
+
               }
 
             //}

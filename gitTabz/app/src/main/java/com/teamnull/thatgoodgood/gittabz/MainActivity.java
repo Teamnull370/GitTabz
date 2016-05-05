@@ -44,13 +44,14 @@ public class MainActivity extends AppCompatActivity implements Debug{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final ArrayList<ArrayNode> listy = new ArrayList<>();
-        ArrayList<Chord> chordList;
+        final ArrayList<Chord> chordList;
 
-        tReader tab = new tReader();
+
        //tab.read("/Users/student/Desktop/repo/ThatGoodGood/gitTabz/app/src/main/java/com/teamnull/thatgoodgood/gittabz/guitar_test.txt");
 
         InputStream is = getResources().openRawResource(R.raw.guitar_test);
-        tab.read(is);
+        tReader tab = new tReader(is);
+        tab.read();
         tab.parse();
         tab.parseData();
 
@@ -62,20 +63,20 @@ public class MainActivity extends AppCompatActivity implements Debug{
        // tab.parse();
 
 
-        listy.add(new ArrayNode(1, 17));
-        listy.add(new ArrayNode(1, 22));
-        listy.add(new ArrayNode(2, 12));
-        listy.add(new ArrayNode(4, 17));
-        listy.add(new ArrayNode(3, 15));
-        listy.add(new ArrayNode(4, 14));
-        listy.add(new ArrayNode(5, 15));
-        listy.add(new ArrayNode(6, 14));
-        listy.add(new ArrayNode(1, 7));
-        listy.add(new ArrayNode(2, 2));
-        listy.add(new ArrayNode(3, 5));
-        listy.add(new ArrayNode(4, 4));
-        listy.add(new ArrayNode(5, 5));
-        listy.add(new ArrayNode(6, 1));
+//        listy.add(new ArrayNode(1, 17));
+//        listy.add(new ArrayNode(1, 22));
+//        listy.add(new ArrayNode(2, 12));
+//        listy.add(new ArrayNode(4, 17));
+//        listy.add(new ArrayNode(3, 15));
+//        listy.add(new ArrayNode(4, 14));
+//        listy.add(new ArrayNode(5, 15));
+//        listy.add(new ArrayNode(6, 14));
+//        listy.add(new ArrayNode(1, 7));
+//        listy.add(new ArrayNode(2, 2));
+//        listy.add(new ArrayNode(3, 5));
+//        listy.add(new ArrayNode(4, 4));
+//        listy.add(new ArrayNode(5, 5));
+//        listy.add(new ArrayNode(6, 1));
 
 
         super.onCreate(savedInstanceState);
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements Debug{
                 // Switch to the canvas activity
                 Intent intent = new Intent(MainActivity.this, CanvasActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("listy", listy);
+                bundle.putParcelableArrayList("chordList", chordList);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

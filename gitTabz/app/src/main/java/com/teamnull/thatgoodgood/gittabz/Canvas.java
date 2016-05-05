@@ -25,37 +25,19 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Random;
 import android.view.GestureDetector.OnDoubleTapListener;
 import static android.util.Log.d;
 import static java.lang.Float.toString;
 import android.support.v4.view.GestureDetectorCompat;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 /**
  * Created by Jonathon on 3/31/2016.
  * ALL THE COOL PAINT STUFF DONE BY DANNY CUZ HE BE COOL AND SHIT
  */
-
-class Circle {
-    public float ln;
-    public float ex;
-    public float fr;
-
-    public Circle(float x, int line, int fret) {
-        ex = x;
-        ln = line;
-        fr = fret;
-
-    }
-        public void setX(float ex) { this.ex = ex; }
-        public float getX(){return ex; }
-        public void setLn(int ln) { this.ln = ln;}
-        public float getLn() { return ln; }
-        public void setFret(int fr) { this.fr = fr; }
-        public float getFret() { return fr; }
-}
 
 
 
@@ -67,9 +49,12 @@ public class Canvas extends View{
     float s4;
     float s5;
     float s6;
+    int offset;
     float width;
     int stringSpace;
     int time;
+    int x;
+    int k;
     int start;
     double timestart, timeend;
     boolean isTouched;
@@ -77,10 +62,13 @@ public class Canvas extends View{
 
     public ArrayList<ArrayNode> listy;
     public ArrayList<Circle> circles;
+    public ArrayList<Circle> onScreen;
+    public ArrayList<Circle> offScreen;
     private GestureDetectorCompat mDetector;
     int startX;
     int endX;
 
+    Random rand;
 
     boolean night_mode;
 
@@ -119,6 +107,8 @@ public class Canvas extends View{
         music = MediaPlayer.create(context, R.raw.song);
         s1 = getWidth();
         stringSpace = getHeight() / 8;
+        x = 1000;
+        k = 1000;
         s1 = 100;
         s2 = 1000;
         s3 = 1500;
@@ -127,12 +117,17 @@ public class Canvas extends View{
         s6 = 3000;
         isTouched = true;
         circles = new ArrayList<>();
+        onScreen = new ArrayList<>();
+        offScreen = new ArrayList<>();
+        offset = 0;
         time = music.getDuration();
         start = music.getCurrentPosition();
 
         // float-type interpretations for the Seek Bar
         timeend = music.getDuration();
         timestart = music.getCurrentPosition();
+
+        rand = new Random(0); // TODO use Random() for random seed
     }
 
 
@@ -148,13 +143,6 @@ public class Canvas extends View{
         listy = list;
     }
 
-
-
-
-
-    // The following public methods are used for controlling the music playback
-
-    // Pause the music
     public void pause_music() {
         music.pause();
         isPaused = true;
@@ -179,16 +167,14 @@ public class Canvas extends View{
     }
     // Rewind the music by 15 seconds
     public void rewind_music() {
-        start = music.getCurrentPosition();
+        //start = music.getCurrentPosition();
         music.seekTo(start -= 15000);
-        s1 += 200;
         // Log.d("REWIND", "Rewind function");
     }
     // Fast-forward the music by 15 seconds
     public void fast_forward_music() {
-        start = music.getCurrentPosition();
+        //start = music.getCurrentPosition();
         music.seekTo(start += 15000);
-        s1 -= 200;
         // Log.d("FF", "Fast-Forward function");
     }
     public boolean pausetacular()   {
@@ -216,12 +202,14 @@ public class Canvas extends View{
 
         if( !isPaused) {
             music.start();
-            // Continue working with this and display the music playback time
             music.getCurrentPosition();
+            // Continue working with this and display the music playback time
         }
+
         // mDetector = new GestureDetectorCompat(this,this);
         super.onDraw(canvas);
 
+        ///////////////All the paint Info//////////////////////////////////////////////////////////
         width = canvas.getWidth();
         r.setStyle(Paint.Style.FILL);
         r.setStrokeWidth(2);
@@ -248,25 +236,16 @@ public class Canvas extends View{
         p.setColor(Color.TRANSPARENT);
         p.setStyle(Paint.Style.STROKE);
         p.setColor(Color.BLACK);
-
-
         //This creates the white background
         canvas.drawColor(Color.WHITE);
-
-
         //This is the underlying red rectangle
         canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, r);
 
         ////////////The Beginning of the end/////////////////////
 
+        ////////////////////////////////////////////////////////////////////
 
-        //drawOne one = new drawOne(s1, true);
-
-
-
-
-
-        ///////////THe End of the end///////////////
+        //////////////////////////
 
         //The bar lines the notes will go on
         canvas.drawLine(0, canvas.getHeight() / 8, canvas.getWidth(), canvas.getHeight() / 8, q);
@@ -276,41 +255,29 @@ public class Canvas extends View{
         canvas.drawLine(0, canvas.getHeight() / 8 * 5, canvas.getWidth(), canvas.getHeight() / 8 * 5, q);
         canvas.drawLine(0, canvas.getHeight() / 8 * 6, canvas.getWidth(), canvas.getHeight() / 8 * 6, q);
 
+        int[] times = {800, 1200, 1600, 2000, 2400, 2800, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000};
+        int leeway = 20;
+        int pos =  music.getCurrentPosition();
+        //for (int i = 0; i <= listy.size() - 1; i++) {
+            //circles.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(), listy.get(i).getFret(), pos + 2000));
+          //  if (circles.get(i).tim <= pos && pos <= circles.get(i).tim + leeway) {
+                if (pos % 1000 < 10) {
+                    int i = rand.nextInt(listy.size());
+                    //onScreen.add(circles.get(i));
+                    onScreen.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(), listy.get(i).getFret(), pos));
+              }
 
-//        //These are all of the circles
-//        canvas.drawCircle(s1, canvas.getHeight() / 8 * listy.get(0).getString(), 25, p);
-//        canvas.drawCircle(s2, canvas.getHeight() / 8 * listy.get(1).getString(), 25, p);
-//        canvas.drawCircle(s3, canvas.getHeight() / 8 * listy.get(2).getString(), 25, p);
-//        canvas.drawCircle(s4, canvas.getHeight() / 8 * listy.get(3).getString(), 25, p);
-//        canvas.drawCircle(s5, canvas.getHeight() / 8 * listy.get(4).getString(), 25, p);
-//        canvas.drawCircle(s6, canvas.getHeight() / 8 * listy.get(5).getString(), 25, p);
+            //}
+        //}
 
-
-        for(int i = 0; i <= listy.size()-1; i++) {
-            float c = (float)i * 12;
-            circles.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(), listy.get(i).getFret()));
-            canvas.drawCircle( s1 + c -30 /*- circles.get(i).getX()*/, circles.get(i).getLn(), 25, p);
-            //White circle
-            canvas.drawCircle( s1 + c - 30 /*- circles.get(i).getX()*/, circles.get(i).getLn(), 24, w);
-            //Number
-            canvas.drawText(String.valueOf(listy.get(i).fretNumber), s1 + c - 30 /*- circles.get(i).getX()*/, circles.get(i).getLn() + 10, num);
+        for(int i = onScreen.size() - 1; i >=0; i--) {
+            onScreen.get(i).draw(canvas, p, w, num, music.getCurrentPosition(), offset);
+//            System.out.print("");
+        //    invalidate();
+            if (onScreen.get(i).getPosition(music.getCurrentPosition()) - offset <= 0) {
+                offScreen.add(onScreen.remove(i));
+            }
         }
-
-//        //White circle
-//        canvas.drawCircle(s1, canvas.getHeight() / 8, 24, w);
-//        canvas.drawCircle(s2, canvas.getHeight() / 8 * 2, 24, w);
-//        canvas.drawCircle(s3, canvas.getHeight() / 8 * 3, 24, w);
-//        canvas.drawCircle(s4, canvas.getHeight() / 8 * 4, 24, w);
-//        canvas.drawCircle(s5, canvas.getHeight() / 8 * 5, 24, w);
-//        canvas.drawCircle(s6, canvas.getHeight() / 8 * 6, 24, w);
-
-        //Number printer
-//        canvas.drawText(String.valueOf(listy.get(0).fretNumber), s1, canvas.getHeight() / 8 + 10, num);
-//        canvas.drawText(String.valueOf(listy.get(1).fretNumber), s2, canvas.getHeight() / 8 * listy.get(1).getString() + 10, num);
-//        canvas.drawText(String.valueOf(listy.get(2).fretNumber), s3, canvas.getHeight() / 8 * 3 + 10, num);
-//        canvas.drawText(String.valueOf(listy.get(3).fretNumber), s4, canvas.getHeight() / 8 * 4 + 10, num);
-//        canvas.drawText(String.valueOf(listy.get(4).fretNumber), s5, canvas.getHeight() / 8 * 5 + 10, num);
-//        canvas.drawText(String.valueOf(listy.get(5).fretNumber), s6, canvas.getHeight() / 8 * 6 + 10, num);
 
         //This is the Transparent rectangle that goes over the red one.
         canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, p);
@@ -318,98 +285,96 @@ public class Canvas extends View{
 
 
         //Standard play with collision detection
-        if(isTouched) {
-            if (s1 > 0) {
-                s1 -= 5;
-            } else {
-                s1 = canvas.getWidth();
-                invalidate();
-            }
-
-            if (s2 > 0) {
-                s2 -= 5;
-            } else {s2 = canvas.getWidth();
-                invalidate();
-            }
-
-            if (s3 > 0) {
-                s3 -= 5;
-            } else {
-                s3 = canvas.getWidth();
-                invalidate();
-            }
-
-            if (s4 > 0) {
-                s4 -= 5;
-            } else {
-                s4 = canvas.getWidth();
-                invalidate();
-            }
-
-            if (s5 > 0) {
-                s5 -= 5;
-            } else {
-                s5 = canvas.getWidth();
-                invalidate();
-            }
-
-            if (s6 > 0) {
-                s6 -= 5;
-            } else {
-                s6 = canvas.getWidth();
-                invalidate();
-            }
-
-        }
+//        if(isTouched) {
+//            if (s1 > 0) {
+//                s1 -= 5;
+//            } else {
+//                s1 = canvas.getWidth();
+//                invalidate();
+//            }
+//
+//            if (s2 > 0) {
+//                s2 -= 5;
+//            } else {s2 = canvas.getWidth();
+//                invalidate();
+//            }
+//
+//            if (s3 > 0) {
+//                s3 -= 5;
+//            } else {
+//                s3 = canvas.getWidth();
+//                invalidate();
+//            }
+//
+//            if (s4 > 0) {
+//                s4 -= 5;
+//            } else {
+//                s4 = canvas.getWidth();
+//                invalidate();
+//            }
+//
+//            if (s5 > 0) {
+//                s5 -= 5;
+//            } else {
+//                s5 = canvas.getWidth();
+//                invalidate();
+//            }
+//
+//            if (s6 > 0) {
+//                s6 -= 5;
+//            } else {
+//                s6 = canvas.getWidth();
+//                invalidate();
+//            }
+//
+//        }
 
         //Collision detection during play
-        if(!isTouched) {
-            if (s1 > canvas.getClipBounds().right) {
-                s1 = 0;
-            } else if (s1 < canvas.getClipBounds().left) {
-                s1 = canvas.getWidth() - 1;
-            }
-
-            if (s2 > canvas.getClipBounds().right) {
-                s2 = 0;
-            } else if (s2 < canvas.getClipBounds().left) {
-                s2 = canvas.getWidth() - 1;
-            }
-
-            if (s3 > canvas.getClipBounds().right) {
-                s3 = 0;
-            } else if (s3 < canvas.getClipBounds().left) {
-                s3 = canvas.getWidth() - 1;
-            }
-
-            if (s4 > canvas.getClipBounds().right) {
-                s4 = 0;
-            } else if (s4 < canvas.getClipBounds().left) {
-                s4 = canvas.getWidth() - 1;
-            }
-
-            if (s5 > canvas.getClipBounds().right) {
-                s5 = 0;
-            } else if (s5 < canvas.getClipBounds().left) {
-                s5 = canvas.getWidth() - 1;
-            }
-
-            if (s6 > canvas.getClipBounds().right) {
-                s6 = 0;
-            } else if (s6 < canvas.getClipBounds().left) {
-                s6 = canvas.getWidth() - 1;
-            }
-        }
+//        if(!isTouched) {
+//            if (s1 > canvas.getClipBounds().right) {
+//                s1 = 0;
+//            } else if (s1 < canvas.getClipBounds().left) {
+//                s1 = canvas.getWidth() - 1;
+//            }
+//
+//            if (s2 > canvas.getClipBounds().right) {
+//                s2 = 0;
+//            } else if (s2 < canvas.getClipBounds().left) {
+//                s2 = canvas.getWidth() - 1;
+//            }
+//
+//            if (s3 > canvas.getClipBounds().right) {
+//                s3 = 0;
+//            } else if (s3 < canvas.getClipBounds().left) {
+//                s3 = canvas.getWidth() - 1;
+//            }
+//
+//            if (s4 > canvas.getClipBounds().right) {
+//                s4 = 0;
+//            } else if (s4 < canvas.getClipBounds().left) {
+//                s4 = canvas.getWidth() - 1;
+//            }
+//
+//            if (s5 > canvas.getClipBounds().right) {
+//                s5 = 0;
+//            } else if (s5 < canvas.getClipBounds().left) {
+//                s5 = canvas.getWidth() - 1;
+//            }
+//
+//            if (s6 > canvas.getClipBounds().right) {
+//                s6 = 0;
+//            } else if (s6 < canvas.getClipBounds().left) {
+//                s6 = canvas.getWidth() - 1;
+//            }
+//        }
         invalidate();
-
-
 
     }
 
 
 
     public boolean onTouchEvent (MotionEvent event) {
-
+        int pos =  music.getCurrentPosition();
         switch (event.getAction()) {
 
             case MotionEvent.ACTION_DOWN:
@@ -422,23 +387,25 @@ public class Canvas extends View{
 
                 if ((endX - startX) > 0) {
                     // RIGHT
-                    s1 += 25;
-                    s2 += 25;
-                    s3 += 25;
-                    s4 += 25;
-                    s5 += 25;
-                    s6 += 25;
-                    music.seekTo(start -= 500);
+//                    offset += 25;
+//                    s1 += 25;
+//                    s2 += 25;
+//                    s3 += 25;
+//                    s4 += 25;
+//                    s5 += 25;
+//                    s6 += 25;
+                    music.seekTo(music.getCurrentPosition() - 100);
                 }
                 if ((endX - startX) < 0) {
                     // LEFT
-                    s1 -= 25;
-                    s2 -= 25;
-                    s3 -= 25;
-                    s4 -= 25;
-                    s5 -= 25;
-                    s6 -= 25;
-                    music.seekTo(start += 500);
+//                    offset -= 25;
+//                    s1 -= 25;
+//                    s2 -= 25;
+//                    s3 -= 25;
+//                    s4 -= 25;
+//                    s5 -= 25;
+//                    s6 -= 25;
+                    music.seekTo(music.getCurrentPosition() + 100);
                 }
 
                 startX = (int) event.getRawX();
@@ -452,6 +419,7 @@ public class Canvas extends View{
                 invalidate();
 
                 return true;
+
         }
         return false;
     }

@@ -29,7 +29,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 
-import com.teamnull.thatgoodgood.gittabz.ArrayNode;
+//import com.teamnull.thatgoodgood.gittabz.ArrayNode;
 //NOT SURE ABOUT ALL THIS CRAP BUT HERE SHE IS IN ALL HER GLORY
 
 public class MainActivity extends AppCompatActivity implements Debug{
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements Debug{
     MediaPlayer sound;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final ArrayList<ArrayNode> listy = new ArrayList<>();
+        //final ArrayList<ArrayNode> listy = new ArrayList<>();
         final ArrayList<Chord> chordList;
 
 

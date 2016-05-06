@@ -9,6 +9,7 @@ import com.teamnull.thatgoodgood.gittabz.MainActivity;
 /**
  * Created by Danny on 4/21/2016.
  */
+/*
 public class ArrayNode implements Parcelable{
     public Integer stringNumber;
     public Integer fretNumber;
@@ -61,3 +62,4 @@ public class ArrayNode implements Parcelable{
         fretNumber = in.readInt();
     }
 }
+*/

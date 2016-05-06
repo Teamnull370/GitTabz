@@ -43,12 +43,11 @@
   <component name="ProjectType">
     <option name="id" value="Android" />
   </component>
-<<<<<<< HEAD
-<<<<<<< HEAD
   <component name="masterDetails">
     <states>
-      <state key="ScopeChooserConfigurable.UI">
+      <state key="ProjectJDKs.UI">
         <settings>
+          <last-edited>1.8</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -60,8 +59,4 @@
       </state>
     </states>
   </component>
-=======
->>>>>>> origin/settingsactivity
-=======
->>>>>>> origin/playback2
 </project>

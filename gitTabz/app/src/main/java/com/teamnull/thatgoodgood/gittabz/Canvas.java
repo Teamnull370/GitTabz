@@ -279,8 +279,8 @@ public class Canvas extends View implements Debug{
                 if (pos % 1000 < 10) {
 
                     //onScreen.add(circles.get(i));
-                    //int i = rand.nextInt(listy.size());
-                    i++;
+                    i = rand.nextInt(listy.size());
+                    //i++;
                     //for(int i=0; i<listy.size();i++){
                         for( int j =1; j<7; j++) {
 

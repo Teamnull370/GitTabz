@@ -22,6 +22,7 @@ import android.graphics.Rect;
 import android.widget.RelativeLayout;
 import android.util.Log;
 
+import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -171,6 +172,7 @@ public class Canvas extends View implements Debug{
         music.stop();
         isPaused = false;
         isTouched = true;
+
         // Log.d("PLAY", "Play function");
     }
     // Rewind the music by 15 seconds
@@ -213,6 +215,8 @@ public class Canvas extends View implements Debug{
             music.getCurrentPosition();
             // Continue working with this and display the music playback time
         }
+        Log.d("music time", String.valueOf(music.getCurrentPosition()));
+        //TODO need to implement a sum of beats since pause.
 
         // mDetector = new GestureDetectorCompat(this,this);
 
@@ -273,34 +277,35 @@ public class Canvas extends View implements Debug{
         int[] times = {800, 1200, 1600, 2000, 2400, 2800, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000};
         int leeway = 20;
         int pos =  music.getCurrentPosition();
+
         //for (int i = 0; i <= listy.size() - 1; i++) {
             //circles.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(), listy.get(i).getFret(), pos + 2000));
           //  if (circles.get(i).tim <= pos && pos <= circles.get(i).tim + leeway) {
-                if (pos % 1000 < 10) {
+
+
+        Integer time= beatDelay(listy.get(i).getBeat());
+        Log.d("these beats",time.toString());
+        //TODO needs more work
+
+        if (pos % 1000 < 10) {
 
                     //onScreen.add(circles.get(i));
-                    i = rand.nextInt(listy.size());
-                    //i++;
+                    //i = rand.nextInt(listy.size());
+                    i++;
                     //for(int i=0; i<listy.size();i++){
-                        for( int j =1; j<7; j++) {
+                    for( int j =1; j<7; j++) {
 
-//                            try{
-//                                sleep(1500);
-//
-//                            }catch(InterruptedException e){
-//
-//                            }
-
-                            if(!listy.get(i).getString(j).getFret().equals(-1)){
+                        if(i<listy.size()) {
+                            if (!listy.get(i).getString(j).getFret().equals(-1)) {
                                 onScreen.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(j).getStrng(), listy.get(i).getString(j).getFret(), pos));
 
                             }
-
-                            Log.d(listy.get(i).getString(j).getStrng().toString(), "is the string for that chord");
-                            Log.d(listy.get(i).getString(j).getFret().toString(),"is the fret for that string");
-
-
                         }
+                        //Log.d(listy.get(i).getString(j).getStrng().toString(), "is the string for that chord");
+                        //Log.d(listy.get(i).getString(j).getFret().toString(),"is the fret for that string");
+
+
+                    }
                     //}
 
 
@@ -410,7 +415,18 @@ public class Canvas extends View implements Debug{
         invalidate();
 
     }
+    public Integer beatDelay(Integer bt){
+        if(bt == 1){
+           return 1000;
+        }else if(bt == 2){
+            return 500;
+        }else if(bt == 3){
+            return 250;
+        }else if(bt == 4){
+            return 125;
+        }else return 1000;
 
+    }
 
 
 

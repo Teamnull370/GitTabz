@@ -99,6 +99,10 @@ public class Chord implements Debug, Parcelable {
         return chord;
     }
 
+    public Integer getBeat(){
+        return strings.get(2).getBeat();
+    }
+
     public Note getString(int i){
 
         return strings.get(7-i);

@@ -1,42 +1,19 @@
 package com.teamnull.thatgoodgood.gittabz;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
+import android.graphics.Paint;
 import android.graphics.Shader;
 import android.media.MediaPlayer;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Parcelable;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View.OnTouchListener;
 import android.view.View;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.widget.RelativeLayout;
-import android.util.Log;
-
-import java.security.Timestamp;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Random;
-import android.view.GestureDetector.OnDoubleTapListener;
-import static android.util.Log.d;
-import static java.lang.Float.toString;
-import static java.lang.Thread.sleep;
-
-import android.support.v4.view.GestureDetectorCompat;
-import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Random;
 /**
  * Created by Jonathon on 3/31/2016.
  * ALL THE COOL PAINT STUFF DONE BY DANNY CUZ HE BE COOL AND SHIT
@@ -298,7 +275,6 @@ public class Canvas extends View implements Debug{
                         if(i<listy.size()) {
                             if (!listy.get(i).getString(j).getFret().equals(-1)) {
                                 onScreen.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(j).getStrng(), listy.get(i).getString(j).getFret(), pos));
-
                             }
                         }
                         //Log.d(listy.get(i).getString(j).getStrng().toString(), "is the string for that chord");
@@ -308,28 +284,31 @@ public class Canvas extends View implements Debug{
                     }
                     //}
 
+                    }
 
 
-              }
 
-            //}
-        //}
+        for(int k = 0; i<onScreen.size(); k++) {
+            if (onScreen.get(i).getLocation() == canvas.getWidth() / 8) {
 
-        for(int i = onScreen.size() - 1; i >=0; i--) {
-            onScreen.get(i).draw(canvas, p, w, num, music.getCurrentPosition(), offset);
-//            System.out.print("");
-        //    invalidate();
-            if (onScreen.get(i).getPosition(music.getCurrentPosition()) - offset <= 0) {
-                offScreen.add(onScreen.remove(i));
             }
-        }
+            //}
+            //}
 
-        //This is the Transparent rectangle that goes over the red one.
-        canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, p);
+            for (int i = onScreen.size() - 1; i >= 0; i--) {
+                onScreen.get(i).draw(canvas, p, w, num, music.getCurrentPosition(), offset);
+//            System.out.print("");
+                //    invalidate();
+                if (onScreen.get(i).getPosition(music.getCurrentPosition()) - offset <= 0) {
+                    offScreen.add(onScreen.remove(i));
+                }
+            }
+
+            //This is the Transparent rectangle that goes over the red one.
+            canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, p);
 
 
-
-        //Standard play with collision detection
+            //Standard play with collision detection
 //        if(isTouched) {
 //            if (s1 > 0) {
 //                s1 -= 5;
@@ -374,7 +353,7 @@ public class Canvas extends View implements Debug{
 //
 //        }
 
-        //Collision detection during play
+            //Collision detection during play
 //        if(!isTouched) {
 //            if (s1 > canvas.getClipBounds().right) {
 //                s1 = 0;
@@ -412,8 +391,8 @@ public class Canvas extends View implements Debug{
 //                s6 = canvas.getWidth() - 1;
 //            }
 //        }
-        invalidate();
-
+            invalidate();
+        }
     }
     public Integer beatDelay(Integer bt){
         if(bt == 1){
@@ -447,12 +426,13 @@ public class Canvas extends View implements Debug{
                 if ((endX - startX) > 0) {
                     // RIGHT
 //                    offset += 25;
-//                    s1 += 25;
-//                    s2 += 25;
-//                    s3 += 25;
-//                    s4 += 25;
-//                    s5 += 25;
-//                    s6 += 25;
+//                      s1 += 25;
+//                      s2 += 25;
+//                      s3 += 25;
+//                      s4 += 25;
+//                      s5 += 25;
+//                      s6 += 25;
+                        i--;
                     music.seekTo(music.getCurrentPosition() - 100);
                 }
                 if ((endX - startX) < 0) {
@@ -464,6 +444,7 @@ public class Canvas extends View implements Debug{
 //                    s4 -= 25;
 //                    s5 -= 25;
 //                    s6 -= 25;
+                        i++;
                     music.seekTo(music.getCurrentPosition() + 100);
                 }
 

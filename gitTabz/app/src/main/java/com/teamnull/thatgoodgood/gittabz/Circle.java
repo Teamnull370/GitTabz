@@ -13,6 +13,8 @@ class Circle{
     public int tim;
     private Path cir;
     private static final int time_factor = 3;
+    private int offset;
+    private int current_time;
 
     public Circle( float x, int line, int fret, Integer timmy){
         ex = x;
@@ -26,6 +28,9 @@ class Circle{
         canvas.drawCircle(ex-(current_time-tim)/time_factor + offset, ln, 24, w);
 //        //Number
         canvas.drawText(String.valueOf(fr), ex - (current_time - tim) / time_factor + offset, ln + 10, num);
+
+        setCurrentTime(current_time);
+        setOffset(offset);
     }
     public void setX(float ex) {
         this.ex = ex;
@@ -34,6 +39,10 @@ class Circle{
     public float getX() {
         return ex;
     }
+
+    public void setOffset(int offSet) {offset = offSet; }
+
+    public void setCurrentTime( int cTime) {current_time = cTime; }
 
     public int getPosition(int current_time) {
         return (int)ex - (current_time-tim)/time_factor;
@@ -62,6 +71,8 @@ class Circle{
     public Integer getTime() {
         return tim;
     }
+
+    public float getLocation() {return ex -(current_time-tim)/time_factor + offset; }
 }
 
 

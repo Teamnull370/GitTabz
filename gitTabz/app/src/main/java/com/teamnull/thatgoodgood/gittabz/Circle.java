@@ -21,7 +21,7 @@ class Circle{
         tim = timmy;
     }
     public void draw(Canvas canvas, Paint p, Paint w, Paint num, int current_time, int offset){
-        canvas.drawCircle(ex-(current_time-tim)/time_factor + offset, ln, 25, p);
+        canvas.drawCircle(ex-(current_time-tim)/time_factor + offset*2, ln, 25, p);
 //        //White circle
         canvas.drawCircle(ex-(current_time-tim)/time_factor + offset, ln, 24, w);
 //        //Number

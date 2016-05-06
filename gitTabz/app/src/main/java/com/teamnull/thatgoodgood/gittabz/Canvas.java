@@ -60,7 +60,10 @@ public class Canvas extends View implements Debug{
     double timestart, timeend;
     boolean isTouched;
     boolean isPaused;
-    int i;// this is the counter used bellow
+
+    Integer pos;
+    int iter;// this is the counter used bellow
+    Integer beatTime;
 
     public ArrayList<Chord> listy;
     public ArrayList<Circle> circles;
@@ -113,7 +116,8 @@ public class Canvas extends View implements Debug{
         k = 1000;
         s1 = 100;
 
-        i=0;
+        iter=0;
+        beatTime=0;
 
         //listy = list;
         //s1 = getWidth();
@@ -216,6 +220,9 @@ public class Canvas extends View implements Debug{
             // Continue working with this and display the music playback time
         }
         Log.d("music time", String.valueOf(music.getCurrentPosition()));
+
+
+
         //TODO need to implement a sum of beats since pause.
 
         // mDetector = new GestureDetectorCompat(this,this);
@@ -276,41 +283,45 @@ public class Canvas extends View implements Debug{
 
         int[] times = {800, 1200, 1600, 2000, 2400, 2800, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000};
         int leeway = 20;
-        int pos =  music.getCurrentPosition();
+        pos =  music.getCurrentPosition();
 
         //for (int i = 0; i <= listy.size() - 1; i++) {
             //circles.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(), listy.get(i).getFret(), pos + 2000));
           //  if (circles.get(i).tim <= pos && pos <= circles.get(i).tim + leeway) {
 
 
-        Integer time= beatDelay(listy.get(i).getBeat());
-        Log.d("these beats",time.toString());
+
+        Log.d("these beats",beatTime.toString());
+        Log.d("song time", pos.toString());
+
         //TODO needs more work
 
-        if (pos % 1000 < 10) {
+        if (pos >beatTime) {
+            if(iter<listy.size()) {
+                Integer time= beatDelay(listy.get(iter).getBeat());
+                beatTime+=time;
+                //onScreen.add(circles.get(i));
+                //i = rand.nextInt(listy.size());
+                iter++;
+                //for(int i=0; i<listy.size();i++){
+                for( int j =1; j<7; j++) {
 
-                    //onScreen.add(circles.get(i));
-                    //i = rand.nextInt(listy.size());
-                    i++;
-                    //for(int i=0; i<listy.size();i++){
-                    for( int j =1; j<7; j++) {
 
-                        if(i<listy.size()) {
-                            if (!listy.get(i).getString(j).getFret().equals(-1)) {
-                                onScreen.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(j).getStrng(), listy.get(i).getString(j).getFret(), pos));
+                    if (!listy.get(iter).getString(j).getFret().equals(-1)) {
+                        onScreen.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(iter).getString(j).getStrng(), listy.get(iter).getString(j).getFret(), pos+100));
 
-                            }
-                        }
+                    }
+                }
                         //Log.d(listy.get(i).getString(j).getStrng().toString(), "is the string for that chord");
                         //Log.d(listy.get(i).getString(j).getFret().toString(),"is the fret for that string");
 
 
-                    }
+            }
                     //}
 
 
 
-              }
+        }
 
             //}
         //}

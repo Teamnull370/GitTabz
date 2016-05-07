@@ -1,8 +1,10 @@
 package com.teamnull.thatgoodgood.gittabz;
 
-import android.graphics.Path;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.util.Log;
+
 /**
  * Created by Danny on 5/3/2016.
  */
@@ -24,9 +26,15 @@ class Circle{
     public void draw(Canvas canvas, Paint p, Paint w, Paint num, int current_time, int offset){
         canvas.drawCircle(ex-(current_time/speedMod-tim)/space_factor + offset, ln, 25, p);
 //        //White circle
-        canvas.drawCircle(ex-(current_time/speedMod-tim)/space_factor + offset, ln, 24, w);
+        canvas.drawCircle(ex - (current_time / speedMod - tim) / space_factor + offset, ln, 24, w);
 //        //Number
         canvas.drawText(String.valueOf(fr), ex - (current_time/speedMod - tim) / space_factor + offset, ln + 10, num);
+
+        if(ex-(current_time/speedMod-tim)/space_factor + offset < canvas.getWidth()/8 -5 &&
+                ex-(current_time/speedMod-tim)/space_factor + offset > 100) {
+            Float asdf =(Float)(ex-(current_time/speedMod-tim)/space_factor);
+            Log.d(asdf.toString(), "HIT");
+        }
     }
     public void setX(float ex) {
         this.ex = ex;

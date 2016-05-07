@@ -1,42 +1,19 @@
 package com.teamnull.thatgoodgood.gittabz;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
+import android.graphics.Paint;
 import android.graphics.Shader;
 import android.media.MediaPlayer;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Parcelable;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View.OnTouchListener;
 import android.view.View;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.widget.RelativeLayout;
-import android.util.Log;
-
-import java.security.Timestamp;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Random;
-import android.view.GestureDetector.OnDoubleTapListener;
-import static android.util.Log.d;
-import static java.lang.Float.toString;
-import static java.lang.Thread.sleep;
-
-import android.support.v4.view.GestureDetectorCompat;
-import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Random;
 /**
  * Created by Jonathon on 3/31/2016.
  * ALL THE COOL PAINT STUFF DONE BY DANNY CUZ HE BE COOL AND SHIT
@@ -291,8 +268,8 @@ public class Canvas extends View implements Debug{
 
 
 
-        Log.d("these beats",beatTime.toString());
-        Log.d("song time", pos.toString());
+        //Log.d("these beats",beatTime.toString());
+        //Log.d("song time", pos.toString());
 
         //TODO needs more work
 
@@ -330,8 +307,9 @@ public class Canvas extends View implements Debug{
             onScreen.get(i).draw(canvas, p, w, num, music.getCurrentPosition(), offset);
 //            System.out.print("");
         //    invalidate();
-            if (onScreen.get(i).getPosition(music.getCurrentPosition()) - offset <= 0) {
-                offScreen.add(onScreen.remove(i));
+            if (onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8) {
+                //Log.d(onScreen.get(i).getPosition(music.getCurrentPosition()).toString(), "is loc");
+                //offScreen.add(onScreen.remove(i));
             }
         }
 

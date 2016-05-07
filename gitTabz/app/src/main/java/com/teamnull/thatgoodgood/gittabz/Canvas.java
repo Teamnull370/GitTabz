@@ -288,7 +288,7 @@ public class Canvas extends View implements Debug{
                 for( int j =1; j<7; j++) {
                     if (!listy.get(iter).getString(j).getFret().equals(-1)) {
                         onScreen.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(iter).getString(j).getStrng(), listy.get(iter).getString(j).getFret(), pos));
-                        onScreen.get(onScreen.size()).setChord(listy.get(iter).getChord());
+                        onScreen.get(onScreen.size()-1).setChord(listy.get(iter).getChord());
                     }
                     }
                             //Log.d(listy.get(i).getString(j).getStrng().toString(), "is the string for that chord");
@@ -310,7 +310,7 @@ public class Canvas extends View implements Debug{
 //            System.out.print("");
             //    invalidate();
             if (onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8) {
-//
+                 Log.d(onScreen.get(i).getChord(),"chords for hits");
                  Toast.makeText(cont,
                          String.valueOf(onScreen.get(i).getChord()) ,
                          Toast.LENGTH_SHORT).show();

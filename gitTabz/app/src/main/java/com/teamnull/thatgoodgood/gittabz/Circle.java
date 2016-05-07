@@ -17,6 +17,8 @@ class Circle{
     private static final Float space_factor = new Float(2);//space between notes larger means less space
     private static final Float speedMod = new Float(3);//
 
+    private String chord;
+
     public Circle( float x, int line, int fret, Integer timmy){
         ex = x;
         ln = line;
@@ -71,6 +73,13 @@ class Circle{
     public Integer getTime() {
         return tim;
     }
+
+    public String getChord(){
+        return chord;
+    }
+    public void setChord(String c){chord = c;}
+
+
 }
 
 

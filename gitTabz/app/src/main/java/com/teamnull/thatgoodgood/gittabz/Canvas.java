@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -21,6 +22,7 @@ import java.util.Random;
 
 public class Canvas extends View implements Debug{
     MediaPlayer music;
+    MediaPlayer claMedia;
     float s1;
     float s2;
     float s3;
@@ -189,7 +191,7 @@ public class Canvas extends View implements Debug{
 
     @Override
     protected void onDraw(final android.graphics.Canvas canvas){
-
+        Context cont = getContext();
 
         if( !isPaused) {
             music.start();
@@ -302,17 +304,42 @@ public class Canvas extends View implements Debug{
 
             //}
         //}
-
+        claMedia = MediaPlayer.create(cont, R.raw.ding);
         for(int i = onScreen.size() - 1; i >=0; i--) {
             onScreen.get(i).draw(canvas, p, w, num, music.getCurrentPosition(), offset);
 //            System.out.print("");
-        //    invalidate();
+            //    invalidate();
             if (onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8) {
+//
+                 Toast.makeText(cont,
+                         String.valueOf(onScreen.get(i).get) ,
+                         Toast.LENGTH_SHORT).show();
+// &&
+//                    onScreen.get(i).getPosition(music.getCurrentPosition()) - offset > canvas.getWidth() / 8 - 30) {
                 //Log.d(onScreen.get(i).getPosition(music.getCurrentPosition()).toString(), "is loc");
                 //offScreen.add(onScreen.remove(i));
-            }
-        }
 
+//                try {
+//                    claMedia.prepare();
+//                    claMedia = MediaPlayer.create(cont, R.raw.ding);
+//                } catch (Exception e) {
+//                }
+//                claMedia.start();
+//
+//                if (onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8 - 55) {
+//                    //Log.d(onScreen.get(i).getPosition(music.getCurrentPosition()).toString(), "is loc");
+//                    //offScreen.add(onScreen.remove(i));
+//                    claMedia.stop();
+//                }
+
+            }
+
+
+
+
+
+
+        }
         //This is the Transparent rectangle that goes over the red one.
         canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, p);
 

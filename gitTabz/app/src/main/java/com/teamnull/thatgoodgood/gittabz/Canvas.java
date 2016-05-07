@@ -296,7 +296,7 @@ public class Canvas extends View implements Debug{
 
         //TODO needs more work
 
-        if (pos >beatTime) {
+        if (beatTime<=pos-15    ||  beatTime<=pos+15) {
             iter++;
 
             if(iter<listy.size()) {
@@ -431,11 +431,11 @@ public class Canvas extends View implements Debug{
         if(bt == 1){
            return whole;
         }else if(bt == 2){
-            return whole/2;
+            return (int)(whole/2);
         }else if(bt == 3){
-            return whole/3;
+            return (int)(whole/4);
         }else if(bt == 4){
-            return whole/4;
+            return (int)(whole/8);
         }else return 1000;
 
     }

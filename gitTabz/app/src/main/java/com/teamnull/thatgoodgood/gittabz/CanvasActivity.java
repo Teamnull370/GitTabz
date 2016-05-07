@@ -34,7 +34,7 @@ public class CanvasActivity extends AppCompatActivity {
 
     private SeekBar seekBar;
     private Handler durationHandler = new Handler();
-
+    private TextView chord;
 
 
 
@@ -50,15 +50,26 @@ public class CanvasActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         ArrayList<Chord> list = intent.getParcelableArrayListExtra("chordList");
+        view = (Canvas) findViewById(R.id.canvas);
 
         if( list != null) {
-            ((Canvas) findViewById(R.id.canvas)).setList(list);
+            view.setList(list);
         }
 
-
-        view = (Canvas) findViewById(R.id.canvas);
         view.set_pause(false);
         text = (TextView)findViewById(R.id.delay_timer);
+        chord = (TextView)findViewById(R.id.chord);
+
+        view.setHitTestListener(new HitTestListener() {
+            @Override
+            public void onHitTest(String item) {
+                if(item != null && !item.isEmpty()) {
+                    chord.setText(item);
+                } else {
+                    chord.setText("You gave me chlamedia");
+                }
+            }
+        });
 
         // Set up the Seek Bar
         seekBar = (SeekBar)findViewById(R.id.seekBar);
@@ -66,16 +77,12 @@ public class CanvasActivity extends AppCompatActivity {
         seekBar.setClickable(false);
         durationHandler.postDelayed(updateSeekBarTime, 100);
 
-
-
-
-
         // OnClick Listener to process clicks on the play/pause button
         FloatingActionButton play_button = (FloatingActionButton) findViewById(R.id.play);
         play_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ( !((Canvas) findViewById(R.id.canvas)).pausetacular() ) {
+                if ( !view.pausetacular() ) {
                     view.pause_music();
                     //getSupportActionBar().show();
                 }

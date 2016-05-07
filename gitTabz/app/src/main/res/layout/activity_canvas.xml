@@ -46,13 +46,30 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
+    <RelativeLayout
+        android:id="@+id/chordArea"
+        android:layout_width="114dp"
+        android:layout_height="76dp"
+        android:layout_gravity="left|bottom">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/chord"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/bottomBar"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
+        android:layout_width="278dp"
         android:orientation="horizontal"
-        android:layout_gravity="bottom">
+        android:layout_gravity="right|bottom">
 
 
 
@@ -91,6 +108,7 @@
             app:backgroundTint="#000000"
             app:rippleColor="#FFF" />
     </RelativeLayout>
+
     <!-- <include
         android:id="@+id/my_toolbar"
         layout="@layout/toolbar">

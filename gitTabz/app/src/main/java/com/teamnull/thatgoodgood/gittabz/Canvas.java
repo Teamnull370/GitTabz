@@ -22,7 +22,7 @@ import java.util.Random;
 
 public class Canvas extends View implements Debug{
     MediaPlayer music;
-    MediaPlayer claMedia;
+    private TextView chordText;
     float s1;
     float s2;
     float s3;
@@ -39,6 +39,7 @@ public class Canvas extends View implements Debug{
     double timestart, timeend;
     boolean isTouched;
     boolean isPaused;
+
 
     Integer pos;
     int iter;// this is the counter used bellow
@@ -58,6 +59,7 @@ public class Canvas extends View implements Debug{
 
 
     private TextView songName, songDuration;
+    private HitTestListener listener;
 
 
 
@@ -83,6 +85,10 @@ public class Canvas extends View implements Debug{
 
     public void setDay_mode() {
         night_mode = false;
+    }
+
+    public void setHitTestListener (HitTestListener listener) {
+        this.listener = listener;
     }
 
     private void init(Context context) {
@@ -128,8 +134,6 @@ public class Canvas extends View implements Debug{
     Paint r = new Paint();
     Paint num = new Paint();
     Paint w = new Paint();
-
-
 
     public void setList(ArrayList<Chord> list){
         listy = list;
@@ -190,16 +194,15 @@ public class Canvas extends View implements Debug{
 
 
     @Override
-    protected void onDraw(final android.graphics.Canvas canvas){
+    protected void onDraw(final android.graphics.Canvas canvas) {
         Context cont = getContext();
 
-        if( !isPaused) {
+        if (!isPaused) {
             music.start();
             music.getCurrentPosition();
             // Continue working with this and display the music playback time
         }
         Log.d("music time", String.valueOf(music.getCurrentPosition()));
-
 
 
         //TODO need to implement a sum of beats since pause.
@@ -245,7 +248,7 @@ public class Canvas extends View implements Debug{
         canvas.drawColor(Color.WHITE);
         //This is the underlying red rectangle
         canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, r);
-
+        canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, p);
         ////////////The Beginning of the end/////////////////////
 
         ////////////////////////////////////////////////////////////////////
@@ -262,12 +265,11 @@ public class Canvas extends View implements Debug{
 
         int[] times = {800, 1200, 1600, 2000, 2400, 2800, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000};
         int leeway = 20;
-        pos =  music.getCurrentPosition();
+        pos = music.getCurrentPosition();
 
         //for (int i = 0; i <= listy.size() - 1; i++) {
-            //circles.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(), listy.get(i).getFret(), pos + 2000));
-          //  if (circles.get(i).tim <= pos && pos <= circles.get(i).tim + leeway) {
-
+        //circles.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(), listy.get(i).getFret(), pos + 2000));
+        //  if (circles.get(i).tim <= pos && pos <= circles.get(i).tim + leeway) {
 
 
         //Log.d("these beats",beatTime.toString());
@@ -275,49 +277,54 @@ public class Canvas extends View implements Debug{
 
         //TODO needs more work
 
-        if (beatTime<=pos-15    ||  beatTime<=pos+15) {
+        if (beatTime <= pos - 15 || beatTime <= pos + 15) {
             iter++;
 
-            if(iter<listy.size()) {
-                Integer time= beatDelay(listy.get(iter).getBeat());
-                beatTime+=time;
+            if (iter < listy.size()) {
+                Integer time = beatDelay(listy.get(iter).getBeat());
+                beatTime += time;
                 //onScreen.add(circles.get(i));
                 //i = rand.nextInt(listy.size());
 
                 //for(int i=0; i<listy.size();i++){
-                for( int j =1; j<7; j++) {
+                for (int j = 1; j < 7; j++) {
                     if (!listy.get(iter).getString(j).getFret().equals(-1)) {
                         onScreen.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(iter).getString(j).getStrng(), listy.get(iter).getString(j).getFret(), pos));
-                        onScreen.get(onScreen.size()-1).setChord(listy.get(iter).getChord());
+                        onScreen.get(onScreen.size() - 1).setChord(listy.get(iter).getChord());
                     }
-                    }
-                            //Log.d(listy.get(i).getString(j).getStrng().toString(), "is the string for that chord");
-                        //Log.d(listy.get(i).getString(j).getFret().toString(),"is the fret for that string");
+                }
+                //Log.d(listy.get(i).getString(j).getStrng().toString(), "is the string for that chord");
+                //Log.d(listy.get(i).getString(j).getFret().toString(),"is the fret for that string");
 
 
             }
-                    //}
-
+            //}
 
 
         }
 
-            //}
+
         //}
-        claMedia = MediaPlayer.create(cont, R.raw.ding);
-        for(int i = onScreen.size() - 1; i >=0; i--) {
+        //}
+        //claMedia = MediaPlayer.create(cont, R.raw.ding);
+        for (int i = onScreen.size() - 1; i >= 0; i--) {
             onScreen.get(i).draw(canvas, p, w, num, music.getCurrentPosition(), offset);
 //            System.out.print("");
             //    invalidate();
-            if (onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8) {
-                 Log.d(onScreen.get(i).getChord(),"chords for hits");
-                 Toast.makeText(cont,
-                         String.valueOf(onScreen.get(i).getChord()) ,
-                         Toast.LENGTH_SHORT).show();
-// &&
+            if (onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8 + 25 &&
+                    onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8 - 25 ) {
+                if(listener != null) {
+                    listener.onHitTest(onScreen.get(i).getChord());
+                }
+            }
+//                 Log.d(onScreen.get(i).getChord(),"chords for hits");
+//                 Toast.makeText(cont,
+//                         String.valueOf(onScreen.get(i).getChord()) ,
+//                         Toast.LENGTH_SHORT).show();
+//// &&
 //                    onScreen.get(i).getPosition(music.getCurrentPosition()) - offset > canvas.getWidth() / 8 - 30) {
-                //Log.d(onScreen.get(i).getPosition(music.getCurrentPosition()).toString(), "is loc");
-                //offScreen.add(onScreen.remove(i));
+            //Log.d(onScreen.get(i).getPosition(music.getCurrentPosition()).toString(), "is loc");
+            //offScreen.add(onScreen.remove(i));
 
 //                try {
 //                    claMedia.prepare();
@@ -332,16 +339,11 @@ public class Canvas extends View implements Debug{
 //                    claMedia.stop();
 //                }
 
-            }
-
-
-
-
-
-
         }
+
+
         //This is the Transparent rectangle that goes over the red one.
-        canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, p);
+
 
 
 

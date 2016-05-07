@@ -76,7 +76,7 @@ public class Note implements Parcelable{
         out.writeInt(_strng);
         out.writeInt(_fret);
         out.writeInt(_beat);
-
+        out.writeString(_pat);
 
     }
 
@@ -94,7 +94,7 @@ public class Note implements Parcelable{
         _strng = in.readInt();
         _fret =  in.readInt();
         _beat = in.readInt();
-
+        _pat = in.readString();
     }
 
 

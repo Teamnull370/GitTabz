@@ -117,7 +117,7 @@ public class Chord implements Debug, Parcelable {
     private Chord(Parcel in){
         strings=new ArrayList<Note>();
         in.readList(strings ,getClass().getClassLoader());
-
+        chord = in.readString();
     }
 
 
@@ -128,7 +128,7 @@ public class Chord implements Debug, Parcelable {
     public void writeToParcel(Parcel out, int flags) {
 
         out.writeList(strings);
-
+        out.writeString(chord);
     }
 
     public static final Parcelable.Creator<Chord> CREATOR

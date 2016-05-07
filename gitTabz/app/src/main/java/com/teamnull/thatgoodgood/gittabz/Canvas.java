@@ -297,22 +297,22 @@ public class Canvas extends View implements Debug{
         //TODO needs more work
 
         if (pos >beatTime) {
+            iter++;
+
             if(iter<listy.size()) {
                 Integer time= beatDelay(listy.get(iter).getBeat());
                 beatTime+=time;
                 //onScreen.add(circles.get(i));
                 //i = rand.nextInt(listy.size());
-                iter++;
+
                 //for(int i=0; i<listy.size();i++){
                 for( int j =1; j<7; j++) {
-
-
                     if (!listy.get(iter).getString(j).getFret().equals(-1)) {
-                        onScreen.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(iter).getString(j).getStrng(), listy.get(iter).getString(j).getFret(), pos+100));
+                        onScreen.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(iter).getString(j).getStrng(), listy.get(iter).getString(j).getFret(), pos));
 
                     }
-                }
-                        //Log.d(listy.get(i).getString(j).getStrng().toString(), "is the string for that chord");
+                    }
+                            //Log.d(listy.get(i).getString(j).getStrng().toString(), "is the string for that chord");
                         //Log.d(listy.get(i).getString(j).getFret().toString(),"is the fret for that string");
 
 
@@ -427,14 +427,15 @@ public class Canvas extends View implements Debug{
 
     }
     public Integer beatDelay(Integer bt){
+        int whole=1000;
         if(bt == 1){
-           return 1000;
+           return whole;
         }else if(bt == 2){
-            return 500;
+            return whole/2;
         }else if(bt == 3){
-            return 250;
+            return whole/3;
         }else if(bt == 4){
-            return 125;
+            return whole/4;
         }else return 1000;
 
     }

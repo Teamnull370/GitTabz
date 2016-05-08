@@ -63,11 +63,23 @@ public class CanvasActivity extends AppCompatActivity {
         view.setHitTestListener(new HitTestListener() {
             @Override
             public void onHitTest(String item) {
+
+                Log.d("new hit", item);
+                chord.setText(item);
+
+                /*
+                String thing=new String();
                 if(item != null && !item.isEmpty()) {
                     chord.setText(item);
+                    thing = item;
+                    Log.d("new hit", item);
+
                 } else {
-                    chord.setText("You gave me chlamedia");
+                    chord.setText(thing);
+                    Log.d("new hit 1", thing);
+
                 }
+                */
             }
         });
 

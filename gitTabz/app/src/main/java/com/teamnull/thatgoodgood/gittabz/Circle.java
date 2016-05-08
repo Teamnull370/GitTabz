@@ -17,7 +17,10 @@ class Circle{
     private static final Float space_factor = new Float(2);//space between notes larger means less space
     private static final Float speedMod = new Float(3);//
 
+    private Boolean hitting = false;
+    private Boolean hitted = false;
     private String chord;
+
 
     public Circle( float x, int line, int fret, Integer timmy){
         ex = x;
@@ -35,7 +38,12 @@ class Circle{
         if(ex-(current_time/speedMod-tim)/space_factor + offset < canvas.getWidth()/8 -5 &&
                 ex-(current_time/speedMod-tim)/space_factor + offset > 100) {
             Float asdf =(Float)(ex-(current_time/speedMod-tim)/space_factor);
-            Log.d(asdf.toString(), "HIT");
+            //Log.d(asdf.toString(), "HITTER");
+            hitting=true;
+
+
+
+
         }
     }
     public void setX(float ex) {
@@ -75,10 +83,21 @@ class Circle{
     }
 
     public String getChord(){
-        return chord;
-    }
+        //return chord;
+        if(hitting && !hitted){
+            hitted=true;
+            return chord;
+        }else return "";    }
+
+
     public void setChord(String c){chord = c;}
 
+    public String hitter(){
+        if(hitting && !hitted){
+            hitted=true;
+            return chord;
+        }else return "";
+    }
 
 }
 

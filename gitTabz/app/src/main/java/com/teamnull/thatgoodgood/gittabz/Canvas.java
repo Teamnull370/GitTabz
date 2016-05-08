@@ -307,7 +307,14 @@ public class Canvas extends View implements Debug{
         //}
         //}
         //claMedia = MediaPlayer.create(cont, R.raw.ding);
-        for (int i = onScreen.size() - 1; i >= 0; i--) {
+
+
+
+
+
+
+
+        for (Integer i = onScreen.size() - 1; i >= 0; i--) {
             onScreen.get(i).draw(canvas, p, w, num, music.getCurrentPosition(), offset);
 //            System.out.print("");
             //    invalidate();
@@ -315,6 +322,7 @@ public class Canvas extends View implements Debug{
                     onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8 - 25 ) {
                 if(listener != null) {
                     listener.onHitTest(onScreen.get(i).getChord());
+                    //Log.d(onScreen.get(i).hitter(),"hit test");
                 }
             }
 //                 Log.d(onScreen.get(i).getChord(),"chords for hits");

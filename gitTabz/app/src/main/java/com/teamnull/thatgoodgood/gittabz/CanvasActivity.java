@@ -144,9 +144,6 @@ public class CanvasActivity extends AppCompatActivity {
     }
 
 
-
-
-
     // Update the Seek Bar and the timers as the song progresses
     private Runnable updateSeekBarTime = new Runnable() {
         public void run() {

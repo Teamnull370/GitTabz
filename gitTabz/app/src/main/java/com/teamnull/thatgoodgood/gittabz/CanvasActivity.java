@@ -5,6 +5,7 @@ package com.teamnull.thatgoodgood.gittabz;
  */
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -61,22 +62,12 @@ public class CanvasActivity extends AppCompatActivity {
         view.setHitTestListener(new HitTestListener() {
             @Override
             public void onHitTest(String item) {
-                //if(item != pItem) {
-                    pItem = item;
-                    //setTChord(item);
+                pItem = item;
+                    chord.setText(item);
                     Log.d("ftw", item);
-                    Log.d("ftw", pItem);
-                    chordHandler.postDelayed(updateChord, 1);
-                //}
-//                while(item != pItem)
-//                if(item != null && !item.isEmpty()) {
-//                    chord.setText(item);
-//                    pItem = item;
-//                    Log.d(item, "is item");
-//                } else {
-//                    chord.setText("fuck");
-//                }
-            }
+                    chord.invalidate();
+                    //chordHandler.postDelayed(updateChord, 100);
+                }
         });
 
         // Set up the Seek Bar
@@ -183,11 +174,13 @@ public class CanvasActivity extends AppCompatActivity {
 
     private Runnable updateChord = new Runnable() {
         public void run() {
+
             chord.setText(pItem);
-            //Log.d("wtf", getpItem());
-    //        chordHandler.postDelayed(this, 100);
+            Log.d("what the fuck", pItem);
+            return;
         }
     };
+
 
 
 

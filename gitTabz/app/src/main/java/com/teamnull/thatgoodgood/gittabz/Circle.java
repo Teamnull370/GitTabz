@@ -14,7 +14,7 @@ class Circle{
     public int fr;
     public int tim;
     private Path cir;
-    private static final Float space_factor = new Float(2);//space between notes larger means less space
+    private static final Float space_factor = new Float(3);//space between notes larger means less space
     private static final Float speedMod = new Float(3);//
 
     private String chord;

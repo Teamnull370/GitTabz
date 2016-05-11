@@ -38,7 +38,8 @@ public class Canvas extends View implements Debug{
     double timestart, timeend;
     boolean isTouched;
     boolean isPaused;
-
+    String curr;
+    String prev;
 
     Integer pos;
     int iter;// this is the counter used bellow
@@ -86,6 +87,14 @@ public class Canvas extends View implements Debug{
         night_mode = false;
     }
 
+    public void setCurr( String c) {
+        curr = c;
+    }
+
+    public void setPrev( String p) {
+        prev = p;
+    }
+
     public void setHitTestListener (HitTestListener listener) {
         this.listener = listener;
     }
@@ -123,7 +132,8 @@ public class Canvas extends View implements Debug{
         // float-type interpretations for the Seek Bar
         timeend = music.getDuration();
         timestart = music.getCurrentPosition();
-
+        curr = "fuck";
+        prev = "you";
         rand = new Random(0); // TODO use Random() for random seed
     }
 
@@ -313,11 +323,15 @@ public class Canvas extends View implements Debug{
                 //    invalidate();
                 if (onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8 + 25 &&
                         onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8 - 25) {
-                    if (listener != null) {
-                        Log.d(String.valueOf(onScreen.get(i).getChord()), "chord");
-                        Log.d(String.valueOf(i), " is i");
-                        listener.onHitTest(onScreen.get(i).getChord());
-                    }
+                    Log.d("shit", curr);
+
+                        if (listener != null) {
+                            Log.d(String.valueOf(onScreen.get(i).getChord()), "chord");
+                            Log.d(String.valueOf(i), " is i");
+                            listener.onHitTest(onScreen.get(i).getChord());
+                            break;
+                        }
+
                 }
             }
 

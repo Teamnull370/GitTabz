@@ -152,6 +152,11 @@ public class CanvasActivity extends AppCompatActivity {
             // Update the Seek Bar
             seekBar.setProgress((int) view.current_position());
             double timeRemaining = view.duration() - view.current_position();
+            if(timeRemaining < 1000) {
+
+               finish();
+
+            }
 
             // Display the count-up timer in mm:ss
             ((TextView) findViewById(R.id.songDuration)).setText(String.format("%02d:%02d",
@@ -183,10 +188,19 @@ public class CanvasActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onStop() {
+    protected void onDestroy() {
         // Stop the music when the user exits the activity
-        super.onStop();
+        super.onDestroy();
+        view.Destroy();
         view.stop_music();
+        //finish();
+
+    }
+    @Override
+    public void onBackPressed()
+    {
+           // onDestroy();
+            finish();
     }
     public void setTChord(String nItem) {
         item = nItem;

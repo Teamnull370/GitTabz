@@ -85,6 +85,13 @@ public class Canvas extends View implements Debug{
         super(context, attrs, defStyle);
         init(context);
     }
+    public void Destroy() {
+        listy.clear();
+        circles.clear();
+        onScreen.clear();
+
+
+    }
 
     public void setNight_mode() {
         night_mode = true;

@@ -282,11 +282,13 @@ public class Canvas extends View implements Debug{
 
         pos = music.getCurrentPosition();
 
+
         //for (int i = 0; i <= listy.size() - 1; i++) {
         //circles.add(new Circle(canvas.getWidth(), canvas.getHeight() / 8 * listy.get(i).getString(), listy.get(i).getFret(), pos + 2000));
         //  if (circles.get(i).tim <= pos && pos <= circles.get(i).tim + leeway) {
 
         //TODO needs more work
+
 
         if (beatTime <= pos - 15 || beatTime <= pos + 15) {
             iter++;
@@ -348,7 +350,7 @@ public class Canvas extends View implements Debug{
             return (int)(whole/4);
         }else if(bt == 4){
             return (int)(whole/8);
-        }else return 1000;
+        }else return (int)(whole/8);
 
     }
 

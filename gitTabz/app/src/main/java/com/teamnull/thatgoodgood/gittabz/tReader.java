@@ -184,6 +184,9 @@ public class tReader implements Debug, Parcelable{
         Integer iter=0;
         Character bt=' ';
         Integer r=0;
+
+        Character dataVal;
+
         Boolean nextNote=false;
 
         Integer max = dataLength();
@@ -198,8 +201,8 @@ public class tReader implements Debug, Parcelable{
             bt=' ';
 
             for (int i = 0; i < 6; i++) {
-                r=-1;
-
+                r=0; // was -1
+                int chr=1;
                 if (iter.compareTo(_data.get(i).size())<0){
                     String tempData = _data.get(i).get(iter);
                     if(!_data.get(i).get(iter+1).equals("-")){
@@ -209,20 +212,39 @@ public class tReader implements Debug, Parcelable{
                     if(tempData.equals("~")){
                         return;
                     }
-                    if (!tempData.equals("-")) {
-                        r = Character.getNumericValue(tempData.charAt(1));
+                    char tempchar=tempData.charAt(chr);
+                    if (!Character.valueOf(tempchar).equals('-')) {
 
-                        if (Character.isDigit(tempData.charAt(2))) {
-                            r= (r*10)+ Character.getNumericValue(tempData.charAt(2));
-                            if (bt == ' ') {
-                                bt = tempData.charAt(3);
+                        while(!Character.valueOf(tempData.charAt(chr)).equals(']')){
+
+                            dataVal=Character.valueOf(tempData.charAt(chr));
+
+                            if(Character.isDigit(dataVal)){
+
+                                r=(r*10)+Character.getNumericValue(dataVal);
+
+                            }else if(Character.isLetter(dataVal)){
+
+                                if(bt==' '){
+                                    bt = dataVal;
+                                }
+
+                            }else{
+                                /*
+                                * do something regarding new stuff
+                                * */
                             }
-                        } else {
-                            if (bt == ' ') {
-                                bt = tempData.charAt(2);
-                            }
+
+
+                            chr++;
                         }
+
+
+
+                    }else if(Character.valueOf(tempchar).equals('-')){
+                        r=-1;
                     }
+
 
                 //*/
                 }
@@ -231,6 +253,7 @@ public class tReader implements Debug, Parcelable{
             }
             chordNote.add(r);
             Chord strum = new Chord(chordNote,interBeat(bt));
+            bt=' ';
             strum.makeNotes();
             strum.makePattern();
             chordList.add(strum);
@@ -274,8 +297,8 @@ public class tReader implements Debug, Parcelable{
         } else if (_beat == 'i') {
             return 4; //eighth
         }
-        else if (_beat == '-')
-            return -1;
+        else if (_beat == ' ' || _beat == '-')
+            return 4;
         else return -1;
 
     }

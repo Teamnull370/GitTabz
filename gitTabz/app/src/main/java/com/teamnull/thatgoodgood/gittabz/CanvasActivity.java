@@ -3,23 +3,19 @@ package com.teamnull.thatgoodgood.gittabz;
 /**
  * Created by Sean Cullen on 4/23/2016.
  */
-import android.app.Activity;
+
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Button;
-import android.view.View;
-import android.view.View.OnClickListener;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -35,7 +31,9 @@ public class CanvasActivity extends AppCompatActivity {
     private SeekBar seekBar;
     private Handler durationHandler = new Handler();
     private TextView chord;
-
+    private Handler chordHandler = new Handler();
+    public String pItem;
+    public String item;
 
 
 
@@ -43,10 +41,8 @@ public class CanvasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Log.d("Created", "Canvas Activity started");
-
         setContentView(R.layout.activity_canvas);
-        // Log.d("SET", "Content View Set");
+
 
         Intent intent = getIntent();
         ArrayList<Chord> list = intent.getParcelableArrayListExtra("chordList");
@@ -60,15 +56,16 @@ public class CanvasActivity extends AppCompatActivity {
         text = (TextView)findViewById(R.id.delay_timer);
         chord = (TextView)findViewById(R.id.chord);
 
+
         view.setHitTestListener(new HitTestListener() {
             @Override
             public void onHitTest(String item) {
-                if(item != null && !item.isEmpty()) {
+                pItem = item;
                     chord.setText(item);
-                } else {
-                    chord.setText("You gave me chlamedia");
+                    Log.d("ftw", item);
+                    chord.invalidate();
+                    //chordHandler.postDelayed(updateChord, 100);
                 }
-            }
         });
 
         // Set up the Seek Bar
@@ -76,6 +73,8 @@ public class CanvasActivity extends AppCompatActivity {
         seekBar.setMax((int) view.duration());
         seekBar.setClickable(false);
         durationHandler.postDelayed(updateSeekBarTime, 100);
+
+
 
         // OnClick Listener to process clicks on the play/pause button
         FloatingActionButton play_button = (FloatingActionButton) findViewById(R.id.play);
@@ -150,6 +149,11 @@ public class CanvasActivity extends AppCompatActivity {
             // Update the Seek Bar
             seekBar.setProgress((int) view.current_position());
             double timeRemaining = view.duration() - view.current_position();
+            if(timeRemaining < 1000) {
+
+               finish();
+
+            }
 
             // Display the count-up timer in mm:ss
             ((TextView) findViewById(R.id.songDuration)).setText(String.format("%02d:%02d",
@@ -168,14 +172,35 @@ public class CanvasActivity extends AppCompatActivity {
         }
     };
 
+    private Runnable updateChord = new Runnable() {
+        public void run() {
+
+            chord.setText(pItem);
+            Log.d("what the fuck", pItem);
+            return;
+        }
+    };
 
 
 
 
     @Override
-    protected void onStop() {
+    protected void onDestroy() {
         // Stop the music when the user exits the activity
-        super.onStop();
+        super.onDestroy();
+        view.Destroy();
         view.stop_music();
+        //finish();
+
     }
+    @Override
+    public void onBackPressed()
+    {
+           // onDestroy();
+            finish();
+    }
+    public void setTChord(String nItem) {
+        item = nItem;
+    }
+    public String getpItem() {return item; }
 }

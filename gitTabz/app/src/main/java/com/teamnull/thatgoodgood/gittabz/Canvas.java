@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,6 +21,13 @@ import java.util.Random;
 
 public class Canvas extends View implements Debug{
     MediaPlayer music;
+
+    Paint p = new Paint();
+    Paint q = new Paint();
+    Paint r = new Paint();
+    Paint num = new Paint();
+    Paint w = new Paint();
+
     private TextView chordText;
     float s1;
     float s2;
@@ -39,7 +45,8 @@ public class Canvas extends View implements Debug{
     double timestart, timeend;
     boolean isTouched;
     boolean isPaused;
-
+    String curr;
+    String prev;
 
     Integer pos;
     int iter;// this is the counter used bellow
@@ -76,6 +83,13 @@ public class Canvas extends View implements Debug{
         super(context, attrs, defStyle);
         init(context);
     }
+    public void Destroy() {
+        listy.clear();
+        circles.clear();
+        onScreen.clear();
+
+
+    }
 
     public void setNight_mode() {
         night_mode = true;
@@ -83,6 +97,14 @@ public class Canvas extends View implements Debug{
 
     public void setDay_mode() {
         night_mode = false;
+    }
+
+    public void setCurr( String c) {
+        curr = c;
+    }
+
+    public void setPrev( String p) {
+        prev = p;
     }
 
     public void setHitTestListener (HitTestListener listener) {
@@ -119,102 +141,22 @@ public class Canvas extends View implements Debug{
         // float-type interpretations for the Seek Bar
         timeend = music.getDuration();
         timestart = music.getCurrentPosition();
-
+        curr = "fuck";
+        prev = "you";
         rand = new Random(0); // TODO use Random() for random seed
-    }
 
 
-    Paint p = new Paint();
-    Paint q = new Paint();
-    Paint r = new Paint();
-    Paint num = new Paint();
-    Paint w = new Paint();
 
-    public void setList(ArrayList<Chord> list){
-        listy = list;
-    }
+        Canvas canvas = this;
 
-    public void pause_music() {
-        music.pause();
-        isPaused = true;
-        isTouched = false;
-        // Log.d("PAUSE", "Pause function");
-    }
-    // Continue playing the music
-    public void play_music() {
-        music.start();
-        isPaused = false;
-        isTouched = true;
-        // Log.d("PLAY_MUSIC1", "getting current position.");
-        timestart = music.getCurrentPosition();
-        // Log.d("PLAY_MUSIC", "got current position.");
-    }
-    // Stop the music
-    public void stop_music() {
-        music.stop();
-        isPaused = false;
-        isTouched = true;
-
-        // Log.d("PLAY", "Play function");
-    }
-
-    // Rewind the music by 15 seconds
-    public void rewind_music() {
-        //start = music.getCurrentPosition();
-        music.seekTo(start -= 15000);
-        // Log.d("REWIND", "Rewind function");
-    }
-
-    // Fast-forward the music by 15 seconds
-    public void fast_forward_music() {
-        //start = music.getCurrentPosition();
-        music.seekTo(start += 15000);
-        // Log.d("FF", "Fast-Forward function");
-    }
-
-    public boolean pausetacular()   {
-        return isPaused;
-    }
-    public void set_pause(boolean pause_state) {
-        isPaused = pause_state;
-    }
-    public double duration() {
-        return timeend;
-    }
-
-    public double current_position() {
-        timestart = music.getCurrentPosition();
-        return timestart;
-    }
-
-    @Override
-    protected void onDraw(final android.graphics.Canvas canvas) {
-        Context cont = getContext();
-
-        if (!isPaused) {
-            music.start();
-            music.getCurrentPosition();
-            // Continue working with this and display the music playback time
-        }
-
-        Log.d("music time", String.valueOf(music.getCurrentPosition()));
-
-
-        //TODO need to implement a sum of beats since pause.
-
-        // mDetector = new GestureDetectorCompat(this,this);
-
-        super.onDraw(canvas);
-
-        ///////////////All the paint Info//////////////////////////////////////////////////////////
-        width = canvas.getWidth();
         r.setStyle(Paint.Style.FILL);
         r.setStrokeWidth(2);
         r.setShader(new LinearGradient(0, 0, 0, canvas.getHeight(), Color.BLUE, Color.RED, Shader.TileMode.MIRROR));
 
         //Paint settings for the number draw
         num.setColor(Color.BLACK);
-        num.setTextSize(32f);
+        num.setTextSize(38f);
+        num.setStrokeWidth(4);
         num.setAntiAlias(true);
         num.setTextAlign(Paint.Align.CENTER);
         num.setStyle(Paint.Style.FILL);
@@ -233,16 +175,102 @@ public class Canvas extends View implements Debug{
         p.setColor(Color.TRANSPARENT);
         p.setStyle(Paint.Style.STROKE);
         p.setColor(Color.BLACK);
+
+
+
+    }
+
+
+
+
+    public void setList(ArrayList<Chord> list){
+        listy = list;
+    }
+
+    public void pause_music() {
+        music.pause();
+        isPaused = true;
+        isTouched = false;
+    }
+
+    public void play_music() {
+        music.start();
+        isPaused = false;
+        isTouched = true;
+        timestart = music.getCurrentPosition();
+    }
+
+    // Stop the music
+    public void stop_music() {
+        music.stop();
+        isPaused = false;
+        isTouched = true;
+    }
+
+    // Rewind the music by 15 seconds
+    public void rewind_music() {
+        music.seekTo(start -= 15000);
+    }
+
+    // Fast-forward the music by 15 seconds
+    public void fast_forward_music() {
+        music.seekTo(start += 15000);
+    }
+
+    public boolean pausetacular()   {
+        return isPaused;
+    }
+
+    public void set_pause(boolean pause_state) {
+        isPaused = pause_state;
+    }
+    public double duration() {
+        return timeend;
+    }
+
+    public double current_position() {
+        timestart = music.getCurrentPosition();
+        return timestart;
+    }
+
+    @Override
+    protected void onDraw(final android.graphics.Canvas canvas) {
+        super.onDraw(canvas);
+
+        Context cont = getContext();
+
+        if (!isPaused) {
+            music.start();
+            music.getCurrentPosition();
+        }
+
+        Log.d("music time", String.valueOf(music.getCurrentPosition()));
+
+        //TODO need to implement a sum of beats since pause.
+
+
+        super.onDraw(canvas);
+
+
+
+
+
+        q.setStrokeWidth(5);
+        q.setStyle(Paint.Style.STROKE);
+
+        //q.setColor(Color.BLACK);
+        q.setShader(new LinearGradient(0, 0, 0, canvas.getWidth(), Color.RED, Color.BLUE, Shader.TileMode.MIRROR));
+
+        width = canvas.getWidth();
+
+
+
         //This creates the white background
-        canvas.drawColor(Color.WHITE);
+        canvas.drawColor(Color.DKGRAY);
         //This is the underlying red rectangle
         canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, r);
         canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, p);
-        ////////////The Beginning of the end/////////////////////
 
-        ////////////////////////////////////////////////////////////////////
-
-        //////////////////////////
 
         //The bar lines the notes will go on
         canvas.drawLine(0, canvas.getHeight() / 8, canvas.getWidth(), canvas.getHeight() / 8, q);
@@ -252,8 +280,6 @@ public class Canvas extends View implements Debug{
         canvas.drawLine(0, canvas.getHeight() / 8 * 5, canvas.getWidth(), canvas.getHeight() / 8 * 5, q);
         canvas.drawLine(0, canvas.getHeight() / 8 * 6, canvas.getWidth(), canvas.getHeight() / 8 * 6, q);
 
-        int[] times = {800, 1200, 1600, 2000, 2400, 2800, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000};
-        int leeway = 20;
         pos = music.getCurrentPosition();
 
         //for (int i = 0; i <= listy.size() - 1; i++) {
@@ -292,8 +318,26 @@ public class Canvas extends View implements Debug{
 
         //This is the Transparent rectangle that goes over the red one.
         canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, p);
+
+
+        for (int i = onScreen.size() - 1; i >= 0; i--) {
+            onScreen.get(i).draw(canvas, p, w, num, music.getCurrentPosition(), offset);
+                if (onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8 + 40 &&
+                        onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8) {
+                    Log.d("shit", curr);
+
+                    if (listener != null) {
+                        listener.onHitTest(onScreen.get(i).getChord());
+                        break;
+                    }
+
+                }
+            }
+
         invalidate();
     }
+
+
     public Integer beatDelay(Integer bt){
         int whole=1000;
         if(bt == 1){
@@ -322,11 +366,12 @@ public class Canvas extends View implements Debug{
                 endX = (int) event.getRawX();
 
                 if ((endX - startX) > 0) {
-
+                    // Re-wind
                     music.seekTo(music.getCurrentPosition() - 100);
                 }
-                if ((endX - startX) < 0) {
 
+                if ((endX - startX) < 0) {
+                    //Fast-forward
                     music.seekTo(music.getCurrentPosition() + 100);
                 }
 
@@ -346,5 +391,6 @@ public class Canvas extends View implements Debug{
         }
         return false;
     }
+
 }
 

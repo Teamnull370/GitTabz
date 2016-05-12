@@ -171,5 +171,12 @@ public class MainActivity extends AppCompatActivity implements Debug{
         return false;
     }
 
+    @Override
+    public void onBackPressed()
+    {
+
+            moveTaskToBack(true); // exist app
+    }
+
 }
 

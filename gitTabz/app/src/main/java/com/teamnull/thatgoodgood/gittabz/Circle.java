@@ -13,8 +13,10 @@ class Circle{
     public float ex;
     public int fr;
     public int tim;
-    private static final Float space_factor = new Float(1.5);//space between notes larger means less space
-    private static final Float speedMod = new Float(1.5);//
+    // private static final Float space_factor = new Float(1.5);//space between notes larger means less space
+    // private static final Float speedMod = new Float(1.5);//
+    private static final Float space_factor = new Float(1.3);//space between notes larger means less space
+    private static final Float speedMod = new Float(3);//
 
     public String chord;
 
@@ -26,10 +28,10 @@ class Circle{
         chord = cord;
     }
     public void draw(Canvas canvas, Paint p, Paint w, Paint num, int current_time, int offset){
-        canvas.drawCircle(ex-(current_time/speedMod-tim)/space_factor + offset, ln, 25, p);
-//        //White circle
-        canvas.drawCircle(ex - (current_time / speedMod - tim) / space_factor + offset, ln, 24, w);
-//        //Number
+        canvas.drawCircle(ex-(current_time/speedMod-tim)/space_factor + offset, ln, 29, p);
+        //White circle
+        canvas.drawCircle(ex - (current_time / speedMod - tim) / space_factor + offset, ln, 26, w);
+        //Number
         canvas.drawText(String.valueOf(fr), ex - (current_time/speedMod - tim) / space_factor + offset, ln + 10, num);
 
         if(ex-(current_time/speedMod-tim)/space_factor + offset < canvas.getWidth()/8 -5 &&
@@ -48,7 +50,7 @@ class Circle{
     }
 
     public Float getPosition(int current_time) {
-        return (Float)ex - (current_time/3-tim)/space_factor;
+        return ex - (current_time/3-tim)/space_factor;
     }
 
     public void setLn(int ln) {

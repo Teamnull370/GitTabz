@@ -295,6 +295,7 @@ public class Canvas extends View implements Debug{
 
 
     public Integer beatDelay(Integer bt){
+        int x;
         int whole=1000;
         if(bt == 1){
            return whole;

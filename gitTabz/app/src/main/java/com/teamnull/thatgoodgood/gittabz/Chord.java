@@ -43,12 +43,12 @@ public class Chord implements Debug, Parcelable {
         }
         */
         strings.add(0,new Note(0,0,0));
-        strings.add(1, new Note(1,frt.get(5),bt));
-        strings.add(2, new Note(2,frt.get(4),bt));
-        strings.add(3, new Note(3,frt.get(3),bt));
-        strings.add(4, new Note(4,frt.get(2),bt));
-        strings.add(5, new Note(5,frt.get(1),bt));
-        strings.add(6, new Note(6, frt.get(0), bt));
+        strings.add(1, new Note(1,frt.get(0),bt));
+        strings.add(2, new Note(2,frt.get(1),bt));
+        strings.add(3, new Note(3,frt.get(2),bt));
+        strings.add(4, new Note(4,frt.get(3),bt));
+        strings.add(5, new Note(5,frt.get(4),bt));
+        strings.add(6, new Note(6,frt.get(5),bt));
 
 
 

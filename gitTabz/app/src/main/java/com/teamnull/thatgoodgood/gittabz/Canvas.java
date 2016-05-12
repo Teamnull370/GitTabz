@@ -281,8 +281,6 @@ public class Canvas extends View implements Debug{
 
         pos = music.getCurrentPosition();
 
-        //TODO needs more work
-
         if (beatTime <= pos - 15 || beatTime <= pos + 15) {
             iter++;
 
@@ -329,7 +327,7 @@ public class Canvas extends View implements Debug{
             return (int)(whole/4);
         }else if(bt == 4){
             return (int)(whole/8);
-        }else return 1000;
+        }else return (int)(whole/8);
 
     }
 

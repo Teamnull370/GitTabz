@@ -226,6 +226,7 @@ public class Canvas extends View implements Debug{
 
         q.setStrokeWidth(5);
         q.setStyle(Paint.Style.STROKE);
+
         //q.setColor(Color.BLACK);
         q.setShader(new LinearGradient(0, 0, 0, canvas.getWidth(), Color.RED, Color.BLUE, Shader.TileMode.MIRROR));
 
@@ -274,12 +275,10 @@ public class Canvas extends View implements Debug{
             }
         }
 
-
             for (int i = onScreen.size() - 1; i >= 0; i--) {
                 onScreen.get(i).draw(canvas, p, w, num, music.getCurrentPosition(), offset);
                 if (onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8 + 25 &&
                         onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8 - 25) {
-                    Log.d("shit", curr);
 
                         if (listener != null) {
                             Log.d(String.valueOf(onScreen.get(i).getChord()), "chord");

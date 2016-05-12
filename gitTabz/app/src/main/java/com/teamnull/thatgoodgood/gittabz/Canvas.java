@@ -21,6 +21,13 @@ import java.util.Random;
 
 public class Canvas extends View implements Debug{
     MediaPlayer music;
+
+    Paint p = new Paint();
+    Paint q = new Paint();
+    Paint r = new Paint();
+    Paint num = new Paint();
+    Paint w = new Paint();
+
     private TextView chordText;
     float s1;
     float s2;
@@ -132,14 +139,44 @@ public class Canvas extends View implements Debug{
         curr = "fuck";
         prev = "you";
         rand = new Random(0); // TODO use Random() for random seed
+
+
+
+        Canvas canvas = this;
+
+        r.setStyle(Paint.Style.FILL);
+        r.setStrokeWidth(2);
+        r.setShader(new LinearGradient(0, 0, 0, canvas.getHeight(), Color.BLUE, Color.RED, Shader.TileMode.MIRROR));
+
+        //Paint settings for the number draw
+        num.setColor(Color.BLACK);
+        num.setTextSize(38f);
+        num.setStrokeWidth(4);
+        num.setAntiAlias(true);
+        num.setTextAlign(Paint.Align.CENTER);
+        num.setStyle(Paint.Style.FILL);
+
+        //Paint for the white-fill circle the number will go on
+        w.setStyle(Paint.Style.FILL);
+        w.setColor(Color.WHITE);
+
+        q.setStrokeWidth(5);
+        q.setStyle(Paint.Style.STROKE);
+        //q.setColor(Color.BLACK);
+        q.setShader(new LinearGradient(0, 0, 0, canvas.getWidth(), Color.RED, Color.BLUE, Shader.TileMode.MIRROR));
+
+        p.setStrokeWidth(2);
+        p.setStyle(Paint.Style.FILL);
+        p.setColor(Color.TRANSPARENT);
+        p.setStyle(Paint.Style.STROKE);
+        p.setColor(Color.BLACK);
+
+
+
     }
 
 
-    Paint p = new Paint();
-    Paint q = new Paint();
-    Paint r = new Paint();
-    Paint num = new Paint();
-    Paint w = new Paint();
+
 
     public void setList(ArrayList<Chord> list){
         listy = list;
@@ -176,6 +213,7 @@ public class Canvas extends View implements Debug{
     public boolean pausetacular()   {
         return isPaused;
     }
+
     public void set_pause(boolean pause_state) {
         isPaused = pause_state;
     }
@@ -191,38 +229,23 @@ public class Canvas extends View implements Debug{
 
     @Override
     protected void onDraw(final android.graphics.Canvas canvas) {
+        super.onDraw(canvas);
+
         Context cont = getContext();
 
         if (!isPaused) {
             music.start();
             music.getCurrentPosition();
-            // Continue working with this and display the music playback time
         }
         Log.d("music time", String.valueOf(music.getCurrentPosition()));
 
         //TODO need to implement a sum of beats since pause.
 
-        // mDetector = new GestureDetectorCompat(this,this);
 
-        super.onDraw(canvas);
 
-        ///////////////All the paint Info//////////////////////////////////////////////////////////
-        width = canvas.getWidth();
-        r.setStyle(Paint.Style.FILL);
-        r.setStrokeWidth(2);
-        r.setShader(new LinearGradient(0, 0, 0, canvas.getHeight(), Color.BLUE, Color.RED, Shader.TileMode.MIRROR));
 
-        //Paint settings for the number draw
-        num.setColor(Color.BLACK);
-        num.setTextSize(38f);
-        num.setStrokeWidth(4);
-        num.setAntiAlias(true);
-        num.setTextAlign(Paint.Align.CENTER);
-        num.setStyle(Paint.Style.FILL);
 
-        //Paint for the white-fill circle the number will go on
-        w.setStyle(Paint.Style.FILL);
-        w.setColor(Color.WHITE);
+
 
         q.setStrokeWidth(5);
         q.setStyle(Paint.Style.STROKE);
@@ -230,22 +253,16 @@ public class Canvas extends View implements Debug{
         //q.setColor(Color.BLACK);
         q.setShader(new LinearGradient(0, 0, 0, canvas.getWidth(), Color.RED, Color.BLUE, Shader.TileMode.MIRROR));
 
-        p.setStrokeWidth(2);
-        p.setStyle(Paint.Style.FILL);
-        p.setColor(Color.TRANSPARENT);
-        p.setStyle(Paint.Style.STROKE);
-        p.setColor(Color.BLACK);
+        width = canvas.getWidth();
+
+
 
         //This creates the white background
         canvas.drawColor(Color.DKGRAY);
         //This is the underlying red rectangle
         canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, r);
         canvas.drawRect(canvas.getWidth() / 8, canvas.getHeight() / 8 - 55, canvas.getWidth() / 8 + 55, canvas.getHeight() / 8 * 6 + 55, p);
-        ////////////The Beginning of the end/////////////////////
 
-        ////////////////////////////////////////////////////////////////////
-
-        //////////////////////////
 
         //The bar lines the notes will go on
         canvas.drawLine(0, canvas.getHeight() / 8, canvas.getWidth(), canvas.getHeight() / 8, q);
@@ -275,17 +292,18 @@ public class Canvas extends View implements Debug{
             }
         }
 
-            for (int i = onScreen.size() - 1; i >= 0; i--) {
-                onScreen.get(i).draw(canvas, p, w, num, music.getCurrentPosition(), offset);
-                if (onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8 + 25 &&
-                        onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8 - 25) {
 
-                        if (listener != null) {
-                            Log.d(String.valueOf(onScreen.get(i).getChord()), "chord");
-                            Log.d(String.valueOf(i), " is i");
-                            listener.onHitTest(onScreen.get(i).getChord());
-                            break;
-                        }
+
+        for (int i = onScreen.size() - 1; i >= 0; i--) {
+            onScreen.get(i).draw(canvas, p, w, num, music.getCurrentPosition(), offset);
+                if (onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8 + 40 &&
+                        onScreen.get(i).getPosition(music.getCurrentPosition()) - offset < canvas.getWidth() / 8) {
+                    Log.d("shit", curr);
+
+                    if (listener != null) {
+                        listener.onHitTest(onScreen.get(i).getChord());
+                        break;
+                    }
 
                 }
             }
@@ -325,7 +343,6 @@ public class Canvas extends View implements Debug{
 
                 if ((endX - startX) > 0) {
                     // Re-wind
-                    // offset += 25;
                     music.seekTo(music.getCurrentPosition() - 100);
                 }
 

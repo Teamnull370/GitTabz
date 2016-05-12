@@ -41,10 +41,8 @@ public class CanvasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Log.d("Created", "Canvas Activity started");
-
         setContentView(R.layout.activity_canvas);
-        // Log.d("SET", "Content View Set");
+
 
         Intent intent = getIntent();
         ArrayList<Chord> list = intent.getParcelableArrayListExtra("chordList");

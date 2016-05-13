@@ -114,7 +114,7 @@ public class Canvas extends View implements Debug{
     private void init(Context context) {
         //do stuff that was in your original constructor...
 
-        music = MediaPlayer.create(context, R.raw.song);
+        music = MediaPlayer.create(context, R.raw.songish);
         s1 = getWidth();
         stringSpace = getHeight() / 8;
         x = 1000;

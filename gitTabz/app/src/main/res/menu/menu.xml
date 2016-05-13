@@ -32,12 +32,13 @@
         android:icon="@drawable/settings_icon"
         android:title="@string/action_settings"/>
 
+
     <item
         android:id="@+id/action_ball"
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ball"
-        android:title="Feeling Ballsey?"/>
+        android:title="Select Song"/>
 
     <item
         android:id="@+id/action_other"

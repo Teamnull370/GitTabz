@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width= "match_parent"
     android:layout_height="match_parent"
-    android:background="#696969"
-    android:orientation="horizontal"
-    android:paddingLeft="175dp"
-    android:paddingRight="175dp"
-    android:paddingTop="125dp"
-    android:paddingBottom="125dp">
+    android:background="#ffffff"
+    android:orientation="horizontal">
+    <!--android:paddingLeft="150dp"
+    android:paddingRight="150dp"
+    android:paddingTop="100dp"
+    android:paddingBottom="100dp"-->
 
     <ImageView
         android:layout_width="wrap_content"

@@ -152,9 +152,10 @@ public class MainActivity extends AppCompatActivity implements Debug{
                 break;
 */
             case R.id.action_ball:
-                Toast.makeText(getApplicationContext(),
-                        "Feeling Ballsey?",
+/*                Toast.makeText(getApplicationContext(),
+                        "Choose Song",
                         Toast.LENGTH_SHORT).show();
+*/
                 break;
             case R.id.action_other:
                 // switch to the easter Bernie Activity

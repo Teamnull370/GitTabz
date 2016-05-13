@@ -19,6 +19,8 @@ import java.util.Random;
  * ALL THE COOL PAINT STUFF DONE BY DANNY CUZ HE BE COOL AND SHIT
  */
 
+
+
 public class Canvas extends View implements Debug{
     MediaPlayer music;
 
@@ -67,7 +69,6 @@ public class Canvas extends View implements Debug{
 
     private TextView songName, songDuration;
     private HitTestListener listener;
-
     public Canvas(Context context){
         super(context);
         init(context);
@@ -91,14 +92,6 @@ public class Canvas extends View implements Debug{
 
     }
 
-    public void setNight_mode() {
-        night_mode = true;
-    }
-
-    public void setDay_mode() {
-        night_mode = false;
-    }
-
     public void setCurr( String c) {
         curr = c;
     }
@@ -107,13 +100,13 @@ public class Canvas extends View implements Debug{
         prev = p;
     }
 
+
     public void setHitTestListener (HitTestListener listener) {
         this.listener = listener;
     }
 
     private void init(Context context) {
         //do stuff that was in your original constructor...
-
         music = MediaPlayer.create(context, R.raw.song);
         s1 = getWidth();
         stringSpace = getHeight() / 8;
@@ -186,6 +179,8 @@ public class Canvas extends View implements Debug{
     public void setList(ArrayList<Chord> list){
         listy = list;
     }
+
+
 
     public void pause_music() {
         music.pause();

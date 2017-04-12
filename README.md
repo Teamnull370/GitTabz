@@ -1,2 +1,2 @@
-# ThatGoodGood
-Yupp
+# GitTabz
+Elementry Guitar Training Android app.
